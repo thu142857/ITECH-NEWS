@@ -26,7 +26,34 @@ change port: server.port=8082 => server.port=another_port<br>
 if after port changing, still given errors: open task manager and kill JavaTM program
 </p>
 
-<h6>#Pagination API Guide</h6>
+<h6>#Database</h6>
+<p>
+#migrate and seeding the database <br/>
+create database "itechnews"<br>
+run once to create and seeding the database then ignore seeding data and ignore create database for later running:<br>
+itechnews.seeder.enalble=false<br/>
+spring.jpa.hibernate.ddl-auto=none
+</p>
+<p>
+#migrate and seeding the database <br/>
+create database "itechnews"<br>
+run once to create and seeding the database then ignore seeding data and ignore create database for later running:<br>
+itechnews.seeder.enalble=false<br/>
+spring.jpa.generate-ddl=false<br/>
+spring.jpa.hibernate.ddl-auto=none<br/>
+#ignore show native sql <br/>
+spring.jpa.show-sql=false
+</p>
+
+<h6>#Jpa Repository</h6>
+<p>
+<ul>
+    <li>Find 1 item: findOneBy...</li>
+    <li>Find > 1 items: findBy...</li>
+</ul>
+</p>
+
+<h6>#Pagination API</h6>
 <p>
 <ul>
     <li>data.content</li>
