@@ -48,6 +48,7 @@ if after port changing, still given errors: open task manager and kill JavaTM pr
     <li>Go to File->Settings, then to "Build,Execution,Deployment"->Compiler and enable the "Make project automatically" flag.</li>
     <li>Press Ctrl-Alt-Shift-/ and select "Registry" from the menu that appears. Enable compiler.automake.allow.when.app.running flag.</li>
     <li>Start/restart the app and observe static content reloading.</li>
+    <li>Ctrl + F5 to see your changes.</li>
 </ol>
 
 <p>Add module jpa<p>
