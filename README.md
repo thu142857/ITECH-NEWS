@@ -32,13 +32,6 @@ if after port changing, still given errors: open task manager and kill JavaTM pr
 create database "itechnews"<br>
 run once to create and seeding the database then ignore seeding data and ignore create database for later running:<br>
 itechnews.seeder.enalble=false<br/>
-spring.jpa.hibernate.ddl-auto=none
-</p>
-<p>
-#migrate and seeding the database <br/>
-create database "itechnews"<br>
-run once to create and seeding the database then ignore seeding data and ignore create database for later running:<br>
-itechnews.seeder.enalble=false<br/>
 spring.jpa.generate-ddl=false<br/>
 spring.jpa.hibernate.ddl-auto=none<br/>
 #ignore show native sql <br/>
