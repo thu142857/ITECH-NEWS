@@ -43,4 +43,22 @@ if after port changing, still given errors: open task manager and kill JavaTM pr
 </p>
 
 <h6>#Tips for using Intellij Idea IDE</h6>
+<p>Thymeleaf compiling on save: https://stackoverflow.com/questions/12744303/intellij-idea-java-classes-not-auto-compiling-on-save/28764957<p>
+<ol>
+    <li>Go to File->Settings, then to "Build,Execution,Deployment"->Compiler and enable the "Make project automatically" flag.</li>
+    <li>Press Ctrl-Alt-Shift-/ and select "Registry" from the menu that appears. Enable compiler.automake.allow.when.app.running flag.</li>
+    <li>Start/restart the app and observe static content reloading.</li>
+</ol>
+
+<p>Add module jpa<p>
+<ol>
+    <li>project setting -> add module jpa</li>
+    <li>view -> tool windows -> persistanse</li>
+</ol>
+
+<p>Show database<p>
+<ol>
+    <li>view -> tool windows -> database -> new datasource -> mysql</li>
+    <li>view -> tool windows -> persistanse</li>
+</ol>
 <h6>#Tips for using Eclipse IDE</h6>
