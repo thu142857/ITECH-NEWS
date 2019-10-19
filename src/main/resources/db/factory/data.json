@@ -1,0 +1,67 @@
+{
+  "tags": [
+    "java",
+    ".net",
+    "spring boot",
+    "spring mvc",
+    "rest api",
+    "react js",
+    "angular",
+    "javascript",
+    "es6",
+    "jquery",
+    "nodejs",
+    "python",
+    "mongodb",
+    "mysql",
+    "postgresql",
+    "java core",
+    ".net core",
+    "asp.net mvc",
+    "ruby",
+    "R",
+    "dart",
+    "kotlin",
+    "android",
+    "IOS",
+    "react native",
+    "flutter",
+    "reactive programming",
+    "java lambda expression",
+    "java project lombok",
+    "jsp and servlet",
+    "thymeleaf",
+    "fremarker",
+    "velocity",
+    "spring data jpa",
+    "hibernate framework",
+    "jdbc core and jdbc template"
+  ],
+  "posts": [
+    {
+      "title": "NoSQL DBMS - 1000 câu hỏi vì sao",
+      "content": "content1",
+      "total_views": 100,
+      "status": true,
+      "tags": [
+        "NoSQL", "Database"
+      ]
+    },
+    {
+      "title": "Instagram đã sinh ra ID trong database của họ như thế nào",
+      "content": "content2",
+      "total_views": 200,
+      "status": false,
+      "tags": []
+    },
+    {
+      "title": "Tôi đi tìm lại tin nhắn tình yêu đầu tiên trên Facebook",
+      "content": "content3",
+      "total_views": 456,
+      "status": true,
+      "tags": [
+        "Messenger", "Chrome Extension", "Facebook"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+<th:block
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{../layouts/template}">
+
+    <div class="card" layout:fragment="content">
+        <div class="card-header">
+            <nav class="breadcrumb">
+                <a class="breadcrumb-item" th:href="@{/admin/dashboard}">Admin</a>
+                <a class="breadcrumb-item" th:href="@{/admin/category/index}">Category</a>
+                <span class="breadcrumb-item active">Index</span>
+            </nav>
+        </div>
+        <div class="card-body">
+            <a class="btn btn-sm btn-secondary mb-2" th:href="@{/admin/category/add}">Add</a>
+
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="category, iter : ${categoryPage.content}">
+                    <td th:text="${iter.index + 1}"></td>
+                    <td th:text="${category.id}"></td>
+                    <td th:text="${category.name}"></td>
+                    <td>
+                        <a class="btn btn-sm btn-secondary"
+                           th:href="@{'/admin/category/edit/'+${category.id}+'/page/'+${categoryPage.pageable.pageNumber+1}}">
+                        Edit</a>
+                        <a th:onclick="'return confirm(\'Bạn có muốn xóa\')'" class="btn btn-sm btn-danger"
+                           th:href="@{'/admin/category/delete/'+${category.id}+'/page/'+${categoryPage.pageable.pageNumber+1}}">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <nav aria-label="Page navigation">
+                            <th:block th:replace="'../utils/pagination' :: pagination(${categoryPage.pageable.pageNumber+1}, ${categoryPage.totalPages}, '/admin/category/index')" />
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <th:block layout:fragment="pageScript">
+        <script th:src="@{/js/page-script.js}"></script>
+    </th:block>
+
+    <th:block layout:fragment="pageStyleSheet">
+        <link rel="stylesheet" th:href="${@environment.getProperty('app.url')+'js/page-style.css'}">
+    </th:block>
+
+</th:block>
+

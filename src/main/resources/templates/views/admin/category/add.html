@@ -1,0 +1,36 @@
+<th:block
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{../layouts/template}">
+
+    <div class="card" layout:fragment="content">
+        <div class="card-header">
+            <nav class="breadcrumb">
+                <a class="breadcrumb-item" th:href="@{/admin/dashboard}">Admin</a>
+                <a class="breadcrumb-item" th:href="@{/admin/category/index}">Category</a>
+                <span class="breadcrumb-item active">Add</span>
+            </nav>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/admin/category/add}" method="post" th:object="${category}">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <div class="form-group">
+                    <label for="">Name</label>
+                    <input type="text" value="" th:field="*{name}" class="form-control" id="" placeholder="" />
+                    <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                </div>
+                <button type="submit" class="btn btn-sm btn-secondary">Add</button>
+            </form>
+        </div>
+    </div>
+
+    <th:block layout:fragment="pageScript">
+        <script th:src="@{/js/page-script.js}"></script>
+    </th:block>
+
+    <th:block layout:fragment="pageStyleSheet">
+        <link rel="stylesheet" th:href="${@environment.getProperty('app.url')+'js/page-style.css'}">
+    </th:block>
+
+</th:block>
+

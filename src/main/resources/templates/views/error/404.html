@@ -1,0 +1,30 @@
+<th:block
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{../layouts/public/template}">
+
+    <th:block layout:fragment="page-header">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10">
+                        <ul class="page-header-breadcrumb">
+                            <li><a href="index.html">Home</a></li>
+                            <li>Error 404</li>
+                        </ul>
+                        <h1>Error 404</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+    </th:block>
+
+    <th:block layout:fragment="content">
+        <div class="col-md-8">
+            <h1>404 not found.</h1>
+        </div>
+    </th:block>
+
+</th:block>
