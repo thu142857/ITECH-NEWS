@@ -31,19 +31,7 @@ public class Tag {
     @Size(min = 1, max = 50)
     private String slug;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "post_tag",
-            joinColumns = {
-                    @JoinColumn(name = "tag_id")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "post_id")
-            },
-            uniqueConstraints = {
-                    @UniqueConstraint(columnNames = {"tag_id", "post_id"})
-            }
-    )
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, mappedBy = "tags")
     private List<Post> posts;
 
     @Column(name = "status")

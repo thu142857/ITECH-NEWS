@@ -4,6 +4,7 @@ import com.itechnews.database.factory.JsonFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public class ConsoleTest {
+
     public static void main(String[] args) {
         //get category names from data.json
         JsonNode nodePosts = JsonFactory.getJsonNode("posts");

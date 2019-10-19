@@ -2,8 +2,11 @@ package com.itechnews.repository;
 
 import com.itechnews.entity.Tag;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
+
+import java.util.List;
 
 public interface TagRepository
         extends PagingAndSortingRepository<Tag, Integer>,
@@ -35,4 +38,9 @@ public interface TagRepository
     Tag findBySlug(String slug);
 
     Tag findOneByName(String name);
+
+    @Query(
+        value = "select t from Tag t"
+    )
+    List<Tag> findTest();
 }

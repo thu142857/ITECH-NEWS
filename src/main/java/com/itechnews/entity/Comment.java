@@ -34,7 +34,6 @@ public class Comment {
 
     @OneToMany(mappedBy="parent", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval=true)
     private List<Comment> children = new ArrayList<>();
-    //
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToOne(cascade = CascadeType.MERGE)

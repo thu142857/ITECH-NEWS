@@ -22,8 +22,7 @@ public class Role implements Serializable {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "role_id")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "role")
     private List<User> users;
 
     @Override

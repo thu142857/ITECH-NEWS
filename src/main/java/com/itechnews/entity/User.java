@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "users")
 @Getter
 @Setter
-@ToString
+//@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements Serializable {
@@ -38,27 +38,14 @@ public class User implements Serializable {
 
     private String address;
 
-    //@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
 
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = {CascadeType.MERGE})
-    @JoinTable(
-            name = "likes",
-            joinColumns = {
-                    @JoinColumn(name = "user_id")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "post_id")
-            },
-            uniqueConstraints = {
-                    @UniqueConstraint(columnNames = {"user_id", "post_id"})
-            }
-    )
-    private List<Post> likedPost;
+    @ManyToMany(cascade = {CascadeType.MERGE}, mappedBy = "likedUsers")
+    private List<Post> likedPosts;
 
 
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -78,19 +65,7 @@ public class User implements Serializable {
     private List<User> follower; //users who are following me
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = {CascadeType.MERGE})
-    @JoinTable(
-            name = "follows",
-            joinColumns = {
-                    @JoinColumn(name = "follower_id")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "user_id")
-            },
-            uniqueConstraints = {
-                    @UniqueConstraint(columnNames = {"user_id", "follower_id"})
-            }
-    )
+    @ManyToMany(cascade = {CascadeType.MERGE}, mappedBy = "follower")
     private List<User> following; //users who I'am following
 
 
