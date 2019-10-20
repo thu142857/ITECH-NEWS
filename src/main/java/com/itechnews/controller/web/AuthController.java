@@ -124,19 +124,22 @@ public class AuthController {
     public String displayResetPasswordPage(@RequestParam("token") String token, ModelMap modelMap) {
 
         PasswordResetToken passwordResetToken = passwordResetTokenService.findOneByToken(token);
-        User user = passwordResetToken.getUser();
-
-        if (user != null) { // Token found in DB
-            Calendar cal = Calendar.getInstance();
-            if ((passwordResetToken.getExpiryDate()
-                    .getTime() - cal.getTime()
-                    .getTime()) <= 0) {
-                modelMap.addAttribute("errorMessage", "Token is expired");
-            } else {
-                modelMap.addAttribute("resetToken", token);
-            }
-        } else {
+        if (passwordResetToken == null) {
             modelMap.addAttribute("errorMessage", "Oops!  This is an invalid password reset link.");
+        } else {
+            User user = passwordResetToken.getUser();
+            if (user != null) { // Token found in DB
+                Calendar cal = Calendar.getInstance();
+                if ((cal.getTime().getTime()
+                    - passwordResetToken.getExpiryDate().getTime())
+                    <= 0) {
+                    modelMap.addAttribute("errorMessage", "Token is expired");
+                } else {
+                    modelMap.addAttribute("resetToken", token);
+                }
+            } else {
+                modelMap.addAttribute("errorMessage", "Oops!  This is an invalid password reset link.");
+            }
         }
         return "auth/reset";
     }
@@ -146,24 +149,30 @@ public class AuthController {
                                  RedirectAttributes ra, ModelMap modelMap) {
         // Find the user associated with the reset token
         PasswordResetToken passwordResetToken = passwordResetTokenService.findOneByToken(token);
-        User user = passwordResetToken.getUser();
-        // This should always be non-null but we check just in case
-        if (user != null) {
-
-            user.setPassword(passwordEncoder.encode(password));
-            // Save user
-            userService.save(user);
-
-            // In order to set a model attribute on a redirect, we must use
-            // RedirectAttributes
-            ra.addFlashAttribute("successMessage", "You have successfully reset your password. " +
-                    "You may now login.");
-
-            return "redirect:login";
-
-        } else {
-            modelMap.addAttribute("errorMessage", "Oops!  This is an invalid password reset link.");
+        if (passwordResetToken == null) {
+            modelMap.addAttribute("errorMessage",
+                    "Oops!  This is an invalid password reset link.");
             return "auth/reset";
+        } else {
+            User user = passwordResetToken.getUser();
+            // This should always be non-null but we check just in case
+            if (user != null) {
+
+                user.setPassword(passwordEncoder.encode(password));
+                // Save user
+                userService.save(user);
+                passwordResetTokenService.deleteByUserId(user.getId());
+                // In order to set a model attribute on a redirect, we must use
+                // RedirectAttributes
+                ra.addFlashAttribute("successMessage", "You have successfully reset your password. " +
+                        "You may now login.");
+
+                return "redirect:login";
+
+            } else {
+                modelMap.addAttribute("errorMessage", "Oops!  This is an invalid password reset link.");
+                return "auth/reset";
+            }
         }
     }
 }

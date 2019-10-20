@@ -25,6 +25,11 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" th:href="@{/assets/auth/css/util.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/assets/auth/css/main.css}">
+	<style>
+		.error {
+			color: red;
+		}
+	</style>
 <!--===============================================================================================-->
 </head>
 <body>
@@ -40,14 +45,18 @@
 
 				<form action="" method="post" class="login100-form validate-form">
 					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+					<div class="text-success" th:if="${successMessage != null}" th:text="${successMessage}"></div>
+					<div class="text-success" th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
+
 					<div class="wrap-input100 m-b-26">
 						<!--<span class="label-input100">Username</span>-->
-						<input class="input100" type="text" name="password" value="" placeholder="Password">
+						<input class="input100" type="password" id="password" name="password" value="" placeholder="Password">
 						<span class="focus-input100"></span>
 					</div>
                     <div class="wrap-input100 m-b-26">
                         <!--<span class="label-input100">Username</span>-->
-                        <input class="input100" type="text" name="confirmedPassword" value="" placeholder="Confirm">
+                        <input class="input100" type="password" name="confirmedPassword" value="" placeholder="Confirm">
                         <span class="focus-input100"></span>
                     </div>
 					<div class="container-login100-form-btn">
@@ -76,6 +85,34 @@
 	<script th:src="@{/assets/auth/vendor/countdowntime/countdowntime.js}"></script>
 <!--===============================================================================================-->
 	<script th:src="@{/assets/auth/js/main.js}"></script>
+<!--===============================================================================================-->
+	<script th:src="@{/assets/auth/vendor/jquery-validation/jquery.validate.min.js}"></script>
+	<script>
+		$(document).ready(function() {
+			$("form").validate({
+				rules: {
+					"password": {
+						required: true,
+						minlength: 6
+					},
+					"confirmedPassword": {
+						required: true,
+						equalTo: "#password"
+					}
+				},
+				messages: {
+					"password": {
+						required: "Vui lòng nhập mật khẩu",
+						minlength: "Tên đăng nhập tối thiểu 6 kí tự",
+					},
+					"confirmedPassword": {
+						required: "Vui lòng nhập lại mật khẩu",
+						equalTo: "Mật khẩu không khớp",
+					}
+				}
+			});
+		});
+	</script>
 
 </body>
 </html>
