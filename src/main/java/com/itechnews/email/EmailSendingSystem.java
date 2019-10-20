@@ -32,57 +32,57 @@ public class EmailSendingSystem {
     private Configuration freemarkerConfig;
 
     public void sendWithVelocity() throws Exception {
-//        Map<String, Object> model = new HashMap<>();
-//        model.put("title", "my title");
-//        model.put("body", "my body");
-//        String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
-//                "templates/emails/email.vm",
-//                "UTF-8", model);
-//
-//        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-//        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
-//        mimeMessageHelper.setFrom("tigersama2205@gmail.com");
-//        int rand = new Random().nextInt(100);
-//        String address = "tigersama2205+" + rand + "@gmail.com";
-//        mimeMessageHelper.setTo(address);
-//        mimeMessageHelper.setSubject("email submit");
-//        mimeMessageHelper.setText(text, true);
-//
-//        //file attachment
-//        try {
-//            File file = ResourceUtils.getFile("classpath:static/upload/nancy.jpg");
-//            mimeMessageHelper.addAttachment("nancy-lovely.png", file);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//
-//        javaMailSender.send(mimeMessage);
+        Map<String, Object> model = new HashMap<>();
+        model.put("title", "my title");
+        model.put("body", "my body");
+        String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
+                "templates/emails/email.vm",
+                "UTF-8", model);
+
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+        mimeMessageHelper.setFrom("tigersama2205@gmail.com");
+        int rand = new Random().nextInt(100);
+        String address = "tigersama2205+" + rand + "@gmail.com";
+        mimeMessageHelper.setTo(address);
+        mimeMessageHelper.setSubject("email submit");
+        mimeMessageHelper.setText(text, true);
+
+        //file attachment
+        try {
+            File file = ResourceUtils.getFile("classpath:static/upload/nancy.jpg");
+            mimeMessageHelper.addAttachment("nancy-lovely.png", file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        javaMailSender.send(mimeMessage);
     }
 
     public void sendWithFreemarker() throws Exception {
-//        Map<String, Object> model = new HashMap<>();
-//        model.put("title", "my title");
-//        model.put("body", "my body");
-//        model.put("logo", ResourceUtils.getFile("classpath:static/upload/nancy.jpg"));
-//
-//        Template t = freemarkerConfig.getTemplate("email.ftl");
-//        String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
-//        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-//        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
-//        mimeMessageHelper.setFrom("tigersama2205@gmail.com");
-//        int rand = new Random().nextInt(100);
-//        String address = "tigersama2205+" + rand + "@gmail.com";
-//        mimeMessageHelper.setTo(address);
-//        mimeMessageHelper.setSubject("email submit");
-//        mimeMessageHelper.setText(text, true);
-//
-//        //file attachment
-//        try {
-//            File file = ResourceUtils.getFile("classpath:static/images/nancy.jpg");
-//            mimeMessageHelper.addAttachment("nancy.png", file);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        javaMailSender.send(mimeMessage);
+        Map<String, Object> model = new HashMap<>();
+        model.put("title", "my title");
+        model.put("body", "my body");
+        model.put("logo", ResourceUtils.getFile("classpath:static/upload/nancy.jpg"));
+
+        Template t = freemarkerConfig.getTemplate("email.ftl");
+        String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+        mimeMessageHelper.setFrom("tigersama2205@gmail.com");
+        int rand = new Random().nextInt(100);
+        String address = "tigersama2205+" + rand + "@gmail.com";
+        mimeMessageHelper.setTo(address);
+        mimeMessageHelper.setSubject("email submit");
+        mimeMessageHelper.setText(text, true);
+
+        //file attachment
+        try {
+            File file = ResourceUtils.getFile("classpath:static/images/nancy.jpg");
+            mimeMessageHelper.addAttachment("nancy.png", file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        javaMailSender.send(mimeMessage);
     }
 }
