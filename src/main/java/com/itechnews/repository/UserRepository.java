@@ -1,6 +1,7 @@
 package com.itechnews.repository;
 
 import com.itechnews.entity.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
@@ -16,4 +17,9 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     User findOneByUsernameAndStatus(String username, Boolean status);
 
     List<User> findByIdLessThan(Integer id);
+
+    User findOneByEmail(String email);
+
+    @Query("select u from User u where u.passwordResetToken.token= :token")
+    User findOneByPasswordResetToken(String token);
 }

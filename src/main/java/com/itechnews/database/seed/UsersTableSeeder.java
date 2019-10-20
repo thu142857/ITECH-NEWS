@@ -36,28 +36,28 @@ public class UsersTableSeeder implements Seeder {
 
         users.add(new User(null, "sonthh", "sonthh",
                 passwordEncoder.encode("sonthh"), true,
-                "tigersama2205@gmail+sonthh.com", "Quang Name", roleAdmin,
-                null, null, null, null)
+                "tigersama2205+sonthh@gmail.com", "Quang Name", roleAdmin,
+                null, null, null, null, null)
         );
         users.add(new User(null, "thinhtnb", "thinhtnb",
                 passwordEncoder.encode("thinhtnb"), true,
-                "tigersama2205@gmail.com+thinhtnb", "Hue", roleAdmin,
-                null, null, null, null)
+                "tigersama2205+thinhtnb@gmail.com", "Hue", roleAdmin,
+                null, null, null, null, null)
         );
         users.add(new User(null, "thuydtm", "thuydtm",
                 passwordEncoder.encode("thuydtm"), true,
-                "tigersama2205@gmail.com+thuydtm", "Da Nang", roleAdmin,
-                null, null, null, null)
+                "tigersama2205+thuydtm@gmail.com", "Da Nang", roleAdmin,
+                null, null, null, null, null)
         );
         users.add(new User(null, "thuta", "thuta",
                 passwordEncoder.encode("thuta"), true,
-                "tigersama2205@gmail.com+thuta", "Da Nang", roleUser,
-                null, null, null, null)
+                "tigersama2205+thuta@gmail.com", "Da Nang", roleUser,
+                null, null, null, null, null)
         );
         users.add(new User(null, "trangntt", "trangntt",
                 passwordEncoder.encode("trangntt"), true,
-                "tigersama2205@gmail.com+trangttt", "Hue", roleUser,
-                null, null, null, null)
+                "tigersama2205+trangttt@gmail.com", "Hue", roleUser,
+                null, null, null, null, null)
         );
 
         //fake 20 user account
@@ -66,8 +66,8 @@ public class UsersTableSeeder implements Seeder {
             Boolean status = i % 2 == 0;
             users.add(new User(null, username, username,
                     passwordEncoder.encode(username), status,
-                    "tigersama2205@gmail.com+" + username, faker.address().cityName(), roleUser,
-                    null, null, null, null)
+                    "tigersama2205+" + username + "@gmail.com", faker.address().cityName(), roleUser,
+                    null, null, null, null, null)
             );
         }
         userRepository.saveAll(users);
