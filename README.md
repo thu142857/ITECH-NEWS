@@ -77,7 +77,7 @@ spring.jpa.show-sql=false
     <li>view -> tool windows -> persistanse</li>
 </ol>
 
-<p>Show database<p>
+<p>Show the database<p>
 <ol>
     <li>view -> tool windows -> database -> new datasource -> mysql</li>
     <li>view -> tool windows -> persistanse</li>
