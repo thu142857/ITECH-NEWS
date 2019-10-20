@@ -1,6 +1,7 @@
 package com.itechnews.repository;
 
 import com.itechnews.entity.Tag;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -40,7 +41,7 @@ public interface TagRepository
     Tag findOneByName(String name);
 
     @Query(
-        value = "select t from Tag t"
+        value = "select t from Tag t order by t.posts.size desc"
     )
-    List<Tag> findTest();
+    List<Tag> findBestTags(Pageable pageable);
 }
