@@ -9,14 +9,14 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "posts")
+@Table(name = "password_reset_token")
 @Getter
 @Setter
 //@ToString //StackOverflowException
 @NoArgsConstructor
 @AllArgsConstructor
 public class PasswordResetToken {
-    private static final int EXPIRATION = 60 * 24;
+    public static final int EXPIRATION = 60 * 24;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
