@@ -36,7 +36,7 @@ public class UsersTableSeeder implements Seeder {
 
         users.add(new User(null, "sonthh", "sonthh",
                 passwordEncoder.encode("sonthh"), true,
-                "tigersama2205+sonthh@gmail.com", "Quang Name", roleAdmin,
+                "tigersama2205+sonthh@gmail.com", "Quang Nam", roleAdmin,
                 null, null, null, null, null)
         );
         users.add(new User(null, "thinhtnb", "thinhtnb",

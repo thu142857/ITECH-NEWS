@@ -1,7 +1,5 @@
 package com.itechnews.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,13 +9,13 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "password_reset_token")
+@Table(name = "verification_token")
 @Getter
 @Setter
 //@ToString //StackOverflowException
 @NoArgsConstructor
 @AllArgsConstructor
-public class PasswordResetToken {
+public class VerificationToken {
     public static final int EXPIRATION = 60 * 24;
 
     @Id
@@ -26,7 +24,6 @@ public class PasswordResetToken {
 
     private String token;
 
-    @JsonIgnore
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "user_id")
     private User user;

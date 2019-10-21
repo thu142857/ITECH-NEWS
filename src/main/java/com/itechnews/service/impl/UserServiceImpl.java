@@ -18,6 +18,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findOneByUsername(String username) {
+        return userRepository.findOneByUsername(username);
+    }
+
+    @Override
     public User findOneByPasswordResetToken(String token) {
         return userRepository.findOneByPasswordResetToken(token);
     }
