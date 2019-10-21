@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Login</title>
+	<title>Register</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -26,6 +26,11 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/assets/auth/css/util.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/assets/auth/css/main.css}">
 <!--===============================================================================================-->
+	<style>
+		.error {
+			color: red;
+		}
+	</style>
 </head>
 <body>
 	
@@ -34,51 +39,50 @@
 			<div class="wrap-login100">
 				<div class="login100-form-title" style="background-image: url(/assets/auth/images/bg-01.jpg);">
 					<span class="login100-form-title-1">
-						Sign In
+						Register
 					</span>
 				</div>
 
-				<form th:action="@{/login}" method="post" class="login100-form validate-form">
+				<form th:action="@{/register}" method="post" th:object="${user}" class="login100-form validate-form">
 
-                    <div class="text-success" th:if="${successMessage != null}" th:text="${successMessage}"></div>
-                    <div class="text-danger" th:if="${#httpServletRequest.getParameter('error') != null}">
-                        The username or password is incorrect
-                    </div>
+					<div class="text-success" th:if="${successMessage != null}" th:text="${successMessage}"></div>
 
 					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
 						<span class="label-input100">Username</span>
-						<input class="input100" type="text" name="username" value="sonthh" placeholder="Enter username">
+						<input class="input100" type="text" name="username" value="" placeholder="">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
 						<span class="label-input100">Password</span>
-						<input class="input100" type="password" name="password" value="sonthh" placeholder="Enter password">
+						<input class="input100" type="password" id="password" name="password" value="" placeholder="">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input m-b-18" data-validate = "Confirm Password is required">
+						<span class="label-input100">Confirm password</span>
+						<input class="input100" type="password" name="confirmedPassword" value="" placeholder="">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 m-b-26" >
+						<span class="label-input100">Email</span>
+						<input class="input100" type="text" name="email" value="" placeholder="">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="flex-sb-m w-full p-b-30">
-						<div class="contact100-form-checkbox">
-							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-							<label class="label-checkbox100" for="ckb1">
-								Remember me
-							</label>
-						</div>
-
 						<div>
 							<a th:href="@{/forgot}" class="txt1">
 								Forgot Password?
-							</a><br/>
-							<a th:href="@{/register}" class="txt1">
-								Register
 							</a>
 						</div>
 					</div>
 
 					<div class="container-login100-form-btn">
 						<button type="submit" class="login100-form-btn">
-							Login
+							Register
 						</button>
 					</div>
 				</form>
@@ -102,6 +106,34 @@
 	<script th:src="@{/assets/auth/vendor/countdowntime/countdowntime.js}"></script>
 <!--===============================================================================================-->
 	<script th:src="@{/assets/auth/js/main.js}"></script>
+<!--===============================================================================================-->
+	<script th:src="@{/assets/auth/vendor/jquery-validation/jquery.validate.min.js}"></script>
+	<script>
+		$(document).ready(function() {
+			$("form").validate({
+				rules: {
+					"username": {
+						required: true,
+						minlength: 6
+					},
+					"password": {
+						required: true,
+						minlength: 6
+					},
+					"confirmedPassword": {
+						required: true,
+						equalTo: "#password"
+					},
+					"email": {
+						required: true,
+						email: true
+					},
+				},
+				messages: {
 
+				}
+			});
+		});
+	</script>
 </body>
 </html>

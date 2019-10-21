@@ -9,13 +9,13 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "password_reset_token")
+@Table(name = "verification_token")
 @Getter
 @Setter
 //@ToString //StackOverflowException
 @NoArgsConstructor
 @AllArgsConstructor
-public class PasswordResetToken {
+public class VerificationToken {
     public static final int EXPIRATION = 60 * 24;
 
     @Id

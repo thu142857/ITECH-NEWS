@@ -12,7 +12,6 @@ import java.util.List;
 @Getter
 @Setter
 public class UserDetailsImpl implements UserDetails {
-    //or extends org.springframework.security.core.userdetails.User;
     private static final long serialVersionUID = 1L;
 
     private String userName;
