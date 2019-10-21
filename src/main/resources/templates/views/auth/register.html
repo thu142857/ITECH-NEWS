@@ -1,139 +1,182 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-	<title>Register</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" th:href="@{/assets/auth/images/icons/favicon.ico}"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" th:href="@{/assets/auth/vendor/bootstrap/css/bootstrap.min.css}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" th:href="@{/assets/auth/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" th:href="@{/assets/auth/fonts/Linearicons-Free-v1.0.0/icon-font.min.css}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" th:href="@{/assets/auth/vendor/animate/animate.css}">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" th:href="@{/assets/auth/vendor/css-hamburgers/hamburgers.min.css}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" th:href="@{/assets/auth/vendor/animsition/css/animsition.min.css}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" th:href="@{/assets/auth/vendor/select2/select2.min.css}">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" th:href="@{/assets/auth/vendor/daterangepicker/daterangepicker.css}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" th:href="@{/assets/auth/css/util.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/assets/auth/css/main.css}">
-<!--===============================================================================================-->
-	<style>
-		.error {
-			color: red;
-		}
-	</style>
-</head>
-<body>
-	
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100">
-				<div class="login100-form-title" style="background-image: url(/assets/auth/images/bg-01.jpg);">
-					<span class="login100-form-title-1">
-						Register
-					</span>
-				</div>
+<th:block
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{../layouts/auth/template}">
 
-				<form th:action="@{/register}" method="post" th:object="${user}" class="login100-form validate-form">
+	<th:block layout:fragment="pageStyleSheet">
+		<style>
+			label.error,
+			label.error-custom {
+				opacity: 1;
+				visibility: visible;
+				position: absolute;
+				max-width: 70%;
+				background-color: rgb(255, 255, 255);
+				border: 1px solid rgb(200, 0, 0);
+				border-radius: 2px;
+				padding: 4px 25px 4px 10px;
+				top: 0;
+				transform: translateY(-50%);
+				right: 2px;
+				pointer-events: none;
+				font-family: Poppins-Medium;
+				color: rgb(200, 0, 0);
+				font-size: 13px;
+				line-height: 1.4;
+				text-align: left;
+				transition: opacity 0.4s ease 0s;
+			}
+		</style>
+	</th:block>
 
-					<div class="text-success" th:if="${successMessage != null}" th:text="${successMessage}"></div>
-
-					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
-						<span class="label-input100">Username</span>
-						<input class="input100" type="text" name="username" value="" placeholder="">
-						<span class="focus-input100"></span>
-					</div>
-
-					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
-						<span class="label-input100">Password</span>
-						<input class="input100" type="password" id="password" name="password" value="" placeholder="">
-						<span class="focus-input100"></span>
-					</div>
-
-					<div class="wrap-input100 validate-input m-b-18" data-validate = "Confirm Password is required">
-						<span class="label-input100">Confirm password</span>
-						<input class="input100" type="password" name="confirmedPassword" value="" placeholder="">
-						<span class="focus-input100"></span>
-					</div>
-
-					<div class="wrap-input100 m-b-26" >
-						<span class="label-input100">Email</span>
-						<input class="input100" type="text" name="email" value="" placeholder="">
-						<span class="focus-input100"></span>
-					</div>
-
-					<div class="flex-sb-m w-full p-b-30">
-						<div>
-							<a th:href="@{/forgot}" class="txt1">
-								Forgot Password?
-							</a>
-						</div>
-					</div>
-
-					<div class="container-login100-form-btn">
-						<button type="submit" class="login100-form-btn">
+	<th:block layout:fragment="content">
+		<div class="limiter">
+			<div class="container-login100">
+				<div class="wrap-login100">
+					<div class="login100-form-title" style="background-image: url(/assets/auth/images/bg-01.jpg);">
+						<span class="login100-form-title-1">
 							Register
-						</button>
+						</span>
 					</div>
-				</form>
+
+					<form th:action="@{/register}" method="post" th:object="${user}" class="login100-form">
+
+						<div class="text-success" th:if="${successMessage != null}" th:text="${successMessage}"></div>
+
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+						<div class="wrap-input100 validate-input m-b-26">
+							<span class="label-input100">Username</span>
+							<input class="input100" type="text" name="username" value="" placeholder="">
+							<span class="focus-input100"></span>
+						</div>
+
+						<div class="wrap-input100 m-b-18">
+							<span class="label-input100">Password</span>
+							<input class="input100" type="password" id="password" name="password" value="" placeholder="">
+							<span class="focus-input100"></span>
+						</div>
+
+						<div class="wrap-input100 m-b-18">
+							<span class="label-input100">Confirm password</span>
+							<input class="input100" type="password" name="confirmedPassword" value="" placeholder="">
+							<span class="focus-input100"></span>
+						</div>
+
+						<div class="wrap-input100 m-b-26" >
+							<span class="label-input100">Email</span>
+							<input class="input100" type="text" name="email" value="" placeholder="">
+							<span class="focus-input100"></span>
+						</div>
+
+						<div class="flex-sb-m w-full p-b-30">
+							<div>
+								<a th:href="@{/forgot}" class="txt1">
+									Forgot Password?
+								</a>
+							</div>
+						</div>
+
+						<div class="container-login100-form-btn">
+							<button type="submit" class="login100-form-btn">
+								Register
+							</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
-	
-<!--===============================================================================================-->
-	<script th:src="@{/assets/auth/vendor/jquery/jquery-3.2.1.min.js}"></script>
-<!--===============================================================================================-->
-	<script th:src="@{/assets/auth/vendor/animsition/js/animsition.min.js}"></script>
-<!--===============================================================================================-->
-	<script th:src="@{/assets/auth/vendor/bootstrap/js/popper.js}"></script>
-	<script th:src="@{/assets/auth/vendor/bootstrap/js/bootstrap.min.js}"></script>
-<!--===============================================================================================-->
-	<script th:src="@{/assets/auth/vendor/select2/select2.min.js}"></script>
-<!--===============================================================================================-->
-	<script th:src="@{/assets/auth/vendor/daterangepicker/moment.min.js}"></script>
-	<script th:src="@{/assets/auth/vendor/daterangepicker/daterangepicker.js}"></script>
-<!--===============================================================================================-->
-	<script th:src="@{/assets/auth/vendor/countdowntime/countdowntime.js}"></script>
-<!--===============================================================================================-->
-	<script th:src="@{/assets/auth/js/main.js}"></script>
-<!--===============================================================================================-->
-	<script th:src="@{/assets/auth/vendor/jquery-validation/jquery.validate.min.js}"></script>
-	<script>
-		$(document).ready(function() {
-			$("form").validate({
-				rules: {
-					"username": {
-						required: true,
-						minlength: 6
-					},
-					"password": {
-						required: true,
-						minlength: 6
-					},
-					"confirmedPassword": {
-						required: true,
-						equalTo: "#password"
-					},
-					"email": {
-						required: true,
-						email: true
-					},
-				},
-				messages: {
+	</th:block>
 
+	<th:block layout:fragment="pageScript">
+		<script>
+			$(document).ready(function() {
+				$("form").validate({
+					rules: {
+						"username": {
+							required: true,
+							minlength: 6
+						},
+						"password": {
+							required: true,
+							minlength: 6
+						},
+						"confirmedPassword": {
+							required: true,
+							equalTo: "#password"
+						},
+						"email": {
+							required: true,
+							email: true
+						},
+					},
+					messages: {
+
+					}
+				});
+			});
+
+			let token = $("meta[name='_csrf']").attr("content");
+			let header = $("meta[name='_csrf_header']").attr("content");
+			$(document).ajaxSend(function(e, xhr, options) {
+				xhr.setRequestHeader(header, token);
+			});
+
+			let ableToSubmitForm = false;
+			$('input[name=username]').on('keyup', function (e) {
+				let $input = $(this);
+				let username = $input.val();
+				$.ajax({
+					url: '/api/user/find-by-username',
+					type: 'GET',
+					cache: false,
+					data: {
+						username: username
+					},
+					success: function(response){
+						console.log(response.data);
+						if (response.data != null) {
+							ableToSubmitForm = false;
+							$(`<label id="username-existed" class="error-custom">The username is existed.</label>`).insertAfter($input);
+						} else {
+							$('label#username-existed').remove();
+							ableToSubmitForm = true;
+						}
+					},
+					error: function (){
+						console.log("ajax error");
+					}
+				});
+			});
+			$('input[name=email]').on('keyup', function (e) {
+				let $input = $(this);
+				let email = $input.val();
+				$.ajax({
+					url: '/api/user/find-by-email',
+					type: 'GET',
+					cache: false,
+					data: {
+						email: email
+					},
+					success: function(response){
+						console.log(response.data);
+						if (response.data != null) {
+							ableToSubmitForm = false;
+							$(`<label id="email-existed" class="error-custom">The email is existed.</label>`).insertAfter($input);
+						} else {
+							$('label#email-existed').remove();
+							ableToSubmitForm = true;
+						}
+					},
+					error: function (){
+						console.log("ajax error");
+					}
+				});
+			});
+			$('form').submit(function (e) {
+				if (!ableToSubmitForm) {
+					e.preventDefault();
 				}
 			});
-		});
-	</script>
-</body>
-</html>
+		</script>
+	</th:block>
+</th:block>

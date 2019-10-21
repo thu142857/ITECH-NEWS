@@ -72,8 +72,13 @@ public class AuthController {
         if (principal != null) { //check user logged in?
             String username = principal.getName();
             User loggedUser = userRepository.findOneByUsername(username);
-            if (loggedUser != null && loggedUser.getStatus())
-                return "redirect:/admin/dashboard";
+            if (loggedUser != null && loggedUser.getStatus()) {
+                if (loggedUser.getRole().getName().contains("ADMIN")) {
+                    return "redirect:/admin/dashboard";
+                } else if (loggedUser.getRole().getName().contains("USER")) {
+                    return "redirect:/";
+                }
+            }
         }
         return "auth/login";
     }
@@ -232,7 +237,7 @@ public class AuthController {
     }
 
     @GetMapping("verify")
-    public String verifiAccount(@RequestParam("token") String token, RedirectAttributes ra, ModelMap modelMap) {
+    public String verifyAccount(@RequestParam("token") String token, RedirectAttributes ra, ModelMap modelMap) {
         // Find the user associated with the reset token
         VerificationToken verificationToken = verificationTokenService.findOneByToken(token);
         if (verificationToken == null) {
