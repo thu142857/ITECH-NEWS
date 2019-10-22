@@ -1,11 +1,13 @@
 package com.itechnews;
 
 import com.github.javafaker.Faker;
+import com.itechnews.service.StorageProperties;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -14,8 +16,8 @@ import java.util.Locale;
 
 @SpringBootApplication
 @EnableScheduling
-//@EnableConfigurationProperties(StorageProperties.class)
-@EntityScan("com.itechnews")
+@EnableConfigurationProperties({StorageProperties.class})
+@EntityScan("com.itechnews.entity")
 public class Application implements ApplicationRunner {
 
     public static void main(String[] args) {
