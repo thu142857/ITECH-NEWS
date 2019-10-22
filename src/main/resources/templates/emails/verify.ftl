@@ -7,22 +7,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <!-- use the font -->
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            font-size: 48px;
-        }
-
-        #btn-verification {
-            color: #010707;
-            padding: 10px 18px;
-            background: #0b6b68;
-            text-decoration: none;
-            border-radius: 12px;
-            cursor: pointer;
-        }
-    </style>
+    <!-- css for email template -->
+    <#include "email_css.ftl" >
 </head>
 <body style="margin: 0; padding: 0;">
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse;">
