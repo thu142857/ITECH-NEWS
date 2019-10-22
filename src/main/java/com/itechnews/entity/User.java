@@ -1,5 +1,7 @@
 package com.itechnews.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -25,7 +27,7 @@ public class User implements Serializable {
     @Column(length = 100, unique = true, nullable = false)
     private String username;
 
-    @Column(length = 100, unique = true, nullable = false, name = "displayed_name")
+    @Column(length = 100, name = "displayed_name")
     private String displayedName;
 
     @Column(nullable = false)

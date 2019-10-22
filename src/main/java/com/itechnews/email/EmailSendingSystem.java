@@ -36,7 +36,7 @@ public class EmailSendingSystem {
 //        model.put("title", "my title");
 //        model.put("body", "my body");
 //        String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
-//                "templates/emails/email.vm",
+//                "templates/emails/email_example.vm",
 //                "UTF-8", model);
 //
 //        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -65,7 +65,7 @@ public class EmailSendingSystem {
 //        model.put("body", "my body");
 //        model.put("logo", ResourceUtils.getFile("classpath:static/upload/nancy.jpg"));
 //
-//        Template t = freemarkerConfig.getTemplate("email.ftl");
+//        Template t = freemarkerConfig.getTemplate("email_example.ftl");
 //        String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
 //        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 //        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);

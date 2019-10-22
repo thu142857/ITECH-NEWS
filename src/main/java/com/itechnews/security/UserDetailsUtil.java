@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDetailsUtil {
+
     //static method for using at .html template
     public static UserDetailsImpl getUserDetails() throws Exception {
         return (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

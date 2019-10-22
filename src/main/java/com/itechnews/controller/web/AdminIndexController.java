@@ -12,4 +12,19 @@ public class AdminIndexController {
     public String dashboard() {
         return "admin/index/dashboard";
     }
+
+    @GetMapping("table-basic")
+    public String tableBasic() {
+        return "admin/index/table_basic";
+    }
+
+    @GetMapping("table-data")
+    public String tableData() {
+        return "admin/index/table_data";
+    }
+
+    @GetMapping("form")
+    public String form() {
+        return "admin/index/form";
+    }
 }
