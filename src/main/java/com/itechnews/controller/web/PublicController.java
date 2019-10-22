@@ -44,4 +44,10 @@ public class PublicController {
 
         return "public/blank";
     }
+
+    @GetMapping("profile")
+    public String profile() {
+
+        return "public/profile";
+    }
 }
