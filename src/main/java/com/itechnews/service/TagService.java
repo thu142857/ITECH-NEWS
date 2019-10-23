@@ -9,4 +9,5 @@ public interface TagService {
     Tag findOneById(Integer id);
     void deleteById(Integer id);
     Tag save(Tag tag);
+    Integer countAllByNameEquals(String tagName);
 }

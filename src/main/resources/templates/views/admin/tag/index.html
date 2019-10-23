@@ -47,7 +47,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="table-stats order-table ov-h">
+                            <div class="table-stats order-table ov-h" style="text-transform: none">
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
@@ -61,7 +61,7 @@
                                     <tr th:each="tag, iter : ${tagPage.content}">
                                         <td class="serial" th:text="${iter.count}"></td>
                                         <td>
-                                            <span class="name" th:text="${tag.name}"></span>
+                                            <span th:text="${tag.name}"></span>
                                         </td>
                                         <td>
                                             <span th:if="${tag.status == true}" class="badge badge-complete">Đang kích hoạt</span>

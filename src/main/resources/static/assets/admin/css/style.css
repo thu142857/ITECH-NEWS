@@ -1451,7 +1451,7 @@ header .form-inline {
     font-size: 12px;
     font-weight: normal;
     padding: .75em 1.25em;
-    text-transform: uppercase; }
+    text-transform: none; }
     .table-stats table th img,
     .table-stats table td img {
       margin-right: 10px;
@@ -1465,7 +1465,7 @@ header .form-inline {
     color: #343a40;
     font-size: 14px;
     font-weight: 600;
-    text-transform: capitalize;
+    text-transform: none;
     vertical-align: middle; }
 
 /* Timeline */

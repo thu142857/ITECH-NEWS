@@ -58,8 +58,11 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <a th:href="@{'/admin/tag/edit/'+${tag.id}}" class="btn btn-primary btn-sm">Sửa</a>
-                                <a th:href="@{'/admin/tag/delete/'+${tag.id}}" id="btn-delete" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#staticModal">Xóa</a>
+                                <a th:href="@{'/admin/tag/edit/'+${tag.id}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Sửa</a>
+                                <a th:href="@{'/admin/tag/delete/'+${tag.id}}"
+                                   id="btn-delete" class="btn btn-danger btn-sm"
+                                   data-toggle="modal" data-target="#staticModal">
+                                    <i class="fa fa-trash"></i> Xóa</a>
                             </div>
                         </div>
                     </div>

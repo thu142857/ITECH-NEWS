@@ -44,7 +44,7 @@
                                         <label for="name" class="form-control-label">Tên</label>
                                         <input type="text" id="name" th:field="*{name}" class="form-control">
                                         <span th:if="${#fields.hasErrors('name')}"
-                                              th:errors="*{name}" class="help-block"></span>
+                                              th:errors="*{name}" class="help-block text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="card-footer">

@@ -6,6 +6,7 @@ import com.itechnews.repository.TagRepository;
 import com.itechnews.repository.UserRepository;
 import com.itechnews.service.TagService;
 import com.itechnews.service.UserService;
+import com.itechnews.util.SlugUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -52,6 +53,12 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Tag save(Tag tag) {
+        tag.setSlug(SlugUtil.makeSlug(tag.getName()));
         return tagRepository.save(tag);
+    }
+
+    @Override
+    public Integer countAllByNameEquals(String tagName) {
+        return tagRepository.countAllByNameEquals(tagName);
     }
 }

@@ -34,7 +34,7 @@ public class Tag {
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST}, mappedBy = "tags")
     private List<Post> posts;
 
-    @Column(name = "status")
+    @Column(name = "status", columnDefinition = "bit default 1")
     private Boolean status;
 
     @Override

@@ -5,7 +5,8 @@ import com.itechnews.constant.MessageEnum;
 import com.itechnews.entity.Tag;
 import com.itechnews.service.TagService;
 import com.itechnews.util.SlugUtil;
-import com.itechnews.validator.TagValidator;
+import com.itechnews.validator.TagAddingValidator;
+import com.itechnews.validator.TagEditingValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,12 @@ public class AdminTagController {
 
     @Autowired
     private TagService tagService;
+
+    @Autowired
+    private TagEditingValidator tagEditingValidator;
+
+    @Autowired
+    private TagAddingValidator tagAddingValidator;
 
     @ModelAttribute
     public void commonObject(ModelMap modelMap) {
@@ -72,11 +79,12 @@ public class AdminTagController {
 
     @PostMapping("edit/{id}")
     public String edit(@Valid @ModelAttribute("tag") Tag tag, BindingResult errors, RedirectAttributes ra) {
-        tagValidator.validate(tag, errors);
+        tag.setName(tag.getName().trim());
+        tagEditingValidator.validate(tag, errors);
         if (errors.hasErrors()) {
             return "admin/tag/edit";
         }
-        tag.setSlug(SlugUtil.makeSlug(tag.getName()));
+        tag.setStatus(true);
         tagService.save(tag);
         ra.addFlashAttribute(MessageContant.ATTRIBUTE_NAME, MessageEnum.MSG_UPDATED_SUCCESSFULLY);
         return "redirect:/admin/tag/detail/" + tag.getId();
@@ -87,15 +95,16 @@ public class AdminTagController {
         return "admin/tag/add";
     }
 
-    @Autowired
-    private TagValidator tagValidator;
-
     @PostMapping("add")
     public String add(@Valid @ModelAttribute("tag") Tag tag, BindingResult errors, RedirectAttributes ra) {
+        tag.setName(tag.getName().trim());
+        tagAddingValidator.validate(tag, errors);
         if (errors.hasErrors()) {
             return "admin/tag/add";
         }
+        tag.setStatus(true);
         Tag savedTag = tagService.save(tag);
+        ra.addFlashAttribute(MessageContant.ATTRIBUTE_NAME, MessageEnum.MSG_ADDED_SUCCESSFULLY);
         return "redirect:/admin/tag/detail/" + savedTag.getId();
     }
 }

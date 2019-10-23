@@ -1,17 +1,17 @@
 package com.itechnews.validator;
 
 import com.itechnews.entity.Tag;
-import com.itechnews.service.UserService;
+import com.itechnews.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
-public class TagValidator implements Validator {
+public class TagEditingValidator implements Validator {
 
 	@Autowired
-	private UserService userService;
+	private TagService tagService;
 
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -20,9 +20,13 @@ public class TagValidator implements Validator {
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		System.out.println("TagValidator.validate");
-		errors.rejectValue("name", "tag.name.existed");
-		System.out.println();
+		if (target instanceof Tag) {
+			Tag tag = (Tag) target;
+			Integer count = tagService.countAllByNameEquals(tag.getName());
+			if (count > 1) {
+				errors.rejectValue("name", "tag.name.existed");
+			}
+		}
 	}
 
 }
