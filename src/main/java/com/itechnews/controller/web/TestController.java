@@ -1,11 +1,7 @@
 package com.itechnews.controller.web;
 
-import com.itechnews.entity.Category;
-import com.itechnews.entity.Post;
 import com.itechnews.entity.Tag;
 import com.itechnews.entity.User;
-import com.itechnews.repository.CategoryRepository;
-import com.itechnews.repository.PostRepository;
 import com.itechnews.repository.TagRepository;
 import com.itechnews.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +25,11 @@ public class TestController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
-    @Autowired
-    private PostRepository postRepository;
-
     @GetMapping("/1")
     @ResponseBody
     public String test() {
-        //List<Post> postsNewest = postRepository.findTop2ByStatusTrueOrderByCreateAtDesc();
-        //make a break point here to debug above code
 
+        Page<Tag> page = tagRepository.findAllByNameContains("java", PageRequest.of(0, 100));
         return "";
     }
 }

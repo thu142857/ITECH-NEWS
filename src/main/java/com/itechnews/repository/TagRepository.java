@@ -1,6 +1,7 @@
 package com.itechnews.repository;
 
 import com.itechnews.entity.Tag;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -44,4 +45,7 @@ public interface TagRepository
         value = "select t from Tag t order by t.posts.size desc"
     )
     List<Tag> findBestTags(Pageable pageable);
+
+    Page<Tag> findAllByNameContains(String searchingName, Pageable pageable);
+
 }

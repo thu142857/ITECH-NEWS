@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title th:text="${title == null ? 'itechnews.com' : title}"></title>
+    <meta name="description" content="Ela Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="url" th:content="${@environment.getProperty('app.url')}"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+    <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
+    <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
+
+    <link rel="stylesheet" th:href="@{/assets/admin/require/normalize.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/admin/require/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+    <link rel="stylesheet" th:href="@{/assets/admin/require/pe-icon-7-stroke.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/admin/require/flag-icon.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/admin/css/cs-skin-elastic.css}">
+    <link rel="stylesheet" th:href="@{/assets/admin/css/style.css}">
+    <link rel="stylesheet" th:href="@{/assets/admin/css/itechnews.css}">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    <th:block layout:fragment="pageStyleSheet" />
+</head>
+
+<body style="position: relative">
+    <th:block th:replace="'../layouts/admin/leftpanel' :: leftpanel" />
+
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+
+        <th:block th:replace="'../layouts/admin/header' :: header" />
+
+        <th:block layout:fragment="content" />
+
+        <div class="clearfix"></div>
+
+        <th:block th:replace="'../layouts/admin/footer' :: footer" />
+
+    </div>
+    <!-- /#right-panel -->
+    <th:block th:replace="'../utils/message' :: message(${enumMessage})" />
+
+    <script th:src="@{/assets/admin/require/jquery.min.js}"></script>
+    <script th:src="@{/assets/admin/require/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/assets/admin/require/popper.min.js}"></script>
+    <script th:src="@{/assets/admin/require/bootstrap.min.js}"></script>
+    <script th:src="@{/assets/admin/require/jquery.matchHeight.min.js}"></script>
+    <script th:src="@{/assets/admin/js/main.js}"></script>
+    <script th:src="@{/assets/admin/js/itechnews.js}"></script>
+
+    <th:block layout:fragment="pageScript" />
+</body>
+</html>
