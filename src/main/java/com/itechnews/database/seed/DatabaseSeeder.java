@@ -20,7 +20,9 @@ public class DatabaseSeeder extends SeedingCaller {
                     RolesTableSeeder.class,
                     UsersTableSeeder.class,
                     TagsTableSeeder.class,
-                    PostsTableSeeder.class
+                    PostsTableSeeder.class,
+                    CategoriesTableSeeder.class
+
                     //some seeder class
             });
         }

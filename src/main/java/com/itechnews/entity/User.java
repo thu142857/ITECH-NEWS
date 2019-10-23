@@ -40,6 +40,9 @@ public class User implements Serializable {
 
     private String address;
 
+    @Column(name = "image")
+    private String image;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
