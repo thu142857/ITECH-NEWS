@@ -40,24 +40,22 @@
                                 </strong>
                             </div>
                             <div class="card-body card-block">
-                                <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal">
-                                    <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label class=" form-control-label">Tên</label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <p class="form-control-static" th:text="${tag.name}"></p>
-                                        </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Tên</label>
                                     </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label class=" form-control-label">Số lượng bài viết</label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <p class="form-control-static" th:text="${tag.posts.size()}"></p>
-                                        </div>
+                                    <div class="col-12 col-md-9">
+                                        <p class="form-control-static" th:text="${tag.name}"></p>
                                     </div>
-                                </form>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Số lượng bài viết</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <p class="form-control-static" th:text="${tag.posts.size()}"></p>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <a th:href="@{'/admin/tag/edit/'+${tag.id}}" class="btn btn-primary btn-sm">Sửa</a>
@@ -82,8 +80,8 @@
                                 </p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <button type="button" id="delete-tag" class="btn btn-primary">Confirm</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                <button type="button" id="delete-tag" class="btn btn-primary">Xác nhận</button>
                             </div>
                         </div>
                     </div>

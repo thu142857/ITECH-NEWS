@@ -1287,8 +1287,8 @@ header .form-inline {
       font-weight: 600;
       padding-top: 5px;
       text-transform: capitalize; }
-    .card .card-top button,
-    .card .card-footer button {
+    .card .card-top button
+    /*,.card .card-footer button*/ {
       background: none;
       border: none;
       -webkit-box-shadow: none;

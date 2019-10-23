@@ -8,4 +8,5 @@ public interface TagService {
     Page<Tag> findAllByNameContains(String searchingName, Integer pageNumber);
     Tag findOneById(Integer id);
     void deleteById(Integer id);
+    Tag save(Tag tag);
 }
