@@ -14,11 +14,9 @@
 
                 <!-- nav -->
                 <ul class="nav-menu nav navbar-nav">
-                    <li class="cat-1"><a th:href="@{/tag}">Công nghệ</a></li>
-                    <li class="cat-2"><a th:href="@{/tag}">Lập trình</a></li>
-                    <li class="cat-3"><a th:href="@{/tag}">Tools & Tips</a></li>
-                    <li class="cat-2"><a th:href="@{/tag}">Sự kiện</a></li>
-                    <li class="cat-1"><a th:href="@{/tag}">Blog</a></li>
+                    <li th:class="'cat-'+${iter.index+1}" th:each="category, iter : ${categories}">
+                        <a th:href="@{/tag}" th:text="${category.name}"></a>
+                    </li>
                 </ul>
                 <!-- /nav -->
 

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)https://themesdesign.in/admiry/blue/index.html -->
+<html class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface no-generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <title>Admin - TTCN </title>
+        <meta content="Admin Dashboard" name="description">
+        <meta content="ThemeDesign" name="author">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <link rel="shortcut icon" href="https://themesdesign.in/admiry/blue/assets/images/favicon.ico">
+
+        <!--Morris Chart CSS -->
+        <link rel="stylesheet" href="./admin_files/morris.css">
+
+        <link href="./admin_files/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="./admin_files/icons.css" rel="stylesheet" type="text/css">
+        <link href="./admin_files/style.css" rel="stylesheet" type="text/css">
+
+    </head>
+
+
+    <body class="fixed-left" style="overflow: visible;">
+
+        <!-- Loader -->
+        <div id="preloader" style="display: none;"><div id="status" style="display: none;"><div class="spinner"></div></div></div>
+
+        <!-- Begin page -->
+        <div id="wrapper">
+
+            <!-- ========== Left Sidebar Start ========== -->
+            <div class="left side-menu">
+                <button type="button" class="button-menu-mobile button-menu-mobile-topbar open-left waves-effect">
+                    <i class="ion-close"></i>
+                </button>
+
+                <!-- LOGO -->
+                <div class="topbar-left">
+                    <div class="text-center">
+                        <!--<a href="index.html" class="logo">Admiry</a>-->
+                        <a href="file:///E:/fourth-year/TTCN_web/admin.html" class="logo"><img src="./admin_files/logo.png" height="42" alt="logo"></a>
+                    </div>
+                </div>
+
+                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 684px;"><div class="sidebar-inner slimscrollleft" style="overflow: hidden; width: auto; height: 684px;">
+
+                    <div class="user-details">
+                        <div class="text-center">
+                            <img src="./admin_files/avatar.png" alt="" class="rounded-circle">
+                        </div>
+                        <div class="user-info">
+                            <h4 class="font-16">Administrator 01</h4>
+                            <span class="text-muted user-status"><i class="fa fa-dot-circle-o text-success"></i> Online</span>
+                        </div>
+                    </div>
+
+                    <div id="sidebar-menu" class="active">
+                        <ul>
+                            <li class="active">
+                                <a href="file:///E:/fourth-year/TTCN_web/admin.html" class="waves-effect active">
+                                    <i class="mdi mdi-view-dashboard"></i>
+                                    <span> Trang chủ <span class="badge badge-primary pull-right">8</span></span>
+                                </a>
+                            </li>
+
+                            <li class="active">
+                                <a href="file:///E:/fourth-year/TTCN_web/PageEditor.html" class="waves-effect active">
+                                    <i class="mdi mdi-view-dashboard"></i>
+                                    <span> Viết bài <span class="badge badge-primary pull-right">8</span></span>
+                                </a>
+                            </li>
+
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-format-list-bulleted-type"></i><span> Quản lí </span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="file:///E:/fourth-year/TTCN_web/DataTable.html">Quản lí bài viết</a></li>
+                                    <li><a href="file:///E:/fourth-year/TTCN_web/DataTable.html">Quản lí blog</a></li>
+                                    <li><a href="file:///E:/fourth-year/TTCN_web/Member.html">Quản lí thành viên</a></li>
+                                </ul>
+                            </li>
+
+                            
+                            <li class="active">
+                                <a href="file:///E:/fourth-year/TTCN_web/ChartPage.html" class="waves-effect active">
+                                    <i class="mdi mdi-view-dashboard"></i>
+                                    <span> Thống kê </span>
+                                </a>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                </div><div class="slimScrollBar" style="background: rgb(158, 165, 171); width: 10px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; height: 633.093px;"></div><div class="slimScrollRail" style="width: 10px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div></div> <!-- end sidebarinner -->
+            </div>
+            <!-- Left Sidebar End -->
+
+            <!-- Start right Content here -->
+
+            <div class="content-page">
+                <!-- Start content -->
+                <div class="content">
+
+                    <!-- Top Bar Start -->
+                    <div class="topbar">
+
+                        <nav class="navbar-custom">
+
+                            <ul class="list-inline float-right mb-0">
+
+                                <li class="list-inline-item dropdown notification-list">
+                                    <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="https://themesdesign.in/admiry/blue/index.html#" role="button" aria-haspopup="false" aria-expanded="false">
+                                        <img src="./admin_files/avatar.png" alt="user" class="rounded-circle">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                                        <a class="dropdown-item" href="file:///E:/fourth-year/TTCN_web/ProfilePage.html"><i class="mdi mdi-account-circle m-r-5 text-muted"></i> Profile</a>
+                                        <a class="dropdown-item" href="file:///E:/fourth-year/TTCN_web/admin.html"><span class="badge badge-success pull-right">5</span><i class="mdi mdi-settings m-r-5 text-muted"></i> Settings</a>
+                                        <a class="dropdown-item" href="file:///E:/fourth-year/TTCN_web/Login.html"><i class="mdi mdi-logout m-r-5 text-muted"></i> Logout</a>
+                                    </div>
+                                </li>
+
+                            </ul>
+
+                            <ul class="list-inline menu-left mb-0">
+                                <li class="list-inline-item">
+                                    <button type="button" class="button-menu-mobile open-left waves-effect">
+                                        <i class="ion-navicon"></i>
+                                    </button>
+                                </li>
+                                <li class="hide-phone list-inline-item app-search">
+                                    <h3 class="page-title">Trang chủ</h3>
+                                </li>
+                            </ul>
+
+                            <div class="clearfix"></div>
+
+                        </nav>
+
+                    </div>
+                    <!-- Top Bar End -->
+
+                    <div class="page-content-wrapper ">
+
+                        <div class="container-fluid">
+
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 col-xl-3">
+                                    <div class="mini-stat clearfix bg-primary">
+                                        <span class="mini-stat-icon"><i class="mdi mdi-cart-outline"></i></span>
+                                        <div class="mini-stat-info text-right text-white">
+                                            <span class="counter">15852</span>
+                                            Tổng bài viết
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-xl-3">
+                                    <div class="mini-stat clearfix bg-primary">
+                                        <span class="mini-stat-icon"><i class="mdi mdi-currency-usd"></i></span>
+                                        <div class="mini-stat-info text-right text-white">
+                                            <span class="counter">956</span>
+                                            Tổng blog
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-xl-3">
+                                    <div class="mini-stat clearfix bg-primary">
+                                        <span class="mini-stat-icon"><i class="mdi mdi-cube-outline"></i></span>
+                                        <div class="mini-stat-info text-right text-white">
+                                            <span class="counter">5210</span>
+                                            Thành viên
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-xl-3">
+                                    <div class="mini-stat clearfix bg-primary">
+                                        <span class="mini-stat-icon"><i class="mdi mdi-currency-btc"></i></span>
+                                        <div class="mini-stat-info text-right text-white">
+                                            <span class="counter">20544</span>
+                                            Tương tác
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+               
+
+
+                            <div class="row">
+
+                                <div class="col-12">
+                                    <div class="card m-b-20">
+                                        <div class="card-body">
+                                            <h4 class="mt-0 m-b-15 header-title">Blog gần đây</h4>
+
+                                            <div class="table-responsive">
+                                                <table class="table table-hover m-b-0">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Thành viên</th>
+                                                        <th>Bài viết</th>
+                                                        <th>Trạng thái</th>
+                                                        <th>Loại</th>
+                                                        <th>Ngày đăng</th>
+                                                        <th>Điểm tương tác</th>
+                                                    </tr>
+
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>Đỗ Thị Minh Thúy</td>
+                                                        <td>System Architect</td>
+                                                        <td><span class="badge badge-default">Deactive</span></td>
+                                                        <td>Chia sẻ</td>
+                                                        <td>2011/04/25</td>
+                                                        <td>320,800</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Nguyễn Thị Thu Trang</td>
+                                                        <td>Accountant</td>
+                                                        <td><span class="badge badge-primary">Active</span></td>
+                                                        <td>Khảo sát</td>
+                                                        <td>2011/07/25</td>
+                                                        <td>170,750</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Trần Anh Thư</td>
+                                                        <td>Junior Technical Author</td>
+                                                        <td><span class="badge badge-primary">Active</span></td>
+                                                        <td>Tin tức</td>
+                                                        <td>2009/01/12</td>
+                                                        <td>86,000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Trần Ngọc Bảo Thịnh</td>
+                                                        <td>Senior Javascript Developer</td>
+                                                        <td><span class="badge badge-primary">Active</span></td>
+                                                        <td>Học tập</td>
+                                                        <td>2012/03/29</td>
+                                                        <td>433,060</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Trần Hữu Hồng Sơn</td>
+                                                        <td>Accountant</td>
+                                                        <td><span class="badge badge-primary">Active</span></td>
+                                                        <td>Chia sẻ</td>
+                                                        <td>2008/11/28</td>
+                                                        <td>162,700</td>
+                                                    </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- end row -->
+
+                        </div><!-- container-fluid -->
+
+
+                    </div> <!-- Page content Wrapper -->
+
+                </div> <!-- content -->
+
+                <footer class="footer">
+                    © 10/2019 - TTCN - Thúy Thư Trang Thịnh Sơn.
+                </footer>
+
+            </div>
+            <!-- End Right content here -->
+
+        </div>
+        <!-- END wrapper -->
+
+
+        <!-- jQuery  -->
+        <script src="./admin_files/jquery.min.js.download"></script>
+        <script src="./admin_files/tether.min.js.download"></script><!-- Tether for Bootstrap -->
+        <script src="./admin_files/popper.min.js.download"></script>
+        <script src="./admin_files/bootstrap.min.js.download"></script>
+        <script src="./admin_files/modernizr.min.js.download"></script>
+        <script src="./admin_files/detect.js.download"></script>
+        <script src="./admin_files/fastclick.js.download"></script>
+        <script src="./admin_files/jquery.slimscroll.js.download"></script>
+        <script src="./admin_files/jquery.blockUI.js.download"></script>
+        <script src="./admin_files/waves.js.download"></script>
+        <script src="./admin_files/jquery.nicescroll.js.download"></script>
+        <script src="./admin_files/jquery.scrollTo.min.js.download"></script>
+
+        <!--Morris Chart-->
+        <script src="./admin_files/morris.min.js.download"></script>
+        <script src="./admin_files/raphael-min.js.download"></script>
+
+        <script src="./admin_files/dashborad.js.download"></script>
+
+        <!-- App js -->
+        <script src="./admin_files/app.js.download"></script>
+
+    
+</body></html>
