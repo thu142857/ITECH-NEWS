@@ -68,8 +68,7 @@
                                             <span th:if="${tag.status == false}" class="badge badge-danger">Bị chặn</span>
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-primary btn-sm">Sửa</button>
-                                            <button type="button" class="btn btn-danger btn-sm">Xóa</button>
+                                            <a th:href="@{'/admin/tag/detail/'+${tag.id}}" class="btn btn-warning btn-sm">Chi tiết</a>
                                         </td>
                                     </tr>
                                     </tbody>

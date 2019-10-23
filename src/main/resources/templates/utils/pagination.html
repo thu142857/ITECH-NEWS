@@ -2,7 +2,7 @@
         xmlns:th="http://www.thymeleaf.org"
         th:fragment="pagination(page, totalPages, uri)">
 <nav aria-label="Page navigation">
-    <ul class="d-flex justify-content-center pagination pagination-sm">
+    <ul th:if="${totalPages > 0}" class="d-flex justify-content-center pagination pagination-sm">
         <li id="btn-prev" class="page-item" th:classappend="${page == 1} ? disabled">
             <a th:if="${page == 1}" class="page-link" href="#">
                 <span aria-hidden="true">&laquo;</span>

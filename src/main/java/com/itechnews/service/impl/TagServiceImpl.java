@@ -12,6 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class TagServiceImpl implements TagService {
 
@@ -32,5 +34,19 @@ public class TagServiceImpl implements TagService {
         return tagRepository.findAllByNameContains(searchingName,
                 PageRequest.of(pageNumber - 1, 6,
                         Sort.by(Sort.Direction.ASC, "id")));
+    }
+
+    @Override
+    public Tag findOneById(Integer id) {
+        Optional<Tag> optional = tagRepository.findById(id);
+        if (optional.isPresent()) {
+            return  optional.get();
+        }
+        return null;
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        tagRepository.deleteById(id);
     }
 }
