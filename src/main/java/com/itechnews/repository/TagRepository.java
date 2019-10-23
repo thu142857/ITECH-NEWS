@@ -48,4 +48,6 @@ public interface TagRepository
 
     Page<Tag> findAllByNameContains(String searchingName, Pageable pageable);
 
+    Integer countAllByNameEquals(String tagName);
+
 }

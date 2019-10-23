@@ -1,15 +1,16 @@
 
 .message-alert {
   position: absolute;
-  top: 86px;
+  top: 138px;
   right: 29px;
   z-index: 2;
-  transition: 1.5s;
+  transition: top 1s, opacity 1.5s, visibility 1.5s;
   visibility: hidden;
   opacity: 0.0;
 }
 
 .message-alert-effect {
+  top: 86px;
   visibility: visible;
   opacity: 1;
 }

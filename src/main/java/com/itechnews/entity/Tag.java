@@ -31,10 +31,10 @@ public class Tag {
     @Size(min = 1, max = 50)
     private String slug;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, mappedBy = "tags")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST}, mappedBy = "tags")
     private List<Post> posts;
 
-    @Column(name = "status")
+    @Column(name = "status", columnDefinition = "bit default 1")
     private Boolean status;
 
     @Override
