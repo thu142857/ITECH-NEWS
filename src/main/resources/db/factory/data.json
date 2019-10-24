@@ -44,7 +44,7 @@
       "category_id": 1,
       "total_views": 100,
       "status": true,
-      "image": "image1.png",
+      "image": "post-1.jpg",
       "tags": [
         "NoSQL", "Database"
       ]
@@ -55,7 +55,7 @@
       "category_id": 1,
       "total_views": 200,
       "status": false,
-      "image": "image1.png",
+      "image": "post-2.jpg",
       "tags": []
     },
     {
@@ -64,7 +64,7 @@
       "category_id": 1,
       "total_views": 456,
       "status": true,
-      "image": "image1.png",
+      "image": "post-3.jpg",
       "tags": [
         "Messenger", "Chrome Extension", "Facebook"
       ]

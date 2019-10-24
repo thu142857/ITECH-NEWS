@@ -31,7 +31,7 @@ public class Tag {
     @Size(min = 1, max = 50)
     private String slug;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST}, mappedBy = "tags")
+    @ManyToMany(fetch = FetchType.LAZY,  mappedBy = "tags")
     private List<Post> posts;
 
     @Column(name = "status", columnDefinition = "bit default 1")

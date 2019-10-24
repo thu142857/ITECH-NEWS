@@ -10,7 +10,7 @@ public class AdminIndexController {
 
     @GetMapping("dashboard")
     public String dashboard() {
-        return "admin/index/index";
+        return "admin/index/dashboard";
     }
 
     @GetMapping("table-basic")
