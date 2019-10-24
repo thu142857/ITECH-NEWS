@@ -36,27 +36,27 @@ public class UsersTableSeeder implements Seeder {
 
         users.add(new User(null, "sonthh", "sonthh",
                 passwordEncoder.encode("sonthh"), true,
-                "tigersama2205+sonthh@gmail.com", "Quang Nam", roleAdmin,
+                "tigersama2205+sonthh@gmail.com", "Quang Nam","avatar.png", roleAdmin,
                 null, null, null, null, null)
         );
         users.add(new User(null, "thinhtnb", "thinhtnb",
                 passwordEncoder.encode("thinhtnb"), true,
-                "tigersama2205+thinhtnb@gmail.com", "Hue", roleAdmin,
+                "tigersama2205+thinhtnb@gmail.com", "Hue","avatar.png", roleAdmin,
                 null, null, null, null, null)
         );
         users.add(new User(null, "thuydtm", "thuydtm",
                 passwordEncoder.encode("thuydtm"), true,
-                "tigersama2205+thuydtm@gmail.com", "Da Nang", roleAdmin,
+                "tigersama2205+thuydtm@gmail.com", "Da Nang","avatar.png", roleAdmin,
                 null, null, null, null, null)
         );
         users.add(new User(null, "thuta", "thuta",
                 passwordEncoder.encode("thuta"), true,
-                "tigersama2205+thuta@gmail.com", "Da Nang", roleUser,
+                "tigersama2205+thuta@gmail.com", "Da Nang","avatar.png", roleUser,
                 null, null, null, null, null)
         );
         users.add(new User(null, "trangntt", "trangntt",
                 passwordEncoder.encode("trangntt"), true,
-                "tigersama2205+trangttt@gmail.com", "Hue", roleUser,
+                "tigersama2205+trangttt@gmail.com", "Hue","avatar.png", roleUser,
                 null, null, null, null, null)
         );
 
@@ -66,7 +66,7 @@ public class UsersTableSeeder implements Seeder {
             Boolean status = i % 2 == 0;
             users.add(new User(null, username, username,
                     passwordEncoder.encode(username), status,
-                    "tigersama2205+" + username + "@gmail.com", faker.address().cityName(), roleUser,
+                    "tigersama2205+" + username + "@gmail.com", faker.address().cityName(),"avatar.png", roleUser,
                     null, null, null, null, null)
             );
         }

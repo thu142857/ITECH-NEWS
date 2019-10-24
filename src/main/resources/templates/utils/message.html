@@ -1,0 +1,33 @@
+<th:block
+        xmlns:th="http://www.thymeleaf.org"
+        th:fragment="message(enumMessage)">
+
+    <th:block th:if="${enumMessage != null}">
+        <th:block th:switch="${enumMessage}">
+            <th:block th:case="${T(com.itechnews.constant.MessageEnum).MSG_ADDED_SUCCESSFULLY}">
+                <th:block th:text="${#httpServletRequest.setAttribute('className', 'primary')}" />
+            </th:block>
+            <th:block th:case="${T(com.itechnews.constant.MessageEnum).MSG_DELETED_SUCCESSFULLY}">
+                <th:block th:text="${#httpServletRequest.setAttribute('className', 'danger')}" />
+            </th:block>
+            <th:block th:case="${T(com.itechnews.constant.MessageEnum).MSG_UPDATED_SUCCESSFULLY}">
+                <th:block th:text="${#httpServletRequest.setAttribute('className', 'success')}" />
+            </th:block>
+            <th:block th:case="*">
+                <th:block th:text="${#httpServletRequest.setAttribute('className', 'default')}" />
+            </th:block>
+        </th:block>
+
+        <div class="message-alert sufee-alert alert with-close alert-dismissible fade show"
+             th:classappend="'alert-'+${className}">
+
+            <span class="badge badge-pill" th:classappend="'badge-'+${className}"><small>Success</small></span>
+            <small th:text="${enumMessage.message}"></small>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+
+    </th:block>
+
+</th:block>

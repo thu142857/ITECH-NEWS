@@ -25,7 +25,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinTable(
             name = "post_tag",
             joinColumns = {
@@ -45,13 +45,20 @@ public class Post {
     @Column(columnDefinition = "TEXT")
     private String content;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     private String slug;
 
     @Column(name = "total_views")
     private Integer totalViews;
 
     @Column(name = "status")
-    private Boolean status;
+    private boolean status;
+
+    @Column(name = "image")
+    private String image;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

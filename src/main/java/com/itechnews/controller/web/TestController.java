@@ -28,12 +28,8 @@ public class TestController {
     @GetMapping("/1")
     @ResponseBody
     public String test() {
-        List<Tag> tags = tagRepository.findBestTags(PageRequest.of(0, 3));
-        Page<Tag> page = tagRepository.findAll(PageRequest.of(4, 10));
-        List<Tag> ts = page.getContent();
-        User user = userRepository.findOneByUsername("sonthh");
-        //make a break point here to debug above code
 
+        Page<Tag> page = tagRepository.findAllByNameContains("java", PageRequest.of(0, 100));
         return "";
     }
 }

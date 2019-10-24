@@ -41,8 +41,10 @@
     {
       "title": "NoSQL DBMS - 1000 câu hỏi vì sao",
       "content": "content1",
+      "category_id": 1,
       "total_views": 100,
       "status": true,
+      "image": "image1.png",
       "tags": [
         "NoSQL", "Database"
       ]
@@ -50,15 +52,19 @@
     {
       "title": "Instagram đã sinh ra ID trong database của họ như thế nào",
       "content": "content2",
+      "category_id": 1,
       "total_views": 200,
       "status": false,
+      "image": "image1.png",
       "tags": []
     },
     {
       "title": "Tôi đi tìm lại tin nhắn tình yêu đầu tiên trên Facebook",
       "content": "content3",
+      "category_id": 1,
       "total_views": 456,
       "status": true,
+      "image": "image1.png",
       "tags": [
         "Messenger", "Chrome Extension", "Facebook"
       ]

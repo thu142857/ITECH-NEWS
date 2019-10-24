@@ -1,0 +1,85 @@
+<th:block
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{../layouts/admin/template}">
+
+    <th:block layout:fragment="content">
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>Quản lý thẻ</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <ol class="breadcrumb text-right">
+                                    <li><a href="#">Admin</a></li>
+                                    <li><a href="#">Tag</a></li>
+                                    <li class="active">Index</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <strong class="card-title">Danh sách thẻ</strong>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <form action="" method="get">
+                                            <input tabindex="-1" id="" placeholder="Tìm kiếm" name="q" type="text"
+                                               class="form-control form-control-sm" value="">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-stats order-table ov-h" style="text-transform: none">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th class="serial">#</th>
+                                        <th>Tên</th>
+                                        <th>Trạng thái</th>
+                                        <th>Chức năng</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="tag, iter : ${tagPage.content}">
+                                        <td class="serial" th:text="${iter.count}"></td>
+                                        <td>
+                                            <span th:text="${tag.name}"></span>
+                                        </td>
+                                        <td>
+                                            <span th:if="${tag.status == true}" class="badge badge-complete">Đang kích hoạt</span>
+                                            <span th:if="${tag.status == false}" class="badge badge-danger">Bị chặn</span>
+                                        </td>
+                                        <td>
+                                            <a th:href="@{'/admin/tag/detail/'+${tag.id}}" class="btn btn-warning btn-sm">Chi tiết</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div> <!-- /.table-stats -->
+                            <th:block th:replace="'../utils/pagination' :: pagination(${tagPage.pageable.pageNumber+1}, ${tagPage.totalPages}, ${uri})" />
+                        </div>
+                    </div>
+                </div>
+            </div><!-- .animated -->
+        </div><!-- .content -->
+    </th:block>
+
+</th:block>

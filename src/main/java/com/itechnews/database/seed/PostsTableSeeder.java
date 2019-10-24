@@ -55,9 +55,9 @@ public class PostsTableSeeder implements Seeder {
                     tags.add(tag);
                 });
 
-                Post post = new Post(null, tags, item.get("title").asText(), item.get("content").asText(),
+                Post post = new Post(null, tags, item.get("title").asText(), item.get("content").asText(),null,
                         SlugUtil.makeSlug(item.get("title").asText()), item.get("total_views").asInt(),
-                        item.get("status").asBoolean(), null,
+                        item.get("status").asBoolean(),item.get("image").asText(), null,
                         author, null, null);
                 posts.add(post);
             });
