@@ -1,9 +1,11 @@
 package com.itechnews.database.seed;
 
 import com.itechnews.database.factory.JsonFactory;
+import com.itechnews.entity.Category;
 import com.itechnews.entity.Post;
 import com.itechnews.entity.Tag;
 import com.itechnews.entity.User;
+import com.itechnews.repository.CategoryRepository;
 import com.itechnews.repository.PostRepository;
 import com.itechnews.repository.TagRepository;
 import com.itechnews.repository.UserRepository;
@@ -31,6 +33,9 @@ public class PostsTableSeeder implements Seeder {
     @Autowired
     Faker faker;
 
+    @Autowired
+    CategoryRepository categoryRepository;
+
     @Override
     public void run() {
         List<Post> posts = new ArrayList<>();
@@ -55,7 +60,10 @@ public class PostsTableSeeder implements Seeder {
                     tags.add(tag);
                 });
 
-                Post post = new Post(null, tags, item.get("title").asText(), item.get("content").asText(),null,
+
+                Category category = categoryRepository.findById(1).get();
+                Post post = new Post(null, tags, item.get("title").asText(),
+                        item.get("content").asText(),category,
                         SlugUtil.makeSlug(item.get("title").asText()), item.get("total_views").asInt(),
                         item.get("status").asBoolean(),item.get("image").asText(), null,
                         author, null, null);
