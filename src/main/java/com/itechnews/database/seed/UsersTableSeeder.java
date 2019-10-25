@@ -36,27 +36,27 @@ public class UsersTableSeeder implements Seeder {
 
         users.add(new User(null, "sonthh", "sonthh",
                 passwordEncoder.encode("sonthh"), true,
-                "tigersama2205+sonthh@gmail.com", "Quang Nam","avatar.png", roleAdmin,
+                "tigersama2205+sonthh@gmail.com", "Quang Nam","sonthh.jpg", roleAdmin,
                 null, null, null, null, null)
         );
         users.add(new User(null, "thinhtnb", "thinhtnb",
                 passwordEncoder.encode("thinhtnb"), true,
-                "tigersama2205+thinhtnb@gmail.com", "Hue","avatar.png", roleAdmin,
+                "tigersama2205+thinhtnb@gmail.com", "Hue","thinhtnb.png", roleAdmin,
                 null, null, null, null, null)
         );
         users.add(new User(null, "thuydtm", "thuydtm",
                 passwordEncoder.encode("thuydtm"), true,
-                "tigersama2205+thuydtm@gmail.com", "Da Nang","avatar.png", roleAdmin,
+                "tigersama2205+thuydtm@gmail.com", "Da Nang","thuydtm.png", roleAdmin,
                 null, null, null, null, null)
         );
         users.add(new User(null, "thuta", "thuta",
                 passwordEncoder.encode("thuta"), true,
-                "tigersama2205+thuta@gmail.com", "Da Nang","avatar.png", roleUser,
+                "tigersama2205+thuta@gmail.com", "Da Nang","thuta.png", roleUser,
                 null, null, null, null, null)
         );
         users.add(new User(null, "trangntt", "trangntt",
                 passwordEncoder.encode("trangntt"), true,
-                "tigersama2205+trangttt@gmail.com", "Hue","avatar.png", roleUser,
+                "tigersama2205+trangttt@gmail.com", "Hue","trangntt.jpg", roleUser,
                 null, null, null, null, null)
         );
 

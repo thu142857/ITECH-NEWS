@@ -18,6 +18,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findOneById(Integer id) {
+        return userRepository.findById(id).get();
+    }
+
+    @Override
     public User findOneByUsername(String username) {
         return userRepository.findOneByUsername(username);
     }

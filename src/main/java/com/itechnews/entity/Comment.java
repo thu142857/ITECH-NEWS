@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -32,7 +33,7 @@ public class Comment {
     @JoinColumn(name="parent_id")
     private Comment parent;
 
-    @OneToMany(mappedBy="parent", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(mappedBy="parent", fetch = FetchType.EAGER, orphanRemoval=true)
     private List<Comment> children = new ArrayList<>();
 
     @LazyCollection(LazyCollectionOption.FALSE)

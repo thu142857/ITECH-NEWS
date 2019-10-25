@@ -1,0 +1,46 @@
+
+/*image in post content*/
+.main-post img {
+    max-width: 100%;
+}
+
+.comment-box {
+    overflow: hidden;
+    resize: none;
+    border-radius: 7px;
+    /*font-family: 'Nunito', sans-serif;*/
+    /*font-size: 16px;*/
+    /*font-weight: 300;*/
+    /*color: #3d455c;*/
+    /*transition: 0.5s;*/
+}
+
+/*comment context menu*/
+.post-comments .media .media-body .media-heading .btn-group i {
+    display: inline-block;
+    margin-left: 3px;
+    color: #a7b3c6;
+    padding: 0px 6px;
+    cursor: pointer;
+    border-radius: 6px;
+    background-color: #a7b3c638;
+    border: 1px solid #a7b3c6;
+}
+
+.post-comments .media .media-body .media-heading .btn-group i:hover {
+    background-color: #a7b3c65c;
+}
+
+.post-comments .media .media-body .media-heading .btn-group .dropdown-menu {
+    min-width: 99px;
+    padding: 0px 0;
+}
+
+.post-comments .media .media-body .media-heading .btn-group .dropdown-menu>li>a {
+    padding: 3px 20px;
+    text-align: center;
+    font-size: 11px;
+}
+.post-comments .media .media-body .media-heading .btn-group .dropdown-menu .divider {
+    margin: 0px 0;
+}

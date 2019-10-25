@@ -14,16 +14,20 @@ import java.util.List;
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 
+    private Integer id;
     private String userName;
     private String password;
     private Boolean active;
     private Role role;
+    private String image;
     private List<GrantedAuthority> authorities;
 
-    public UserDetailsImpl(String userName, String password,
+    public UserDetailsImpl(Integer id, String userName, String password, String image,
                            Boolean active, Role role, List<GrantedAuthority> authorities) {
+        this.id = id;
         this.userName = userName;
         this.password = password;
+        this.image = image;
         this.active = active;
         this.role = role;
         this.authorities = authorities;

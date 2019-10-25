@@ -1,0 +1,250 @@
+<th:block
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        layout:decorate="~{../layouts/public/template}">
+
+    <th:block layout:fragment="page-header">
+        <!-- Page Header -->
+        <div id="post-header" class="page-header">
+            <div class="background-img" style="background-image: url('/assets/public/img/post-page.jpg');"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="post-meta">
+                            <a class="post-category cat-2" href="tag.html" th:text="${post.category.name}"></a>
+                            <span class="post-date" th:text="${#dates.format(post.createAt, 'dd/MM/yyyy')}"></span>
+                        </div>
+                        <h1 th:text="${post.title}"></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+    </th:block>
+
+    <th:block layout:fragment="content">
+        <!-- Post content -->
+        <div class="col-md-8">
+            <div class="section-row sticky-container">
+                <div class="main-post" th:utext="${post.content}">
+                </div>
+                <div class="post-shares sticky-shares">
+                    <a href="#" class="share-facebook"><i class="fa fa-facebook"></i></a>
+                    <a href="#" class="share-twitter"><i class="fa fa-twitter"></i></a>
+                    <a href="#" class="share-google-plus"><i class="fa fa-google-plus"></i></a>
+                    <a href="#" class="share-pinterest"><i class="fa fa-pinterest"></i></a>
+                    <a href="#" class="share-linkedin"><i class="fa fa-linkedin"></i></a>
+                    <a href="#"><i class="fa fa-envelope"></i></a>
+                </div>
+            </div>
+
+            <!-- ad -->
+            <div class="section-row text-center">
+                <a href="#" style="display: inline-block;margin: auto;">
+                    <img class="img-responsive" th:src="@{/assets/public/img/ad-2.jpg}" alt="">
+                </a>
+            </div>
+            <!-- ad -->
+
+            <!-- author -->
+            <div class="section-row">
+                <div class="post-author">
+                    <div class="media">
+                        <div class="media-left">
+                            <img class="media-object" style="height: 120px" th:src="@{'/upload/'+${post.postedUser.image}}" alt="">
+                        </div>
+                        <div class="media-body">
+                            <div class="media-heading">
+                                <h3 th:text="${post.postedUser.username}"></h3>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <ul class="author-social">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /author -->
+
+            <!-- comments -->
+            <div class="section-row">
+                <div class="section-title">
+                    <h2><span class="total-of-comments" th:text="${post.comments.size()}"></span> bình luận</h2>
+                </div>
+
+                <div class="post-comments" th:attr="data-post-id=${post.id}">
+
+                    <!--comment box textarea-->
+                    <th:block sec:authorize="isAuthenticated()">
+                        <div class="media">
+                            <div class="media-left">
+                                <img class="media-object" th:src="@{'/upload/'+${T(com.itechnews.security.UserDetailsUtil).getUserDetails().getImage()}}" alt="">
+                            </div>
+                            <div class="media-body">
+                                <div class="form-group">
+                                    <textarea class="input comment-box" name="message" placeholder="Bình luận"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+
+
+                    <!-- clone child comment -->
+                    <th:block sec:authorize="isAuthenticated()" th:with="loggedUser=${T(com.itechnews.security.UserDetailsUtil).getUserDetails()}">
+                    <div class="media comment-reply-clone" style="display: none">
+                        <div class="media-left">
+                            <img class="media-object" th:src="@{'/upload/'+${loggedUser.getImage()}}" alt="">
+                        </div>
+                        <div class="media-body">
+                            <div class="media-heading">
+                                <h4 th:text="${loggedUser.getUsername()}"></h4>
+                                <span class="time">19:00 20/10/1998</span>
+                                <a href="#" class="reply">Trả lời</a>
+
+                                <!-- context menu -->
+                                <div class="btn-group">
+                                    <i class="fa fa-ellipsis-h dropdown-toggle" data-toggle="dropdown"></i>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Sửa</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#">Xóa</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <p>content</p>
+                        </div>
+                    </div>
+                    </th:block>
+
+                    <!-- clone comment-box-first -->
+                    <th:block sec:authorize="isAuthenticated()">
+                        <div class="media comment-container-parent comment-container-clone" style="display: none" th:with="loggedUser=${T(com.itechnews.security.UserDetailsUtil).getUserDetails()}">
+                            <div class="media-left">
+                                <img class="media-object" th:src="@{'/upload/'+${loggedUser.getImage()}}" alt="">
+                            </div>
+                            <div class="media-body">
+                                <div class="media-heading">
+                                    <h4 th:text="${loggedUser.getUsername()}"></h4>
+                                    <span class="time">12:00 20/10/1998</span>
+                                    <a href="#" class="reply">Trả lời</a>
+
+                                    <!-- context menu -->
+                                    <div class="btn-group">
+                                        <i class="fa fa-ellipsis-h dropdown-toggle" data-toggle="dropdown"></i>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Sửa</a></li>
+                                            <li role="separator" class="divider"></li>
+                                            <li><a href="#">Xóa</a></li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                <p>Content</p>
+
+                                <div class="media comment-container-reply" style="display: none">
+                                    <div class="media-left">
+                                        <img class="media-object" th:src="@{'/upload/'+${loggedUser.getImage()}}" alt="">
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="form-group">
+                                            <textarea class="input comment-box" name="message" placeholder="Bình luận"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                    <!--/clone comment-box-first-->
+
+                    <!-- parent comment -->
+                    <div class="media comment-container-parent" th:each="parentComment, iter : ${parentComments}">
+                        <div class="media-left">
+                            <img class="media-object" th:src="@{'/upload/'+${parentComment.user.image}}" alt="">
+                        </div>
+                        <div class="media-body">
+                            <div class="media-heading">
+                                <h4 th:text="${parentComment.user.username}"></h4>
+                                <span class="time" th:text="${#dates.format(parentComment.createAt, 'hh:mm dd/MM/yyyy')}"></span>
+                                <a href="#" class="reply">Trả lời</a>
+
+                                <!-- context menu -->
+                                <th:block sec:authorize="isAuthenticated()"
+                                          th:with="loggedUser=${T(com.itechnews.security.UserDetailsUtil).getUserDetails()}">
+                                <div th:if="${parentComment.user.id == loggedUser.id}"
+                                     class="btn-group">
+                                    <i class="fa fa-ellipsis-h dropdown-toggle" data-toggle="dropdown"></i>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Sửa</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#">Xóa</a></li>
+                                    </ul>
+                                </div>
+                                </th:block>
+
+                            </div>
+                            <p th:text="${parentComment.content}"></p>
+
+                            <!-- child comment -->
+                            <div class="media" th:each="childComment, iter : ${parentComment.children}">
+                                <div class="media-left">
+                                    <img class="media-object" th:src="@{'/upload/'+${childComment.user.image}}" alt="">
+                                </div>
+                                <div class="media-body">
+                                    <div class="media-heading">
+                                        <h4 th:text="${childComment.user.username}"></h4>
+                                        <span class="time" th:text="${#dates.format(childComment.createAt, 'hh:mm dd/MM/yyyy')}"></span>
+                                        <a href="#" class="reply">Trả lời</a>
+
+                                        <!-- context menu -->
+                                        <th:block sec:authorize="isAuthenticated()"
+                                                  th:with="loggedUser=${T(com.itechnews.security.UserDetailsUtil).getUserDetails()}">
+                                            <div th:if="${childComment.user.id == loggedUser.id}"
+                                                 class="btn-group">
+                                                <i class="fa fa-ellipsis-h dropdown-toggle" data-toggle="dropdown"></i>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">Sửa</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="#">Xóa</a></li>
+                                                </ul>
+                                            </div>
+                                        </th:block>
+
+                                    </div>
+                                    <p th:text="${childComment.content}"></p>
+                                </div>
+                            </div>
+                            <!-- / child comment -->
+
+                            <!--box child comment clone-->
+                            <th:block sec:authorize="isAuthenticated()">
+                                <div class="media comment-container-reply" style="display: none" th:with="loggedUser=${T(com.itechnews.security.UserDetailsUtil).getUserDetails()}">
+                                    <div class="media-left">
+                                        <img class="media-object" th:src="@{'/upload/'+${loggedUser.getImage()}}" alt="">
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="form-group">
+                                            <textarea th:attr="data-parent-comment-id=${parentComment.id}" class="input comment-box" name="message" placeholder="Bình luận"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+                    <!-- / parent comment -->
+
+                </div>
+
+            </div>
+            <!-- /comments -->
+
+        </div>
+        <!-- /Post content -->
+    </th:block>
+
+</th:block>
