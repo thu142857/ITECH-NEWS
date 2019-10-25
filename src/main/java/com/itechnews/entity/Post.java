@@ -60,7 +60,6 @@ public class Post {
     @Column(name = "image")
     private String image;
 
-    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_at")
     private Date createAt;

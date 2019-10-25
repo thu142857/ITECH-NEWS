@@ -21,13 +21,13 @@
                     <!-- post -->
                     <div class="col-md-6" th:each="post, iter : ${postsNewest}" th:if="${iter.index<2}">
                         <div class="post post-thumb">
-                            <a class="post-img" th:href="@{/blog-post}"><img th:src="@{'/upload/'+${post.image}}" alt=""></a>
+                            <a class="post-img" th:href="@{'/'+${post.slug}}"><img th:src="@{'/upload/'+${post.image}}" alt=""></a>
                             <div class="post-body">
                                 <div class="post-meta">
                                     <a th:class="'post-category cat-'+${post.category.id}" th:href="@{/tag}" th:text="${post.category.name}"></a>
                                     <span class="post-date" th:text="${#dates.format(post.createAt, 'MMMM d, yyyy')}"></span>
                                 </div>
-                                <h3 class="post-title"><a th:href="@{/blog-post}" th:text="${post.title}"></a></h3>
+                                <h3 class="post-title"><a th:href="@{'/'+${post.slug}}" th:text="${post.title}"></a></h3>
                             </div>
                         </div>
                     </div>
@@ -47,13 +47,13 @@
                     <div th:each="post, iter : ${postsNewest}" th:if="${iter.index>=2}">
                     <div class="col-md-4" >
                         <div class="post">
-                            <a class="post-img" th:href="@{/blog-post}"><img th:src="@{'/upload/'+${post.image}}" alt=""></a>
+                            <a class="post-img" th:href="@{'/'+${post.slug}}"><img th:src="@{'/upload/'+${post.image}}" alt=""></a>
                             <div class="post-body">
                                 <div class="post-meta">
                                     <a th:class="'post-category cat-'+${post.category.id}" th:href="@{/tag}" th:text="${post.category.name}"></a>
                                     <span class="post-date" th:text="${#dates.format(post.createAt, 'MMMM d, yyyy')}"></span>
                                 </div>
-                                <h3 class="post-title"><a th:href="@{/blog-post}" th:text="${post.title}"></a></h3>
+                                <h3 class="post-title"><a th:href="@{'/'+${post.slug}}" th:text="${post.title}"></a></h3>
                             </div>
                         </div>
                     </div>

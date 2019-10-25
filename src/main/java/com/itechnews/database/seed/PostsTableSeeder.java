@@ -15,9 +15,7 @@ import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Component
 public class PostsTableSeeder implements Seeder {
@@ -61,15 +59,23 @@ public class PostsTableSeeder implements Seeder {
                 });
 
 
+
                 Category category = categoryRepository.findById(1).get();
                 Post post = new Post(null, tags, item.get("title").asText(),
                         item.get("content").asText(),category,
                         SlugUtil.makeSlug(item.get("title").asText()), item.get("total_views").asInt(),
-                        item.get("status").asBoolean(),item.get("image").asText(), null,
+                        item.get("status").asBoolean(),item.get("image").asText(), getDate(random.nextInt(20) + 2),
                         author, null, null);
                 posts.add(post);
             });
         }
         postRepository.saveAll(posts);
+    }
+
+    private Date getDate(Integer date) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.DATE, -date);
+        return c.getTime();
     }
 }

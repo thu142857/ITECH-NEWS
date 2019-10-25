@@ -10,5 +10,5 @@ public interface PostRepository
         extends CrudRepository<Post, Integer> {
     List<Post> findTop8ByStatusTrueOrderByCreateAtDesc();
     List<Post> findTop4ByStatusTrueOrderByTotalViewsDesc();
-
+    Post findOneBySlug(String slug);
 }
