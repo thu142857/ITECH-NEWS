@@ -93,4 +93,10 @@ public class PublicController {
         modelMap.addAttribute("parentComments", parentComments);
         return "public/detail";
     }
+
+    @GetMapping("profile")
+    public String profile() {
+
+        return "public/profile";
+    }
 }
