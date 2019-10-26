@@ -91,6 +91,7 @@ public class PublicController {
         List<Comment> parentComments = commentService.findByParentIsNullAndPostId(post.getId());
         modelMap.addAttribute("post", post);
         modelMap.addAttribute("parentComments", parentComments);
+        modelMap.addAttribute("title", post.getTitle());
         return "public/detail";
     }
 

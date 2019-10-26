@@ -10,7 +10,11 @@ public class UserDetailsUtil {
 
     //static method for using at .html template
     public static UserDetailsImpl getUserDetails() throws Exception {
-        return (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof SocialUserDetailsImpl) {
+            return ((SocialUserDetailsImpl) principal).getUserDetails();
+        }
+        return (UserDetailsImpl) principal;
     }
 
     public static List<String> getAuthorities() {
