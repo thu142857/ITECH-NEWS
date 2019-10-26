@@ -8,6 +8,15 @@
                     <li class="" th:classappend="${linkActive == 'dashboard' ? 'active':''}">
                         <a href="template.html"><i class="menu-icon fa fa-laptop"></i>Trang chủ </a>
                     </li>
+
+                    <li class="menu-item-has-children dropdown" th:classappend="${linkActive == 'user' ? 'active':''}">
+                        <a th:href="@{/admin/user/index}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="menu-icon fas fa-users"></i>Quản lí người dùng</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-list-ul"></i><a th:href="@{/admin/user/index}">Danh sách</a></li>
+                        </ul>
+                    </li>
+
                     <li class="menu-item-has-children dropdown" th:classappend="${linkActive == 'tag' ? 'active':''}">
                         <a th:href="@{/admin/tag/index}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="menu-icon fa fa-tags"></i>Quản lí thẻ</a>
