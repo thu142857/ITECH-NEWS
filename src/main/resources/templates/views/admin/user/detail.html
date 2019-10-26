@@ -1,0 +1,135 @@
+<th:block
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{../layouts/admin/template}">
+
+    <th:block layout:fragment="content">
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>Chi tiết người dùng</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <ol class="breadcrumb text-right">
+                                    <li><a th:href="@{/admin/dashboard}">Admin</a></li>
+                                    <li><a th:href="@{/admin/user}">Người dùng</a></li>
+                                    <li class="active">Chi tiết</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Thông tin của người dùng
+                                    <span class="text-danger" th:text="${user.displayedName}"></span>
+                                </strong>
+                            </div>
+                            <div class="card-body card-block">
+                                <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label class=" form-control-label">Tên tài khoản</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <p class="form-control-static" th:text="${user.username}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label class=" form-control-label">Tên hiển thị</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <p class="form-control-static" th:text="${user.displayedName}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label class=" form-control-label">Email</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <p class="form-control-static" th:text="${user.email}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label class=" form-control-label">Địa chỉ</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <p class="form-control-static" th:text="${user.address}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label class="form-control-label">Trạng thái</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <p th:if="${user.status == true}" class="form-control-static">Đang kích hoạt</p>
+                                            <p th:if="${user.status == false}" class="form-control-static">Bị chặn</p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer">
+                                <a th:href="@{'/admin/user/edit/'+${user.id}}" class="btn btn-primary btn-sm">Sửa</a>
+                                <a th:href="@{'/admin/user/delete/'+${user.id}}"
+                                   id="btn-delete" class="btn btn-danger btn-sm"
+                                   data-toggle="modal" data-target="#staticModal">Xóa</a>
+                                <a th:href="@{'/admin/user/index'}" class="btn btn-warning btn-sm" >Trở về</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="staticModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticModalLabel">Xóa người dùng</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    Bạn có muốn xóa người dùng này
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Trở về</button>
+                                <button type="button" id="delete-tag" class="btn btn-primary">Xác nhận</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- .animated -->
+        </div><!-- .content -->
+    </th:block>
+
+    <th:block layout:fragment="pageScript">
+        <script>
+            $(document).ready(function () {
+                $('#delete-tag').click(function (e) {
+                    let url = $('#btn-delete').attr("href");
+                    window.location.replace(url);
+                });
+            });
+        </script>
+    </th:block>
+
+</th:block>

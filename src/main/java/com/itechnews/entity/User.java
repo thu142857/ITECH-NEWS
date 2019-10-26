@@ -7,6 +7,8 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -23,11 +25,12 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
     @Column(length = 100, unique = true, nullable = false)
+    @Size(min = 1, max = 50)
     private String username;
 
-    @Column(length = 100, name = "displayed_name")
+    @Column(length = 100, name = "displayed_name", nullable = false)
+    @Size(min = 1, max = 50)
     private String displayedName;
 
     @Column(nullable = false)
@@ -36,8 +39,10 @@ public class User implements Serializable {
     @Column(name = "status", nullable = false)
     private Boolean status;
 
+    @Email
     private String email;
 
+    @Size(min = 1, max = 50)
     private String address;
 
     @Column(name = "image")
