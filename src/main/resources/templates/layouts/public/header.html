@@ -44,6 +44,9 @@
                     <li><a href="#">Join Us</a></li>
                     <li><a href="#">Advertisement</a></li>
                     <li><a th:href="@{/contact}">Contacts</a></li>
+                    <th:block sec:authorize="!isAuthenticated()">
+                        <li><a th:href="@{/login}">Đăng nhập</a></li>
+                    </th:block>
                 </ul>
             </div>
             <!-- /nav -->
@@ -61,9 +64,12 @@
             <!-- /social links -->
 
             <!-- user account -->
-            <th:block sec:authorize="isAuthenticated()">
+            <th:block sec:authorize="isAuthenticated()"
+                      th:with="loggedUser=${T(com.itechnews.security.UserDetailsUtil).getUserDetails()}">
                 <div class="section-row">
-                    <h3 th:text="${T(com.itechnews.security.UserDetailsUtil).getUserDetails().getUsername()}"></h3>
+                    <h3 th:text="${loggedUser.getDisplayedName()}"></h3>
+                    <img style="width: 150px" th:src="@{${#strings.containsIgnoreCase(loggedUser.image, 'http')==false?'/upload/':''}+${loggedUser.image}}" alt="">
+
                     <ul class="nav-aside-menu">
                         <li><a href="#">Profile</a></li>
                         <li>

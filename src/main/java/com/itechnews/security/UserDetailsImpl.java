@@ -16,16 +16,18 @@ public class UserDetailsImpl implements UserDetails {
 
     private Integer id;
     private String userName;
+    private String displayedName;
     private String password;
     private Boolean active;
     private Role role;
     private String image;
     private List<GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Integer id, String userName, String password, String image,
+    public UserDetailsImpl(Integer id, String userName, String displayedName, String password, String image,
                            Boolean active, Role role, List<GrantedAuthority> authorities) {
         this.id = id;
         this.userName = userName;
+        this.displayedName = displayedName;
         this.password = password;
         this.image = image;
         this.active = active;
