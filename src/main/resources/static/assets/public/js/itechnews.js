@@ -2,8 +2,8 @@ $(document).ready(function () {
     //setup ajax csrf
     let token = $("meta[name='_csrf']").attr("content");
     let header = $("meta[name='_csrf_header']").attr("content");
-    console.log(token);
-    console.log(header);
+    //console.log(token);
+    //console.log(header);
     $(document).ajaxSend(function(e, xhr, options) {
         xhr.setRequestHeader(header, token);
     });
@@ -84,6 +84,9 @@ $(document).ready(function () {
     $('body').on('click', 'a.reply', function(e) {
 
         e.preventDefault();
+        if ($('input#isAuthenticated').val() === '0') {
+            alert("Vui lòng đăng nhập");
+        }
         let $reply = $(this);
         let replyToUser = $reply.parent().find('h4').text();
 
@@ -94,5 +97,43 @@ $(document).ready(function () {
             .find('textarea')
             .val('@' + replyToUser + ' ').focus();
 
+    });
+
+    //like a post
+    $('#like-post').click(function (e) {
+        e.preventDefault();
+        let $btnLike = $(this);
+        let postId = $btnLike.data('post-id');
+        let liked = $btnLike.hasClass('liked');
+
+        $.ajax({
+            url: '/api/post',
+            type: 'POST',
+            cache: false,
+            data: {
+                postId: postId,
+                liked: liked
+            },
+            success: function(response){
+                //console.log(response);
+                if (response.message === 'OK') {
+                    if (liked) { //unlike
+                        $btnLike.attr('title','Thích');
+                        $btnLike.removeClass('liked');
+                        $btnLike.removeClass('animated bounce');
+                    } else { //like
+                        $btnLike.attr('title','Đã thích');
+                        $btnLike.addClass('animated bounce');
+                        $btnLike.addClass('liked');
+                    }
+                    $('.post-info .likes h3').text(response.data.total_post_likes);
+                } else if (response.message === 'authentication') {
+                    alert("Vui lòng đăng nhập");
+                }
+            },
+            error: function (){
+                console.log("ajax error");
+            }
+        });
     });
 });

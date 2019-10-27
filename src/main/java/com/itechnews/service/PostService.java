@@ -7,4 +7,5 @@ import org.springframework.data.domain.Page;
 public interface PostService {
     Post findOneBySlug(String slug);
     Post findOneById(Integer id);
+    Post save(Post post);
 }
