@@ -19,10 +19,10 @@ public class CategoriesTableSeeder implements Seeder {
     @Override
     public void run() {
         List<Category> categories = new ArrayList<>();
-        categories.add(new Category(null,"CÔNG NGHỆ",null));
-        categories.add(new Category(null,"LẬP TRÌNH",null));
-        categories.add(new Category(null,"SỰ KIỆN",null));
-        categories.add(new Category(null,"BLOG",null));
+        categories.add(new Category(null,"Công Nghệ",null));
+        categories.add(new Category(null,"Lập Trình",null));
+        categories.add(new Category(null,"Sự kiện",null));
+        categories.add(new Category(null,"Blog",null));
         categoryRepository.saveAll(categories);
     }
 }

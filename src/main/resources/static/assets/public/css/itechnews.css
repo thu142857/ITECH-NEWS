@@ -1,4 +1,4 @@
-
+/*tranhuuhongson*/
 /*image in post content*/
 .main-post img {
     max-width: 100%;
@@ -36,11 +36,255 @@
     padding: 0px 0;
 }
 
-.post-comments .media .media-body .media-heading .btn-group .dropdown-menu>li>a {
+.post-comments .media .media-body .media-heading .btn-group .dropdown-menu > li > a {
     padding: 3px 20px;
     text-align: center;
     font-size: 11px;
 }
+
 .post-comments .media .media-body .media-heading .btn-group .dropdown-menu .divider {
     margin: 0px 0;
+}
+
+.main-post .header {
+    padding: 0px 0px;
+}
+
+.main-post .tag {
+    font-size: 13px;
+    padding: 3px 10px;
+    font-weight: 300;
+    border-radius: 0.325em;
+    margin-right: 2px;
+    color: rgba(0, 0, 0, 0.65);
+    background-color: #E8E8E8;
+    transition: background 0.1s linear;
+    margin-bottom: 5px;
+    display: inline-block;
+    text-decoration: none;
+    border-color: #E8E8E8;
+}
+
+.main-post .tag:hover {
+    text-decoration: none;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 6px rgba(0, 0, 0, 0.12) !important;
+    background-color: #E0E0E0;
+    border-color: #E0E0E0;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.main-post .tag .total {
+    display: inline-block;
+    margin-left: 0.3em;
+    font-weight: bold;
+    opacity: 0.8;
+    color: rgba(0, 0, 0, 0.65);
+}
+
+.main-post .tag-group {
+    padding-bottom: 10px;
+}
+
+.main-post .post-meta {
+
+    margin-bottom: 29px;
+}
+
+.main-post .post-title {
+
+    font-size: 37px;
+
+    margin-bottom: 14px;
+
+    color: #0b6b68;
+}
+
+.main-post .post-meta .post-category {
+    text-transform: capitalize;
+}
+
+.main-post .post-meta .profile-image img {
+    width: 35px;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.main-post .post-meta .profile-image {
+    text-decoration: none;
+}
+
+.main-post .post-meta span {
+    font-size: 14px;
+}
+
+.main-post .post-meta span.post-author {
+    font-weight: 600;
+    font-size: 16px;
+    margin-left: 5px;
+}
+
+#section-comments .section-title h2 {
+    color: #0b6b68;
+    font-size: 22px;
+}
+
+.post-author-info {
+    display: flex;
+    justify-content: center;
+}
+
+.post-author-info a {
+    display: block;
+    width: 100px;
+    overflow: hidden;
+}
+
+.post-author-info a img {
+    width: 100px;
+    border-radius: 50%;
+}
+
+.post-author-info .body {
+    margin-left: 17px;
+}
+
+.post-author-info .body h3 {
+
+    margin-bottom: 11px;
+}
+
+.post-author-info .body h3 a {
+    display: inline-block;
+    color: #0b6b68;
+    font-size: 21px;
+    padding: 5px 0px 0px 0px;
+}
+
+.post-author-info .body div {
+
+    font-size: 16px;
+
+    line-height: 21px;
+}
+
+.post-author-info a {
+    color: #0b6b68;
+    display: inline;
+    text-decoration: none;
+}
+
+.post-author-info .body a.total {
+
+}
+
+.post-info {
+    display: flex;
+    margin-bottom: 31px;
+}
+
+.post-info .post-info-col {
+
+    padding: 5px 0px;
+
+    text-align: center;
+
+    width: 100%;
+}
+
+.post-info .likes {
+
+}
+
+#like-post.liked {
+
+    color: #3b5998;
+
+    border-color: #3b5998;
+}
+
+.post-info .comments {
+
+    border-left: 1px solid #e8e8e8;
+
+    border-right: 1px solid #e8e8e8;
+}
+
+.post-info .views {
+
+}
+
+.post-info .post-info-col h3 {
+    color: #0b6b68;
+    /* text-align: center; */
+}
+
+.post-info .post-info-col p {
+    margin-bottom: 0px;
+}
+
+/*header*/
+.nav-menu li a i.fa,
+.profile ul.dropdown-menu li button.sign-out i {
+    padding-right: 6px;
+    position: relative;
+    top: 1px;
+}
+
+.profile {
+
+}
+
+.profile img.avatar {
+
+    width: 34px;
+
+    border-radius: 50%;
+}
+
+.profile div {
+    cursor: pointer;
+}
+
+.profile ul.dropdown-menu {
+
+    left: -106px;
+
+    top: 52px;
+}
+
+.profile ul.dropdown-menu li {
+
+}
+
+.profile ul.dropdown-menu li a {
+
+    padding: 3px 12px;
+}
+
+.profile ul.dropdown-menu li button.sign-out {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    cursor: pointer;
+    font-weight: 400;
+    line-height: 1.42857143;
+    font-size: 14px;
+    color: #0b6b68;
+    position: relative;
+    padding: 3px 12px;
+    text-transform: capitalize;
+    transition: 0.2s color;
+}
+
+.profile ul.dropdown-menu li form {
+    padding: 3px 12px;
+}
+
+ul.user-feature {
+
+}
+
+ul.user-feature > li {
+
+    float: right;
 }

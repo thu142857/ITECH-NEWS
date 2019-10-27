@@ -6,30 +6,66 @@
         <!-- Main Nav -->
         <div id="nav-fixed">
             <div class="container">
-                <!-- logo -->
-                <div class="nav-logo">
-                    <a th:href="@{/}" class="logo"><img th:src="@{/assets/public/img/logo.png}"></a>
-                </div>
-                <!-- /logo -->
-
-                <!-- nav -->
-                <ul class="nav-menu nav navbar-nav">
-                    <li th:class="'cat-'+${iter.index+1}" th:each="category, iter : ${categories}">
-                        <a th:href="@{/tag}" th:text="${category.name}"></a>
-                    </li>
-                </ul>
-                <!-- /nav -->
-
-                <!-- search & aside toggle -->
-                <div class="nav-btns">
-                    <button class="aside-btn"><i class="fa fa-bars"></i></button>
-                    <button class="search-btn"><i class="fa fa-search"></i></button>
-                    <div class="search-form">
-                        <input class="search-input" type="text" name="search" placeholder="Enter Your Search ...">
-                        <button class="search-close"><i class="fa fa-times"></i></button>
+                <div class="row">
+                    <!-- logo -->
+                    <div class="nav-logo">
+                        <a th:href="@{/}" class="logo"><img th:src="@{/assets/public/img/logo.png}"></a>
                     </div>
+                    <!-- /logo -->
+
+                    <!-- nav -->
+                    <ul class="nav-menu nav navbar-nav col-sm-5">
+                        <li th:class="'cat-'+${iter.index+1}" th:each="category, iter : ${categories}">
+                            <a th:href="@{/tag}" th:text="${category.name}"></a>
+                        </li>
+                    </ul>
+                    <ul class="nav-menu nav navbar-nav col-sm-3 user-feature">
+
+                        <th:block sec:authorize="isAuthenticated()"
+                                  th:with="loggedUser=${T(com.itechnews.security.UserDetailsUtil).getUserDetails()}">
+                            <li>
+                                <div class="btn-group profile">
+                                    <div data-toggle="dropdown" aria-expanded="false">
+                                        <img class="avatar" th:src="@{${#strings.containsIgnoreCase(loggedUser.image, 'http')==false?'/upload/':''}+${loggedUser.image}}" alt="">
+                                        <span class="caret"></span>
+                                    </div>
+                                    <ul class="dropdown-menu">
+                                        <li><a th:href="@{'/user/'+${loggedUser.username}}"><i class="fa fa-user"></i>Trang cá nhân</a></li>
+                                        <li><a th:href="@{'/user/'+${loggedUser.username}+'/edit'}"><i class="fa fa-cog"></i>Chỉnh sửa</a></li>
+                                        <li>
+                                            <form th:action="@{/logout}" method="post">
+                                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                                <button class="btn btn-dark btn-sm sign-out" type="submit">
+                                                    <i class="fa fa-sign-out"></i>Đăng xuất
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                                <li>
+                                    <a th:href="@{/posts/new}"><i class="fa fa-edit"></i>Viết bài</a>
+                                </li>
+                        </th:block>
+                        <th:block sec:authorize="!isAuthenticated()">
+                                <li>
+                                    <a th:href="@{/login}" ><i class="fa fa-sign-in"></i>Đăng nhập</a>
+                                </li>
+                        </th:block>
+                    </ul>
+                    <!-- search & aside toggle -->
+                    <div class="nav-btns">
+                        <button class="aside-btn"><i class="fa fa-bars"></i></button>
+                        <button class="search-btn"><i class="fa fa-search"></i></button>
+                        <div class="search-form">
+                            <input class="search-input" type="text" name="search" placeholder="Enter Your Search ...">
+                            <button class="search-close"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <!-- /search & aside toggle -->
                 </div>
-                <!-- /search & aside toggle -->
+
             </div>
         </div>
         <!-- /Main Nav -->
@@ -68,7 +104,7 @@
                       th:with="loggedUser=${T(com.itechnews.security.UserDetailsUtil).getUserDetails()}">
                 <div class="section-row">
                     <h3 th:text="${loggedUser.getDisplayedName()}"></h3>
-                    <img style="width: 150px" th:src="@{${#strings.containsIgnoreCase(loggedUser.image, 'http')==false?'/upload/':''}+${loggedUser.image}}" alt="">
+                    <img style="max-width: 150px" th:src="@{${#strings.containsIgnoreCase(loggedUser.image, 'http')==false?'/upload/':''}+${loggedUser.image}}" alt="">
 
                     <ul class="nav-aside-menu">
                         <li><a href="#">Profile</a></li>

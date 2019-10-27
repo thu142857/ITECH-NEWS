@@ -1,24 +1,22 @@
 package com.itechnews.controller.web;
 
-import com.itechnews.entity.Category;
-import com.itechnews.entity.Comment;
-import com.itechnews.entity.Post;
-import com.itechnews.entity.Tag;
+import com.itechnews.entity.*;
 import com.itechnews.exception.ResourceNotFoundException;
 import com.itechnews.repository.CategoryRepository;
 import com.itechnews.repository.PostRepository;
 import com.itechnews.repository.TagRepository;
+import com.itechnews.security.UserDetailsImpl;
+import com.itechnews.security.UserDetailsUtil;
 import com.itechnews.service.CommentService;
 import com.itechnews.service.PostService;
+import com.itechnews.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,6 +34,9 @@ public class PublicController {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private UserService userService;
 
     @ModelAttribute
     public void commonObject(ModelMap modelMap) {
@@ -88,16 +89,39 @@ public class PublicController {
         if (post == null) {
             throw new ResourceNotFoundException();
         }
+
+        Boolean liked = false;
+        try {
+            UserDetails userDetails = UserDetailsUtil.getUserDetails();
+            User user = userService.findOneById(((UserDetailsImpl) userDetails).getId());
+            if (user != null) {
+                if (post.getLikedUsers().contains(user)) {
+                    liked = true;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         List<Comment> parentComments = commentService.findByParentIsNullAndPostId(post.getId());
+
+        modelMap.addAttribute("liked", liked);
         modelMap.addAttribute("post", post);
         modelMap.addAttribute("parentComments", parentComments);
         modelMap.addAttribute("title", post.getTitle());
         return "public/detail";
     }
 
-    @GetMapping("profile")
-    public String profile() {
+    @GetMapping("user/{username}")
+    public String profilePage(@PathVariable("username") String username) {
 
         return "public/profile";
+    }
+
+    @GetMapping("tag/{tagSlug}")
+    @ResponseBody
+    public String tagPage(@PathVariable("tagSlug") String tagSlug) {
+
+        return "THIS IS TAG PAGE";
     }
 }
