@@ -10,6 +10,7 @@ import com.itechnews.repository.PostRepository;
 import com.itechnews.repository.TagRepository;
 import com.itechnews.service.CommentService;
 import com.itechnews.service.PostService;
+import com.itechnews.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -35,20 +37,42 @@ public class PublicController {
     private PostService postService;
 
     @Autowired
+    private TagService tagService;
+
+    @Autowired
     private CommentService commentService;
 
     @ModelAttribute
     public void commonObject(ModelMap modelMap) {
         List<Category> categories = (List<Category>) categoryRepository.findAllByOrderById();
-        List<Post> mostRead = postRepository.findTop4ByStatusTrueOrderByTotalViewsDesc();
+        List<Post> mostRead = postRepository.findTop5ByStatusTrueOrderByTotalViewsDesc();
+        List<Tag> bestTags = tagService.findBestTags();
         modelMap.addAttribute("categoryLinkActive", true);
         modelMap.addAttribute("categories", categories);
         modelMap.addAttribute("mostRead", mostRead);
+        modelMap.addAttribute("bestTags", bestTags);
     }
 
     @GetMapping("")
     public String index(ModelMap modelMap) {
-        List<Post> postsNewest = postRepository.findTop8ByStatusTrueOrderByCreateAtDesc();
+        List<Integer> ids = new ArrayList<>();
+        List<Post> postsTech = postService.findTop5ByStatusTrueAndCategoryOrderByCreateAtDesc(1);
+        for ( Post post:postsTech) {
+            ids.add(post.getId());
+        }
+        modelMap.addAttribute("postsTech", postsTech);
+        List<Post> postsBlog = postService.findTop5ByStatusTrueAndCategoryOrderByCreateAtDesc(4);
+        for ( Post post:postsBlog) {
+            ids.add(post.getId());
+        }
+        modelMap.addAttribute("postsBlog", postsBlog);
+        List<Post> postsDev = postService.findTop5ByStatusTrueAndCategoryOrderByCreateAtDesc(2);
+        for ( Post post:postsDev) {
+            ids.add(post.getId());
+        }
+        modelMap.addAttribute("postsDev", postsDev);
+
+        List<Post> postsNewest = postRepository.findTop8ByStatusTrueAndIdNotInOrderByCreateAtDesc(ids);
         modelMap.addAttribute("postsNewest", postsNewest);
         return "public/index";
     }

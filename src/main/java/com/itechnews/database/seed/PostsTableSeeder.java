@@ -58,8 +58,6 @@ public class PostsTableSeeder implements Seeder {
                     tags.add(tag);
                 });
 
-
-
                 Category category = categoryRepository.findById(1).get();
                 Post post = new Post(null, tags, item.get("title").asText(),
                         item.get("content").asText(),category,

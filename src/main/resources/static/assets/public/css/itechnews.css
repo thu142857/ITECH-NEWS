@@ -44,3 +44,15 @@
 .post-comments .media .media-body .media-heading .btn-group .dropdown-menu .divider {
     margin: 0px 0;
 }
+.post1 > img {
+    height: 19vw;
+}
+.post2 > img {
+     height: 10vw;
+ }
+.post3 > img {
+    height: 5vw;
+}
+.post4 > img {
+    height: 27vw;
+}
