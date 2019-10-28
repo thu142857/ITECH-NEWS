@@ -8,7 +8,8 @@ import java.util.List;
 
 public interface PostRepository
         extends CrudRepository<Post, Integer> {
-    List<Post> findTop8ByStatusTrueOrderByCreateAtDesc();
-    List<Post> findTop4ByStatusTrueOrderByTotalViewsDesc();
+    List<Post> findTop8ByStatusTrueAndIdNotInOrderByCreateAtDesc(List<Integer> ids);
+    List<Post> findTop5ByStatusTrueOrderByTotalViewsDesc();
+    List<Post> findTop5ByStatusTrueAndCategory_IdOrderByCreateAtDesc(Integer catId);
     Post findOneBySlug(String slug);
 }

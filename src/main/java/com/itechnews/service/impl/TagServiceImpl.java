@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -60,5 +61,10 @@ public class TagServiceImpl implements TagService {
     @Override
     public Integer countAllByNameEquals(String tagName) {
         return tagRepository.countAllByNameEquals(tagName);
+    }
+
+    @Override
+    public List<Tag> findBestTags() {
+        return tagRepository.findBestTags(PageRequest.of(0, 10));
     }
 }

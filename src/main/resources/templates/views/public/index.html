@@ -21,7 +21,7 @@
                     <!-- post -->
                     <div class="col-md-6" th:each="post, iter : ${postsNewest}" th:if="${iter.index<2}">
                         <div class="post post-thumb">
-                            <a class="post-img" th:href="@{'/'+${post.slug}}"><img th:src="@{'/upload/'+${post.image}}" alt=""></a>
+                            <a class="post-img post4" th:href="@{'/'+${post.slug}}"><img th:src="@{'/upload/'+${post.image}}" alt=""></a>
                             <div class="post-body">
                                 <div class="post-meta">
                                     <a th:class="'post-category cat-'+${post.category.id}" th:href="@{/tag}" th:text="${post.category.name}"></a>
@@ -47,7 +47,7 @@
                     <div th:each="post, iter : ${postsNewest}" th:if="${iter.index>=2}">
                     <div class="col-md-4" >
                         <div class="post">
-                            <a class="post-img" th:href="@{'/'+${post.slug}}"><img th:src="@{'/upload/'+${post.image}}" alt=""></a>
+                            <a class="post-img post1" th:href="@{'/'+${post.slug}}"><img th:src="@{'/upload/'+${post.image}}" alt=""></a>
                             <div class="post-body">
                                 <div class="post-meta">
                                     <a th:class="'post-category cat-'+${post.category.id}" th:href="@{/tag}" th:text="${post.category.name}"></a>
@@ -65,171 +65,49 @@
 
                 <!-- row -->
                 <div class="row">
-                    <div class="col-md-8">
-                        <div class="row">
-                            <!-- post -->
-                            <div class="col-md-12">
-                                <div class="post post-thumb">
-                                    <a class="post-img" href="blog-post.html"><img th:src="@{/assets/public/img/post-2.jpg}" alt=""></a>
-                                    <div class="post-body">
-                                        <div class="post-meta">
-                                            <a class="post-category cat-3" href="tag.html">Jquery</a>
-                                            <span class="post-date">March 27, 2018</span>
-                                        </div>
-                                        <h3 class="post-title"><a href="blog-post.html">Ask HN: Does Anybody Still Use JQuery?</a></h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /post -->
-
-                            <!-- post -->
-                            <div class="col-md-6">
-                                <div class="post">
-                                    <a class="post-img" href="blog-post.html"><img th:src="@{/assets/public/img/post-1.jpg}" alt=""></a>
-                                    <div class="post-body">
-                                        <div class="post-meta">
-                                            <a class="post-category cat-4" href="tag.html">Css</a>
-                                            <span class="post-date">March 27, 2018</span>
-                                        </div>
-                                        <h3 class="post-title"><a href="blog-post.html">CSS Float: A Tutorial</a></h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /post -->
-
-                            <!-- post -->
-                            <div class="col-md-6">
-                                <div class="post">
-                                    <a class="post-img" href="blog-post.html"><img th:src="@{/assets/public/img/post-2.jpg}" alt=""></a>
-                                    <div class="post-body">
-                                        <div class="post-meta">
-                                            <a class="post-category cat-1" href="tag.html">Web Design</a>
-                                            <span class="post-date">March 27, 2018</span>
-                                        </div>
-                                        <h3 class="post-title"><a href="blog-post.html">Tell-A-Tool: Guide To Web Design And Development Tools</a></h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /post -->
-
-                            <div class="clearfix visible-md visible-lg"></div>
-
-                            <!-- post -->
-                            <div class="col-md-6">
-                                <div class="post">
-                                    <a class="post-img" href="blog-post.html"><img th:src="@{/assets/public/img/post-4.jpg}" alt=""></a>
-                                    <div class="post-body">
-                                        <div class="post-meta">
-                                            <a class="post-category cat-2" href="tag.html">JavaScript</a>
-                                            <span class="post-date">March 27, 2018</span>
-                                        </div>
-                                        <h3 class="post-title"><a href="blog-post.html">Chrome Extension Protects Against JavaScript-Based CPU Side-Channel Attacks</a></h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /post -->
-
-                            <!-- post -->
-                            <div class="col-md-6">
-                                <div class="post">
-                                    <a class="post-img" href="blog-post.html"><img th:src="@{/assets/public/img/post-5.jpg}" alt=""></a>
-                                    <div class="post-body">
-                                        <div class="post-meta">
-                                            <a class="post-category cat-3" href="tag.html">Jquery</a>
-                                            <span class="post-date">March 27, 2018</span>
-                                        </div>
-                                        <h3 class="post-title"><a href="blog-post.html">Ask HN: Does Anybody Still Use JQuery?</a></h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /post -->
-
-                            <div class="clearfix visible-md visible-lg"></div>
-
-                            <!-- post -->
-                            <div class="col-md-6">
-                                <div class="post">
-                                    <a class="post-img" href="blog-post.html"><img th:src="@{/assets/public/img/post-3.jpg}" alt=""></a>
-                                    <div class="post-body">
-                                        <div class="post-meta">
-                                            <a class="post-category cat-1" href="tag.html">Web Design</a>
-                                            <span class="post-date">March 27, 2018</span>
-                                        </div>
-                                        <h3 class="post-title"><a href="blog-post.html">Pagedraw UI Builder Turns Your Website Design Mockup Into Code Automatically</a></h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /post -->
-
-                            <!-- post -->
-                            <div class="col-md-6">
-                                <div class="post">
-                                    <a class="post-img" href="blog-post.html"><img th:src="@{/assets/public/img/post-4.jpg}" alt=""></a>
-                                    <div class="post-body">
-                                        <div class="post-meta">
-                                            <a class="post-category cat-2" href="tag.html">JavaScript</a>
-                                            <span class="post-date">March 27, 2018</span>
-                                        </div>
-                                        <h3 class="post-title"><a href="blog-post.html">Chrome Extension Protects Against JavaScript-Based CPU Side-Channel Attacks</a></h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /post -->
+                    <div class="col-md-12">
+                        <div class="section-title">
+                            <h2>Công nghệ</h2>
                         </div>
                     </div>
-
-                    <div class="col-md-4">
-                        <!-- post widget -->
-                        <div class="aside-widget">
-                            <div class="section-title">
-                                <h2>Most Read</h2>
-                            </div>
-
-                            <div class="post post-widget" th:each="post, iter : ${mostRead}">
-                                <a class="post-img" th:href="@{/blog-post}"><img th:src="@{'/upload/'+${post.image}}" alt=""></a>
-                                <div class="post-body">
-                                    <h3 class="post-title"><a th:href="@{/blog-post}" th:text="${post.title}"></a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /post widget -->
-
-                        <!-- post widget -->
-                        <div class="aside-widget">
-                            <div class="section-title">
-                                <h2>Featured Posts</h2>
-                            </div>
-                            <div class="post post-thumb">
-                                <a class="post-img" href="blog-post.html"><img th:src="@{/assets/public/img/post-2.jpg}" alt=""></a>
-                                <div class="post-body">
-                                    <div class="post-meta">
-                                        <a class="post-category cat-3" href="tag.html">Jquery</a>
-                                        <span class="post-date">March 27, 2018</span>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <!-- post -->
+                            <div th:each="post, iter : ${postsTech}" th:if="${iter.index<2}">
+                                <div class="col-md-6">
+                                    <div class="post">
+                                        <a class="post-img post4" th:href="@{'/'+${post.slug}}"><img th:src="@{'/upload/'+${post.image}}" alt=""></a>
+                                        <div class="post-body">
+                                            <div class="post-meta">
+                                                <a th:class="'post-category cat-'+${post.category.id}" th:href="@{/tag}" th:text="${post.category.name}"></a>
+                                                <span class="post-date" th:text="${#dates.format(post.createAt, 'MMMM d, yyyy')}"></span>
+                                            </div>
+                                            <h3 class="post-title"><a th:href="@{'/'+${post.slug}}" th:text="${post.title}"></a></h3>
+                                        </div>
                                     </div>
-                                    <h3 class="post-title"><a href="blog-post.html">Ask HN: Does Anybody Still Use JQuery?</a></h3>
                                 </div>
                             </div>
+                            <!-- /post -->
 
-                            <div class="post post-thumb">
-                                <a class="post-img" href="blog-post.html"><img th:src="@{/assets/public/img/post-1.jpg}" alt=""></a>
-                                <div class="post-body">
-                                    <div class="post-meta">
-                                        <a class="post-category cat-2" href="tag.html">JavaScript</a>
-                                        <span class="post-date">March 27, 2018</span>
+                            <div class="clearfix visible-md visible-lg"></div>
+
+                            <!-- post -->
+                            <div th:each="post, iter : ${postsTech}" th:if="${iter.index>=2}">
+                            <div class="col-md-4">
+                                <div class="post">
+                                    <a class="post-img post1" th:href="@{'/'+${post.slug}}"><img th:src="@{'/upload/'+${post.image}}" alt=""></a>
+                                    <div class="post-body">
+                                        <div class="post-meta">
+                                            <a th:class="'post-category cat-'+${post.category.id}" th:href="@{/tag}" th:text="${post.category.name}"></a>
+                                            <span class="post-date" th:text="${#dates.format(post.createAt, 'MMMM d, yyyy')}"></span>
+                                        </div>
+                                        <h3 class="post-title"><a th:href="@{'/'+${post.slug}}" th:text="${post.title}"></a></h3>
                                     </div>
-                                    <h3 class="post-title"><a href="blog-post.html">Chrome Extension Protects Against JavaScript-Based CPU Side-Channel Attacks</a></h3>
                                 </div>
                             </div>
-                        </div>
-                        <!-- /post widget -->
+                            <!-- /post -->
 
-                        <!-- ad -->
-                        <div class="aside-widget text-center">
-                            <a href="#" style="display: inline-block;margin: auto;">
-                                <img class="img-responsive" th:src="@{/assets/public/img/ad-1.jpg}" alt="">
-                            </a>
                         </div>
-                        <!-- /ad -->
                     </div>
                 </div>
                 <!-- /row -->
@@ -246,54 +124,25 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="section-title text-center">
-                            <h2>Featured Posts</h2>
+                            <h2>Blog</h2>
                         </div>
                     </div>
 
                     <!-- post -->
-                    <div class="col-md-4">
+                    <div class="col-md-4" th:each="post, iter : ${postsBlog}" th:if="${iter.index<3}">
                         <div class="post">
-                            <a class="post-img" href="blog-post.html"><img th:src="@{/assets/public/img/post-4.jpg}" alt=""></a>
+                            <a class="post-img post1" th:href="@{'/'+${post.slug}}"><img th:src="@{'/upload/'+${post.image}}" alt=""></a>
                             <div class="post-body">
                                 <div class="post-meta">
-                                    <a class="post-category cat-2" href="tag.html">JavaScript</a>
-                                    <span class="post-date">March 27, 2018</span>
+                                    <a th:class="'post-category cat-'+${post.category.id}" th:href="@{/tag}" th:text="${post.category.name}"></a>
+                                    <span class="post-date" th:text="${#dates.format(post.createAt, 'MMMM d, yyyy')}"></span>
                                 </div>
-                                <h3 class="post-title"><a href="blog-post.html">Chrome Extension Protects Against JavaScript-Based CPU Side-Channel Attacks</a></h3>
+                                <h3 class="post-title"><a th:href="@{'/'+${post.slug}}" th:text="${post.title}"></a></h3>
                             </div>
                         </div>
                     </div>
                     <!-- /post -->
 
-                    <!-- post -->
-                    <div class="col-md-4">
-                        <div class="post">
-                            <a class="post-img" href="blog-post.html"><img th:src="@{/assets/public/img/post-5.jpg}" alt=""></a>
-                            <div class="post-body">
-                                <div class="post-meta">
-                                    <a class="post-category cat-3" href="tag.html">Jquery</a>
-                                    <span class="post-date">March 27, 2018</span>
-                                </div>
-                                <h3 class="post-title"><a href="blog-post.html">Ask HN: Does Anybody Still Use JQuery?</a></h3>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /post -->
-
-                    <!-- post -->
-                    <div class="col-md-4">
-                        <div class="post">
-                            <a class="post-img" href="blog-post.html"><img th:src="@{/assets/public/img/post-3.jpg}" alt=""></a>
-                            <div class="post-body">
-                                <div class="post-meta">
-                                    <a class="post-category cat-1" href="tag.html">Web Design</a>
-                                    <span class="post-date">March 27, 2018</span>
-                                </div>
-                                <h3 class="post-title"><a href="blog-post.html">Pagedraw UI Builder Turns Your Website Design Mockup Into Code Automatically</a></h3>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /post -->
                 </div>
                 <!-- /row -->
             </div>
@@ -308,78 +157,25 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="section-title">
-                            <h2>Most Read</h2>
+                            <h2>Lập trình</h2>
                         </div>
                     </div>
                     <!-- post -->
-                    <div class="col-md-12">
+                    <div class="col-md-12" th:each="post, iter : ${postsDev}" th:if="${iter.index<4}">
                         <div class="post post-row">
-                            <a class="post-img" href="blog-post.html"><img th:src="@{/assets/public/img/post-4.jpg}" alt=""></a>
+                            <a class="post-img post2" th:href="@{'/'+${post.slug}}"><img th:src="@{'/upload/'+${post.image}}" alt=""></a>
                             <div class="post-body">
                                 <div class="post-meta">
-                                    <a class="post-category cat-2" href="tag.html">JavaScript</a>
-                                    <span class="post-date">March 27, 2018</span>
+                                    <a th:class="'post-category cat-'+${post.category.id}" th:href="@{/tag}" th:text="${post.category.name}"></a>
+                                    <span class="post-date" th:text="${#dates.format(post.createAt, 'MMMM d, yyyy')}"></span>
                                 </div>
-                                <h3 class="post-title"><a href="blog-post.html">Chrome Extension Protects Against JavaScript-Based CPU Side-Channel Attacks</a></h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
+                                <h3 class="post-title"><a th:href="@{'/'+${post.slug}}" th:text="${post.title}"></a></h3>
+                                <p th:text="${post.content.substring(0,150)+'...'}"></p>
                             </div>
                         </div>
                     </div>
                     <!-- /post -->
 
-                    <!-- post -->
-                    <div class="col-md-12">
-                        <div class="post post-row">
-                            <a class="post-img" href="blog-post.html"><img th:src="@{/assets/public/img/post-6.jpg}" alt=""></a>
-                            <div class="post-body">
-                                <div class="post-meta">
-                                    <a class="post-category cat-2" href="tag.html">JavaScript</a>
-                                    <span class="post-date">March 27, 2018</span>
-                                </div>
-                                <h3 class="post-title"><a href="blog-post.html">Why Node.js Is The Coolest Kid On The Backend Development Block!</a></h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /post -->
-
-                    <!-- post -->
-                    <div class="col-md-12">
-                        <div class="post post-row">
-                            <a class="post-img" href="blog-post.html"><img th:src="@{/assets/public/img/post-1.jpg}" alt=""></a>
-                            <div class="post-body">
-                                <div class="post-meta">
-                                    <a class="post-category cat-4" href="tag.html">Css</a>
-                                    <span class="post-date">March 27, 2018</span>
-                                </div>
-                                <h3 class="post-title"><a href="blog-post.html">CSS Float: A Tutorial</a></h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /post -->
-
-                    <!-- post -->
-                    <div class="col-md-12">
-                        <div class="post post-row">
-                            <a class="post-img" href="blog-post.html"><img th:src="@{/assets/public/img/post-2.jpg}" alt=""></a>
-                            <div class="post-body">
-                                <div class="post-meta">
-                                    <a class="post-category cat-3" href="tag.html">Jquery</a>
-                                    <span class="post-date">March 27, 2018</span>
-                                </div>
-                                <h3 class="post-title"><a href="blog-post.html">Ask HN: Does Anybody Still Use JQuery?</a></h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /post -->
-
-                    <div class="col-md-12">
-                        <div class="section-row">
-                            <button class="primary-button center-block">Load More</button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

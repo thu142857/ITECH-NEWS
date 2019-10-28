@@ -46,6 +46,18 @@
     margin: 0px 0;
 }
 
+.post1 > img {
+    height: 19vw;
+}
+.post2 > img {
+     height: 10vw;
+ }
+.post3 > img {
+    height: 5vw;
+}
+.post4 > img {
+    height: 27vw;
+
 .main-post .header {
     padding: 0px 0px;
 }
@@ -287,4 +299,5 @@ ul.user-feature {
 ul.user-feature > li {
 
     float: right;
+
 }

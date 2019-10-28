@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,6 +33,10 @@ public class PostServiceImpl implements PostService {
         return postRepository.findById(id).get();
     }
 
+    @Override
+    public List<Post> findTop5ByStatusTrueAndCategoryOrderByCreateAtDesc(Integer catId) {
+        return postRepository.findTop5ByStatusTrueAndCategory_IdOrderByCreateAtDesc(catId);
+  
     @Override
     public Post save(Post post) {
         return postRepository.save(post);
