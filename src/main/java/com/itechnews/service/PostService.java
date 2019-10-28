@@ -11,4 +11,5 @@ public interface PostService {
     Post findOneBySlug(String slug);
     Post findOneById(Integer id);
     List<Post> findTop5ByStatusTrueAndCategoryOrderByCreateAtDesc(Integer catId);
+    Post save(Post post);
 }

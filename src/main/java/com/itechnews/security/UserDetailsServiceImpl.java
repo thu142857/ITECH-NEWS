@@ -38,7 +38,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.getRole().getName());
         authorities.add(authority);
 
-        UserDetailsImpl userDetails = new UserDetailsImpl(user.getId(), user.getUsername(), user.getPassword(),
+        UserDetailsImpl userDetails = new UserDetailsImpl(user.getId(), user.getUsername(),
+                user.getDisplayedName(),
+                user.getPassword(),
                 user.getImage(),
                 user.getStatus(), user.getRole(), authorities);
         BeanUtils.copyProperties(user, userDetails);

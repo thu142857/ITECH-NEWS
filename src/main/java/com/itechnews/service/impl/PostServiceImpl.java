@@ -36,5 +36,9 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> findTop5ByStatusTrueAndCategoryOrderByCreateAtDesc(Integer catId) {
         return postRepository.findTop5ByStatusTrueAndCategory_IdOrderByCreateAtDesc(catId);
+  
+    @Override
+    public Post save(Post post) {
+        return postRepository.save(post);
     }
 }

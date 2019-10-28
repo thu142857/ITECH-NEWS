@@ -6,84 +6,72 @@
 
     <th:block layout:fragment="page-header">
         <!-- Page Header -->
-        <div id="post-header" class="page-header">
-            <div class="background-img" style="background-image: url('/assets/public/img/post-page.jpg');"></div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-10">
-                        <div class="post-meta">
-                            <a class="post-category cat-2" href="tag.html" th:text="${post.category.name}"></a>
-                            <span class="post-date" th:text="${#dates.format(post.createAt, 'dd/MM/yyyy')}"></span>
-                        </div>
-                        <h1 th:text="${post.title}"></h1>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!--<div id="post-header" class="page-header">-->
+            <!--<div class="background-img"-->
+                 <!--style="background-image: url('/assets/public/img/logo.png'); background-size: inherit;background-repeat: no-repeat">-->
+            <!--</div>-->
+        <!--</div>-->
         <!-- /Page Header -->
     </th:block>
 
-    <th:block layout:fragment="content">
+    <th:block layout:fragment="main-content">
         <!-- Post content -->
         <div class="col-md-8">
             <div class="section-row sticky-container">
-                <div class="main-post" th:utext="${post.content}">
-                </div>
-                <div class="post-shares sticky-shares">
-                    <a href="#" class="share-facebook"><i class="fa fa-facebook"></i></a>
-                    <a href="#" class="share-twitter"><i class="fa fa-twitter"></i></a>
-                    <a href="#" class="share-google-plus"><i class="fa fa-google-plus"></i></a>
-                    <a href="#" class="share-pinterest"><i class="fa fa-pinterest"></i></a>
-                    <a href="#" class="share-linkedin"><i class="fa fa-linkedin"></i></a>
-                    <a href="#"><i class="fa fa-envelope"></i></a>
-                </div>
-            </div>
-
-            <!-- ad -->
-            <div class="section-row text-center">
-                <a href="#" style="display: inline-block;margin: auto;">
-                    <img class="img-responsive" th:src="@{/assets/public/img/ad-2.jpg}" alt="">
-                </a>
-            </div>
-            <!-- ad -->
-
-            <!-- author -->
-            <div class="section-row">
-                <div class="post-author">
-                    <div class="media">
-                        <div class="media-left">
-                            <img class="media-object" style="height: 120px" th:src="@{'/upload/'+${post.postedUser.image}}" alt="">
-                        </div>
-                        <div class="media-body">
-                            <div class="media-heading">
-                                <h3 th:text="${post.postedUser.username}"></h3>
+                <div class="main-post" >
+                    <div class="row header">
+                        <div class="col-md-10">
+                            <h1 class="post-title" th:text="${post.title}"></h1>
+                            <div class="tag-group">
+                                <a th:each="tag, iter : ${post.tags}" class="tag" th:href="@{'/tag/'+${tag.slug}}">
+                                    <th:block th:text="${tag.name}" />
+                                    <span class="total" th:text="${tag.posts.size()}"></span>
+                                </a>
                             </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <ul class="author-social">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                            </ul>
+                            <div class="post-meta">
+                                <!--<a class="post-category cat-2" href="tag.html" th:text="${#strings.toLowerCase(post.category.name)}"></a><br/>-->
+                                <a th:href="@{'/user/'+${post.postedUser.username}}" class="profile-image">
+                                    <img class="media-object" th:src="@{${#strings.containsIgnoreCase(post.postedUser.image, 'http')==false?'/upload/':''}+${post.postedUser.image}}" alt="">
+                                </a>
+                                <span class="post-author" th:text="${post.postedUser.username}"></span>
+                                <span>viết ngày <th:block th:text="${#dates.format(post.createAt, 'dd/MM/yyyy')}" /></span>
+                            </div>
                         </div>
                     </div>
+                    <th:block th:utext="${post.content}"/>
+                </div>
+                <div class="post-shares sticky-shares">
+
+                    <a th:if="${liked == true}" title="Đã thích" href="#" id="like-post" th:attr="data-post-id=${post.id}"
+                       class="share-facebook liked"><i class="fa fa-thumbs-up"></i>
+                    </a>
+                    <a th:if="${liked == false}" title="Thích" href="#" id="like-post" th:attr="data-post-id=${post.id}"
+                       class="share-facebook"><i class="fa fa-thumbs-up"></i>
+                    </a>
+                    <a href="#section-comments" class="share-twitter"><i class="fa fa-comments"></i></a>
                 </div>
             </div>
-            <!-- /author -->
 
             <!-- comments -->
-            <div class="section-row">
+            <div class="section-row" id="section-comments">
                 <div class="section-title">
                     <h2><span class="total-of-comments" th:text="${post.comments.size()}"></span> bình luận</h2>
                 </div>
 
                 <div class="post-comments" th:attr="data-post-id=${post.id}">
+                    <th:block sec:authorize="isAuthenticated()">
+                        <input type="hidden" id="isAuthenticated" th:value="1">
+                    </th:block>
+                    <th:block sec:authorize="!isAuthenticated()">
+                        <input type="hidden" id="isAuthenticated" th:value="0">
+                    </th:block>
 
                     <!--comment box textarea-->
-                    <th:block sec:authorize="isAuthenticated()">
+                    <th:block sec:authorize="isAuthenticated()"
+                              th:with="loggedUser=${T(com.itechnews.security.UserDetailsUtil).getUserDetails()}">
                         <div class="media">
                             <div class="media-left">
-                                <img class="media-object" th:src="@{'/upload/'+${T(com.itechnews.security.UserDetailsUtil).getUserDetails().getImage()}}" alt="">
+                                <img class="media-object" th:src="@{${#strings.containsIgnoreCase(loggedUser.image, 'http')==false?'/upload/':''}+${loggedUser.image}}" alt="">
                             </div>
                             <div class="media-body">
                                 <div class="form-group">
@@ -98,11 +86,11 @@
                     <th:block sec:authorize="isAuthenticated()" th:with="loggedUser=${T(com.itechnews.security.UserDetailsUtil).getUserDetails()}">
                     <div class="media comment-reply-clone" style="display: none">
                         <div class="media-left">
-                            <img class="media-object" th:src="@{'/upload/'+${loggedUser.getImage()}}" alt="">
+                            <img class="media-object" th:src="@{${#strings.containsIgnoreCase(loggedUser.image, 'http')==false?'/upload/':''}+${loggedUser.image}}" alt="">
                         </div>
                         <div class="media-body">
                             <div class="media-heading">
-                                <h4 th:text="${loggedUser.getUsername()}"></h4>
+                                <h4 th:text="${loggedUser.displayedName}"></h4>
                                 <span class="time">19:00 20/10/1998</span>
                                 <a href="#" class="reply">Trả lời</a>
 
@@ -126,11 +114,11 @@
                     <th:block sec:authorize="isAuthenticated()">
                         <div class="media comment-container-parent comment-container-clone" style="display: none" th:with="loggedUser=${T(com.itechnews.security.UserDetailsUtil).getUserDetails()}">
                             <div class="media-left">
-                                <img class="media-object" th:src="@{'/upload/'+${loggedUser.getImage()}}" alt="">
+                                <img class="media-object" th:src="@{${#strings.containsIgnoreCase(loggedUser.image, 'http')==false?'/upload/':''}+${loggedUser.image}}" alt="">
                             </div>
                             <div class="media-body">
                                 <div class="media-heading">
-                                    <h4 th:text="${loggedUser.getUsername()}"></h4>
+                                    <h4 th:text="${loggedUser.displayedName}"></h4>
                                     <span class="time">12:00 20/10/1998</span>
                                     <a href="#" class="reply">Trả lời</a>
 
@@ -149,7 +137,7 @@
 
                                 <div class="media comment-container-reply" style="display: none">
                                     <div class="media-left">
-                                        <img class="media-object" th:src="@{'/upload/'+${loggedUser.getImage()}}" alt="">
+                                        <img class="media-object" th:src="@{${#strings.containsIgnoreCase(loggedUser.image, 'http')==false?'/upload/':''}+${loggedUser.image}}" alt="">
                                     </div>
                                     <div class="media-body">
                                         <div class="form-group">
@@ -165,11 +153,11 @@
                     <!-- parent comment -->
                     <div class="media comment-container-parent" th:each="parentComment, iter : ${parentComments}">
                         <div class="media-left">
-                            <img class="media-object" th:src="@{'/upload/'+${parentComment.user.image}}" alt="">
+                            <img class="media-object" th:src="@{${#strings.containsIgnoreCase(parentComment.user.image, 'http')==false?'/upload/':''}+${parentComment.user.image}}" alt="">
                         </div>
                         <div class="media-body">
                             <div class="media-heading">
-                                <h4 th:text="${parentComment.user.username}"></h4>
+                                <h4 th:text="${parentComment.user.displayedName}"></h4>
                                 <span class="time" th:text="${#dates.format(parentComment.createAt, 'hh:mm dd/MM/yyyy')}"></span>
                                 <a href="#" class="reply">Trả lời</a>
 
@@ -193,11 +181,11 @@
                             <!-- child comment -->
                             <div class="media" th:each="childComment, iter : ${parentComment.children}">
                                 <div class="media-left">
-                                    <img class="media-object" th:src="@{'/upload/'+${childComment.user.image}}" alt="">
+                                    <img class="media-object" th:src="@{${#strings.containsIgnoreCase(childComment.user.image, 'http')==false?'/upload/':''}+${childComment.user.image}}" alt="">
                                 </div>
                                 <div class="media-body">
                                     <div class="media-heading">
-                                        <h4 th:text="${childComment.user.username}"></h4>
+                                        <h4 th:text="${childComment.user.displayedName}"></h4>
                                         <span class="time" th:text="${#dates.format(childComment.createAt, 'hh:mm dd/MM/yyyy')}"></span>
                                         <a href="#" class="reply">Trả lời</a>
 
@@ -225,7 +213,7 @@
                             <th:block sec:authorize="isAuthenticated()">
                                 <div class="media comment-container-reply" style="display: none" th:with="loggedUser=${T(com.itechnews.security.UserDetailsUtil).getUserDetails()}">
                                     <div class="media-left">
-                                        <img class="media-object" th:src="@{'/upload/'+${loggedUser.getImage()}}" alt="">
+                                        <img class="media-object" th:src="@{${#strings.containsIgnoreCase(loggedUser.image, 'http')==false?'/upload/':''}+${loggedUser.image}}" alt="">
                                     </div>
                                     <div class="media-body">
                                         <div class="form-group">
@@ -245,6 +233,42 @@
 
         </div>
         <!-- /Post content -->
+
+        <!--sidebar-->
+        <div class="col-md-4">
+            <div class="aside">
+
+                <div class="post-info">
+                    <div class="likes post-info-col">
+                        <h3 th:text="${post.likedUsers.size()}"></h3>
+                        <p>lượt thích</p>
+                    </div>
+                    <div class="comments post-info-col">
+                        <h3 th:text="${post.totalViews}"></h3>
+                        <p>lượt xem</p>
+                    </div>
+                    <div class="views post-info-col">
+                        <h3 th:text="${post.comments.size()}"></h3>
+                        <p>bình luận</p>
+                    </div>
+                </div>
+
+                <div class="post-author-info">
+                    <a class="img" th:href="@{'/user/'+${post.postedUser.username}}">
+                        <img class="media-object" th:src="@{${#strings.containsIgnoreCase(post.postedUser.image, 'http')==false?'/upload/':''}+${post.postedUser.image}}" alt="">
+                    </a>
+                    <div class="body">
+                        <h3 class="post-title">
+                            <a th:href="@{'/user/'+${post.postedUser.username}}" th:text="${post.postedUser.username}"></a>
+                        </h3>
+                        <div><a th:href="@{'/user/'+${post.postedUser.username}}" class="total">100</a> bài viết</div>
+                        <div><a th:href="@{'/user/'+${post.postedUser.username}}" class="total" th:text="${post.postedUser.follower.size()}"></a> người theo dõi</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--/sidebar-->
     </th:block>
 
 </th:block>

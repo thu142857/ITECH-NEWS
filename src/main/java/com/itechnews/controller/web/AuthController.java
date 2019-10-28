@@ -9,7 +9,6 @@ import com.itechnews.repository.UserRepository;
 import com.itechnews.service.PasswordResetTokenService;
 import com.itechnews.service.UserService;
 import com.itechnews.service.VerificationTokenService;
-import com.sun.tracing.dtrace.ModuleAttributes;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.slf4j.Logger;
@@ -23,10 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.internet.MimeMessage;
@@ -63,7 +59,6 @@ public class AuthController {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
 
@@ -144,8 +139,8 @@ public class AuthController {
             if (user != null) { // Token found in DB
                 Calendar cal = Calendar.getInstance();
                 if ((cal.getTime().getTime()
-                    - passwordResetToken.getExpiryDate().getTime())
-                    <= 0) {
+                        - passwordResetToken.getExpiryDate().getTime())
+                        <= 0) {
                     modelMap.addAttribute("errorMessage", "Token is expired");
                 } else {
                     modelMap.addAttribute("resetToken", token);
@@ -253,7 +248,7 @@ public class AuthController {
                 verificationTokenService.deleteByUserId(user.getId());
                 ra.addFlashAttribute("successMessage",
                         "You have successfully confirm your password. " +
-                        "You may now login.");
+                                "You may now login.");
                 return "redirect:login";
 
             } else {
@@ -263,4 +258,52 @@ public class AuthController {
             }
         }
     }
+
+    @RequestMapping(value = {"/signin"}, method = RequestMethod.GET)
+    public String signInPage() {
+        return "redirect:/login";
+    }
+
+//    @Autowired
+//    private ConnectionFactoryLocator connectionFactoryLocator;
+//    @Autowired
+//    private UsersConnectionRepository connectionRepository;@GetMapping("signup")
+//    @ResponseBody
+//    public String facbook(WebRequest request, Model model) {
+//        ProviderSignInUtils providerSignInUtils //
+//                = new ProviderSignInUtils(connectionFactoryLocator, connectionRepository);
+//        Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
+//        return "";
+//    }
+
+//    @Autowired
+//    private RestFB restFb;
+//    @RequestMapping("/login-facebook")
+//    public String loginFacebook(HttpServletRequest request) throws IOException {
+//        String code = request.getParameter("code");
+//
+//        if (code == null || code.isEmpty()) {
+//            return "redirect:/login?facebook=error";
+//        }
+//        String accessToken = restFb.getToken(code);
+//
+//        FacebookClient facebookClient = new DefaultFacebookClient(accessToken, env.getProperty("facebook.app.secret"),
+//                Version.VERSION_2_5);
+//        JsonObject members = facebookClient.fetchObject("me", JsonObject.class,
+//                Parameter.with("fields", "name,email,gender,locale,timezone"));
+//
+//        JsonObject u = facebookClient.fetchObjects(Arrays.asList("me", "123456789"), JsonObject.class,
+//                Parameter.with("fields", "name,email,picture"));
+//        String result =  u.toString();
+//
+//        JsonObject picture = facebookClient.fetchObject("me/picture", JsonObject.class, Parameter.with("redirect","false"));
+    //com.restfb.types.User user = restFb.getUserInfo(accessToken);
+    // UserDetails userDetail = restFb.buildUser(user);
+
+//        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null,
+//                userDetail.getAuthorities());
+//        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        return "redirect:/";
+//    }
 }
