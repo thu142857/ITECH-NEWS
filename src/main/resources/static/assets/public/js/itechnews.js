@@ -191,7 +191,7 @@ $(document).ready(function () {
                     commentId: commentId
                 },
                 success: function(response){
-                    $box.replaceWith(`<p>${content}</p>`);
+                    $box.replaceWith(`<p>${response.data.content}</p>`);
                 },
                 error: function (){
                     console.log("ajax error");
