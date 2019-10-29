@@ -98,9 +98,9 @@
                                 <div class="btn-group">
                                     <i class="fa fa-ellipsis-h dropdown-toggle" data-toggle="dropdown"></i>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">Sửa</a></li>
+                                        <li><a href="" class="comment-edit">Sửa</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="#">Xóa</a></li>
+                                        <li><a href="" class="comment-delete">Xóa</a></li>
                                     </ul>
                                 </div>
 
@@ -126,9 +126,9 @@
                                     <div class="btn-group">
                                         <i class="fa fa-ellipsis-h dropdown-toggle" data-toggle="dropdown"></i>
                                         <ul class="dropdown-menu">
-                                            <li><a href="#">Sửa</a></li>
+                                            <li><a href="" class="comment-edit">Sửa</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="#">Xóa</a></li>
+                                            <li><a href="" class="comment-delete">Xóa</a></li>
                                         </ul>
                                     </div>
 
@@ -167,10 +167,10 @@
                                 <div th:if="${parentComment.user.id == loggedUser.id}"
                                      class="btn-group">
                                     <i class="fa fa-ellipsis-h dropdown-toggle" data-toggle="dropdown"></i>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Sửa</a></li>
+                                    <ul class="dropdown-menu" th:attr="data-comment-id=${parentComment.id}">
+                                        <li><a href="" class="comment-edit">Sửa</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="#">Xóa</a></li>
+                                        <li><a href="" class="comment-delete">Xóa</a></li>
                                     </ul>
                                 </div>
                                 </th:block>
@@ -195,10 +195,10 @@
                                             <div th:if="${childComment.user.id == loggedUser.id}"
                                                  class="btn-group">
                                                 <i class="fa fa-ellipsis-h dropdown-toggle" data-toggle="dropdown"></i>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#">Sửa</a></li>
+                                                <ul class="dropdown-menu" th:attr="data-comment-id=${childComment.id}">
+                                                    <li><a href="" class="comment-edit">Sửa</a></li>
                                                     <li role="separator" class="divider"></li>
-                                                    <li><a href="#">Xóa</a></li>
+                                                    <li><a href="" class="comment-delete">Xóa</a></li>
                                                 </ul>
                                             </div>
                                         </th:block>

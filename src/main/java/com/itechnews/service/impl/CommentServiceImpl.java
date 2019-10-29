@@ -28,4 +28,14 @@ public class CommentServiceImpl implements CommentService {
     public Comment save(Comment comment) {
         return commentRepository.save(comment);
     }
+
+    @Override
+    public void deleteByParentId(Integer parentId) {
+        commentRepository.deleteByParentId(parentId);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        commentRepository.deleteById(id);
+    }
 }

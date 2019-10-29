@@ -9,4 +9,6 @@ public interface CommentService {
     List<Comment> findByParentIsNullAndPostId(Integer postId);
     Comment findOneById(Integer id);
     Comment save(Comment comment);
+    void deleteByParentId(Integer parentId);
+    void deleteById(Integer id);
 }

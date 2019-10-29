@@ -40,7 +40,7 @@ public class TestController {
     @ResponseBody
     public String test() {
 
-        Page<Tag> page = tagRepository.findAllByNameContains("java", PageRequest.of(0, 100));
+        commentRepository.deleteById(105);
         return "";
     }
 

@@ -18,7 +18,7 @@ $(document).ready(function () {
 
     $('body').on('keypress', '.comment-box', function(e) {
         let $box = $(this); //textarea
-        if(e.which === 13) {
+        if(e.which === 13 && !$box.hasClass('comment-box-edit')) {
             e.preventDefault();
             let $totalOfComments = $('.total-of-comments');
             let postId = $('.post-comments').data('post-id');
@@ -50,6 +50,7 @@ $(document).ready(function () {
                         $newCommentContainer
                             .find('textarea')
                             .attr('data-parent-comment-id', response.data.id);
+                        $newCommentContainer.find('ul.dropdown-menu').attr('data-comment-id', response.data.id);
 
                         $commentContainerClone.after($newCommentContainer);
                         $box.val('');
@@ -65,6 +66,8 @@ $(document).ready(function () {
                         $newReplyContainer.removeClass('comment-reply-clone');
                         $newReplyContainer.find('p').html(response.data.content);
                         $newReplyContainer.find('span.time').html(response.data.created_at);
+                        $newReplyContainer.find('ul.dropdown-menu').attr('data-comment-id', response.data.id);
+
                         $box.closest('.comment-container-parent')
                             .find('.comment-container-reply')
                             .before($newReplyContainer)
@@ -135,5 +138,65 @@ $(document).ready(function () {
                 console.log("ajax error");
             }
         });
+    });
+
+    $('body').on('click', '.comment-delete', function(e) {
+        e.preventDefault();
+        let $btnDelete = $(this);
+        let commentId = $btnDelete.parent().parent().data('comment-id');
+
+        $.ajax({
+            url: '/api/comment',
+            type: 'DELETE',
+            cache: false,
+            data: {
+                commentId: commentId
+            },
+            success: function(response){
+                console.log(response);
+                if (response.message === 'OK') {
+                    $btnDelete.closest('.media').remove();
+                }
+            },
+            error: function (){
+                console.log("ajax error");
+            }
+        });
+    });
+
+    $('body').on('click', '.comment-edit', function(e) {
+        e.preventDefault();
+        let $btnEdit = $(this);
+        let commentId = $btnEdit.parent().parent().data('comment-id');
+        let $comment = $btnEdit.closest('.media').find('>.media-body>p');
+        let commentContent = $comment.text();
+        console.log(commentContent);
+        let x = `<textarea class="input comment-box comment-box-edit" data-comment-id="${commentId}" name="message" placeholder="Bình luận">${commentContent}</textarea>`;
+        $comment.replaceWith(x);
+    });
+
+    $('body').on('keypress', '.comment-box-edit', function(e) {
+        let $box = $(this);
+        if(e.which === 13) {
+            e.preventDefault();
+            let commentId = $box.data('comment-id');
+            let content = $box.val();
+
+            $.ajax({
+                url: '/api/comment',
+                type: 'PUT',
+                cache: false,
+                data: {
+                    content: content,
+                    commentId: commentId
+                },
+                success: function(response){
+                    $box.replaceWith(`<p>${content}</p>`);
+                },
+                error: function (){
+                    console.log("ajax error");
+                }
+            });
+        }
     });
 });
