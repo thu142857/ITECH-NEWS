@@ -129,6 +129,9 @@ public class PublicController {
         }
         List<Comment> parentComments = commentService.findByParentIsNullAndPostId(post.getId());
 
+        int totalOfPost = postService.countByPostedUser(post.getPostedUser());
+
+        modelMap.addAttribute("totalOfPost", totalOfPost);
         modelMap.addAttribute("liked", liked);
         modelMap.addAttribute("post", post);
         modelMap.addAttribute("parentComments", parentComments);

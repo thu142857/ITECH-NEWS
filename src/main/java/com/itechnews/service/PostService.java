@@ -2,6 +2,7 @@ package com.itechnews.service;
 
 import com.itechnews.entity.Post;
 import com.itechnews.entity.Tag;
+import com.itechnews.entity.User;
 import org.springframework.data.domain.Page;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -12,4 +13,5 @@ public interface PostService {
     Post findOneById(Integer id);
     List<Post> findTop5ByStatusTrueAndCategoryOrderByCreateAtDesc(Integer catId);
     Post save(Post post);
+    Integer countByPostedUser(User author);
 }

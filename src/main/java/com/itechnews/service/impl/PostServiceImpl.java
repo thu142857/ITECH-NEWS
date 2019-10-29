@@ -2,6 +2,7 @@ package com.itechnews.service.impl;
 
 import com.itechnews.entity.Post;
 import com.itechnews.entity.Tag;
+import com.itechnews.entity.User;
 import com.itechnews.repository.PostRepository;
 import com.itechnews.repository.TagRepository;
 import com.itechnews.service.PostService;
@@ -40,5 +41,10 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post save(Post post) {
         return postRepository.save(post);
+    }
+
+    @Override
+    public Integer countByPostedUser(User author) {
+        return postRepository.countByPostedUser(author);
     }
 }

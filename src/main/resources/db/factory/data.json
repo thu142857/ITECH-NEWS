@@ -46,7 +46,7 @@
       "status": true,
       "image": "post-1.jpg",
       "tags": [
-        "react native"
+        "react native", "mobile", "react"
       ]
     },
     {
@@ -57,7 +57,7 @@
       "status": false,
       "image": "post-2.jpg",
       "tags": [
-        "oop", "Interface"
+        "oop", "interface", "design pattern"
       ]
     },
     {
@@ -68,7 +68,7 @@
       "status": true,
       "image": "post-3.jpg",
       "tags": [
-        "Mindset"
+        "Mindset", "thinking"
       ]
     },
     {
@@ -79,7 +79,7 @@
       "status": true,
       "image": "post-3.jpg",
       "tags": [
-        "UUID", "Java"
+        "UUID", "Java", "hash"
       ]
     },
     {
@@ -90,7 +90,7 @@
       "status": true,
       "image": "post-3.jpg",
       "tags": [
-        "UUID", "Java"
+        "nodejs", "heroku", "server", "deploy"
       ]
     }
 

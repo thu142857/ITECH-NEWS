@@ -1,6 +1,7 @@
 package com.itechnews.repository;
 
 import com.itechnews.entity.Post;
+import com.itechnews.entity.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -12,4 +13,5 @@ public interface PostRepository
     List<Post> findTop5ByStatusTrueOrderByTotalViewsDesc();
     List<Post> findTop5ByStatusTrueAndCategory_IdOrderByCreateAtDesc(Integer catId);
     Post findOneBySlug(String slug);
+    Integer countByPostedUser(User author);
 }
