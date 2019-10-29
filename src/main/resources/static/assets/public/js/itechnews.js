@@ -57,6 +57,7 @@ $(document).ready(function () {
 
                         let total = parseInt($totalOfComments.text()) + 1;
                         $totalOfComments.text(total);
+                        $('div.views h3').text(total);
                     } else {
                         let $commentReplyClone = $('.comment-reply-clone');
                         let $newReplyContainer = $commentReplyClone.clone();
@@ -75,6 +76,7 @@ $(document).ready(function () {
 
                         let total = parseInt($totalOfComments.text()) + 1;
                         $totalOfComments.text(total);
+                        $('div.views h3').text(total);
                     }
                 },
                 error: function (){
