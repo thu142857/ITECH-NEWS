@@ -1,152 +1,178 @@
 <th:block
         xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
         layout:decorate="~{../layouts/public/template}">
 
-    <!--<th:block layout:fragment="page-header">-->
-        <!--&lt;!&ndash; Page Header &ndash;&gt;-->
-        <!--<div class="page-header">-->
-            <!--<div class="container">-->
-                <!--<div class="row">-->
-                    <!--<div class="col-md-10">-->
-                        <!--<ul class="page-header-breadcrumb">-->
-                            <!--<li><a href="index.html">Home</a></li>-->
-                            <!--<li>Regular page</li>-->
-                        <!--</ul>-->
-                        <!--<h1>Regular page</h1>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; /Page Header &ndash;&gt;-->
-    <!--</th:block>-->
-    <th:block layout:fragment="pageStyleSheet">
 
-    </th:block>
-    <th:block layout:fragment="content">
-        <div class="col-md-8">
-            <div class="row">
-                <div class ="col-md-4">
-                    <div class="profile-sidebar">
-                        <!-- SIDEBAR USERPIC -->
-                        <div class="profile-userpic">
-                            <img src="/assets/public/img/widget-1.jpg" class="img-responsive" alt="">
-                        </div>
-                        <!-- END SIDEBAR USERPIC -->
-                        <!-- SIDEBAR USER TITLE -->
-                        <div class="profile-usertitle">
-                            <div class="profile-usertitle-name">
-                                Thinh TNB
-                            </div>
-                            <div class="profile-usertitle-job">
-                                Thành viên cổ vũ
-                            </div>
-                        </div>
-                        <!-- END SIDEBAR USER TITLE -->
-                        <!-- SIDEBAR BUTTONS -->
-                        <div class="profile-userbuttons">
-                            <button type="button" class="btn btn-success btn-sm">Follow</button>
-                            <button type="button" class="btn btn-danger btn-sm">Message</button>
-                        </div>
-                        <!-- END SIDEBAR BUTTONS -->
-                        <!-- SIDEBAR MENU -->
-                        <div class="profile-usermenu">
-                            <ul class="nav">
-                                <li class="active">
-                                    <a href="#">
-                                        <i class="glyphicon glyphicon-home"></i>
-                                        Account </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="glyphicon glyphicon-user"></i>
-                                        Change Password </a>
-                                </li>
-                                <li>
-                                    <a href="#" target="_blank">
-                                        <i class="glyphicon glyphicon-ok"></i>
-                                        Post </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="glyphicon glyphicon-flag"></i>
-                                        Follower </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="glyphicon glyphicon-flag"></i>
-                                        Following </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- END MENU -->
-                    </div>
+    <th:block layout:fragment="main-content">
+        <!-- Post content -->
+        <div class="col-md-4 profile">
+            <div class="profile-image">
+                <img th:src="@{${#strings.containsIgnoreCase(user.image, 'http')==false?'/upload/':''}+${user.image}}" alt="">
+            </div>
+            <div class="profile-username">
+                <strong th:text="${user.username}"></strong>
+            </div>
+            <div class="profile-info">
+                <div class="profile-info-like mytooltip">
+                    <h5>Thích</h5>
+                    <p th:text="${totalOfLike}"></p>
+                    <span class="tooltiptext tooltiptext-bottom">Tổng số lượt like trong tất cả bài viết</span>
                 </div>
-                <div class="col-md-8">
-                    <div class="row">
-                        <div class="profile-head">
-                            <div class="col-md-6">
-                                <div class="profile-head">
-                                    <h5>
-                                        Kshiti Ghelani
-                                    </h5>
-                                    <h6>
-                                        Web Developer and Designer
-                                    </h6>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit"/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>User Id</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>Kshiti123</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Name</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>Kshiti Ghelani</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Email</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>kshitighelani@gmail.com</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Phone</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>123 456 7890</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Profession</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>Web Developer and Designer</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="profile-info-comment mytooltip">
+                    <h5>Bình luân</h5>
+                    <p th:text="${totalOfComments}"></p>
+                    <span class="tooltiptext tooltiptext-bottom">Tổng số lượt bình luận trong tất cả bài viết</span>
+                </div>
+                <div class="profile-info-view mytooltip">
+                    <h5>Lượt xem</h5>
+                    <p th:text="${totalOfViews}"></p>
+                    <span class="tooltiptext tooltiptext-bottom">Tổng số lượt xem trong tất cả bài viết</span>
                 </div>
             </div>
         </div>
+
+        <div class="col-md-4 profile-content">
+            <a href="" class="btn-follow"><i class="fa fa-rss"></i>Theo dõi</a>
+            <div class="profile-content-follower">
+                <p><th:block th:text="${user.follower.size()}" /> người theo dõi <th:block th:text="${user.username}" /></p>
+                <a class="mytooltip" th:href="@{'/user/'+${follower.username}}" th:each="follower, iter : ${user.follower}">
+                    <img th:src="@{${#strings.containsIgnoreCase(follower.image, 'http')==false?'/upload/':''}+${follower.image}}" alt="">
+                    <span class="tooltiptext" th:text="${follower.username}"></span>
+                </a>
+            </div>
+            <div class="profile-content-following">
+                <p><th:block th:text="${user.following.size()}" /> người được <th:block th:text="${user.username}" /> theo dõi</p>
+                <a class="mytooltip" th:href="@{'/user/'+${following.username}}" th:each="following, iter : ${user.following}">
+                    <img th:src="@{${#strings.containsIgnoreCase(following.image, 'http')==false?'/upload/':''}+${following.image}}" alt="">
+                    <span class="tooltiptext" th:text="${following.username}"></span>
+                </a>
+            </div>
+            <div class="profile-content-tag">
+                <p>Chủ đề</p>
+                <a th:each="tag, iter : ${tags}" class="tag" th:href="@{'/tag/'+${tag.slug}}" th:text="${tag.name}"></a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="chart">
+                <canvas id="myChart"></canvas>
+                <input type="hidden" name="labels" th:value="${labels}">
+                <input type="hidden" name="data" th:value="${data}">
+                <input type="hidden" name="totalOfPosts" th:value="${posts.size()}">
+            </div>
+        </div>
+        <div class="col-md-12 divider"><i class="fa fa-chevron-down"></i></div>P
+        <div class="col-md-12 post-list-container">
+            <div class="post-list">
+                <div class="post-item" th:each="post, iter : ${posts}">
+                    <div class="left">
+                        <a th:href="@{'/user/'+${user.username}}">
+                            <img th:src="@{${#strings.containsIgnoreCase(user.image, 'http')==false?'/upload/':''}+${user.image}}" alt="">
+                        </a>
+                    </div>
+                    <div class="right">
+                        <h3><a th:href="@{'/'+${post.slug}}" th:text="${post.title}"></a></h3>
+                        <div class="tags">
+                            <a class="tag" th:href="@{'/tag/'+${tag.slug}}"
+                               th:each="tag, iter : ${post.tags}" th:text="${tag.name}"></a>
+                        </div>
+                        <p th:utext="${T(com.itechnews.util.StringUtil).getThreeDotsTextFromHtml(post.content, 160)}"></p>
+                        <div class="author"><span th:text="${user.username}"></span> viết vào
+                            <th:block th:text="${#dates.format(post.createAt, 'dd/MM/yyyy')}" /></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </th:block>
+    <th:block layout:fragment="pageScript">
+        <script th:src="@{/assets/public/js/Chart.js}"></script>
+        <script>
+            let labels = JSON.parse($('input[name=labels]').val());
+            let data = JSON.parse($('input[name=data]').val());
+            let totalOfPost = $('input[name=totalOfPosts]').val();
+
+            function getRandomColor() {
+                let letters = '0123456789ABCDEF'.split('');
+                let color = '#';
+                for (let i = 0; i < 6; i++ ) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+            let colors = [];
+            for (let i = 0; i < data.length; i++) {
+                colors.push(getRandomColor());
+            }
+
+            Chart.pluginService.register({
+                beforeDraw: function (chart) {
+                    if (chart.config.options.elements.center) {
+                        //Get ctx from string
+                        let ctx = chart.chart.ctx;
+
+                        //Get options from the center object in options
+                        let centerConfig = chart.config.options.elements.center;
+                        let fontStyle = centerConfig.fontStyle || 'Arial';
+                        let txt = centerConfig.text;
+                        let color = centerConfig.color || '#000';
+                        let sidePadding = centerConfig.sidePadding || 20;
+                        let sidePaddingCalculated = (sidePadding/100) * (chart.innerRadius * 2)
+                        //Start with a base font of 30px
+                        ctx.font = "30px " + fontStyle;
+
+                        //Get the width of the string and also the width of the element minus 10 to give it 5px side padding
+                        let stringWidth = ctx.measureText(txt).width;
+                        let elementWidth = (chart.innerRadius * 2) - sidePaddingCalculated;
+
+                        // Find out how much the font can grow in width.
+                        let widthRatio = elementWidth / stringWidth;
+                        let newFontSize = Math.floor(30 * widthRatio);
+                        let elementHeight = (chart.innerRadius * 2);
+
+                        // Pick a new font size so it will not be larger than the height of label.
+                        let fontSizeToUse = Math.min(newFontSize, elementHeight);
+
+                        //Set font settings to draw it correctly.
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        let centerX = ((chart.chartArea.left + chart.chartArea.right) / 2);
+                        let centerY = ((chart.chartArea.top + chart.chartArea.bottom) / 2);
+                        ctx.font = fontSizeToUse+"px " + fontStyle;
+                        ctx.fillStyle = color;
+
+                        //Draw text in center
+                        ctx.fillText(txt, centerX, centerY);
+                    }
+                }
+            });
+            let config = {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: colors,
+                        // hoverBackgroundColor: []
+                    }]
+                },
+                options: {
+                    elements: {
+                        center: {
+                            text: `${totalOfPost} bài viết`,
+                            color: 'rgba(0, 0, 0, 0.68)', // Default is #000000
+                            fontStyle: 'Nunito', // Default is Arial
+                            sidePadding: 30, // Defualt is 20 (as a percentage)
+                        }
+                    }
+                }
+            };
+            let ctx = document.getElementById("myChart").getContext("2d");
+            let myChart = new Chart(ctx, config);
+        </script>
+    </th:block>
+
 
 </th:block>

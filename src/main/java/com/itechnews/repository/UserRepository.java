@@ -27,6 +27,7 @@ public interface UserRepository extends CrudRepository<User, Integer>,
     User findOneByUsernameAndStatus(String username, Boolean status);
 
     List<User> findByIdLessThan(Integer id);
+    List<User> findByIdGreaterThan(Integer id);
 
     User findOneByEmail(String email);
     Integer countAllByEmailEquals(String email);

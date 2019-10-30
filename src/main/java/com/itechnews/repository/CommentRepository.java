@@ -1,6 +1,7 @@
 package com.itechnews.repository;
 
 import com.itechnews.entity.Comment;
+import com.itechnews.entity.User;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -22,5 +23,7 @@ public interface CommentRepository
     @Transactional
     @Query(value = "delete from comments where id = :id", nativeQuery = true)
     void deleteById(@Param("id") Integer id);
+
+    Integer countByPost_PostedUser(User user);
 
 }
