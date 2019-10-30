@@ -39,6 +39,7 @@ public class PostsTableSeeder implements Seeder {
         List<Post> posts = new ArrayList<>();
         JsonNode nodePosts = JsonFactory.getJsonNode("posts");
         List<User> authors = userRepository.findByIdLessThan(6);
+        List<User> likedUsers = userRepository.findByIdGreaterThan(10);
         Random random = new Random();
         if (nodePosts != null) {
             nodePosts.forEach((item) -> {
@@ -63,7 +64,7 @@ public class PostsTableSeeder implements Seeder {
                         item.get("content").asText(),category,
                         SlugUtil.makeSlug(item.get("title").asText()), item.get("total_views").asInt(),
                         item.get("status").asBoolean(),item.get("image").asText(), getDate(random.nextInt(20) + 2),
-                        author, null, null);
+                        author, likedUsers, null);
                 posts.add(post);
             });
         }

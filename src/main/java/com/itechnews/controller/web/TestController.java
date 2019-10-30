@@ -40,7 +40,9 @@ public class TestController {
     @ResponseBody
     public String test() {
 
-        Page<Tag> page = tagRepository.findAllByNameContains("java", PageRequest.of(0, 100));
+
+
+        //commentRepository.deleteById(105);
         return "";
     }
 
@@ -48,7 +50,7 @@ public class TestController {
     @ResponseBody
     public String test3() {
         //Post post = postRepository.findOnePost();
-        List<Comment> comments = commentRepository.findByParentIsNullAndPost_IdOrderByCreateAtDesc(1);
+        //List<Comment> comments = commentRepository.findByParentIsNullAndPost_IdOrderByCreateAtDesc(1);
         //commentRepository.deleteAll();
         return "";
     }

@@ -1,10 +1,11 @@
 package com.itechnews.controller.web;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itechnews.entity.*;
 import com.itechnews.exception.ResourceNotFoundException;
 import com.itechnews.repository.CategoryRepository;
 import com.itechnews.repository.PostRepository;
-import com.itechnews.repository.TagRepository;
 import com.itechnews.security.UserDetailsImpl;
 import com.itechnews.security.UserDetailsUtil;
 import com.itechnews.service.CommentService;
@@ -12,13 +13,15 @@ import com.itechnews.service.PostService;
 import com.itechnews.service.TagService;
 import com.itechnews.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.WebUtils;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,7 +111,8 @@ public class PublicController {
     }
 
     @GetMapping("{postSlug}")
-    public String postDetail(@PathVariable("postSlug") String postSlug, ModelMap modelMap) {
+    public String postDetail(@PathVariable("postSlug") String postSlug, ModelMap modelMap,
+                             HttpServletRequest request, HttpServletResponse response) {
         Post post = postService.findOneBySlug(postSlug);
         if (post == null) {
             throw new ResourceNotFoundException();
@@ -129,16 +133,67 @@ public class PublicController {
         }
         List<Comment> parentComments = commentService.findByParentIsNullAndPostId(post.getId());
 
+
+        int totalOfPost = postService.countByPostedUser(post.getPostedUser());
+
+        modelMap.addAttribute("totalOfPost", totalOfPost);
         modelMap.addAttribute("liked", liked);
         modelMap.addAttribute("post", post);
         modelMap.addAttribute("parentComments", parentComments);
         modelMap.addAttribute("title", post.getTitle());
+
+
+        Cookie cookie =	WebUtils.getCookie(request, "post-" + post.getId());
+        if (cookie == null) {
+            post.setTotalViews(post.getTotalViews() + 1);
+            postService.save(post);
+            cookie = new Cookie("post-" + post.getId(), "post-" + post.getId());
+            cookie.setMaxAge(60 * 60);
+            response.addCookie(cookie);
+        }
+
         return "public/detail";
     }
 
     @GetMapping("user/{username}")
-    public String profilePage(@PathVariable("username") String username) {
+    public String profilePage(@PathVariable("username") String username, ModelMap modelMap) throws JsonProcessingException {
+        User user = userService.findOneByUsername(username);
+        if (user == null) {
+            throw new ResourceNotFoundException();
+        }
+        List<Tag> tags = tagService.findByUser(user);
+        List<String> labels = new ArrayList<>();
+        List<Integer> data = new ArrayList<>();
+        for (int i = 0; i < tags.size(); i++) {
+            labels.add(tags.get(i).getName());
+            int count = postService.countByPostedUserAndTagsContains(user, tags.get(i));
+            data.add(count); //todo
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        modelMap.addAttribute("labels", mapper.writeValueAsString(labels));
+        modelMap.addAttribute("data", mapper.writeValueAsString(data));
 
+        List<Post> posts = postService.findByPostedUser(user);
+        modelMap.addAttribute("posts", posts);
+
+        Integer totalOfComments = commentService.countByPostedUser(user);
+        if (totalOfComments == null)
+            totalOfComments = 0;
+        modelMap.addAttribute("totalOfComments", totalOfComments);
+
+        Integer totalOfViews = postService.calculateTotalViewOfUser(user);
+        if (totalOfViews == null)
+            totalOfViews = 0;
+        modelMap.addAttribute("totalOfViews", totalOfViews);
+
+        Integer totalOfLike = postService.calculateTotalLikeOfUser(user);
+        if (totalOfLike == null)
+            totalOfLike = 0;
+        modelMap.addAttribute("totalOfLike", totalOfLike);
+
+        modelMap.addAttribute("title", user.getUsername());
+        modelMap.addAttribute("user", user);
+        modelMap.addAttribute("tags", tags);
         return "public/profile";
     }
 

@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -60,6 +57,40 @@ public class CommentApiController {
         data.put("user_id", newComment.getUser().getId());
         data.put("parent_comment_id", parentCommentId);
         data.put("created_at", format.format(newComment.getCreateAt()));
+        result.setData(data);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Result> deleteComment(@RequestParam(value = "commentId") Integer commentId) throws Exception {
+
+        Comment comment = commentService.findOneById(commentId);
+        if (comment.getParent() == null) {
+            commentService.deleteByParentId(commentId);
+
+        }
+        commentService.deleteById(commentId);
+
+        Result result = new Result();
+        result.setStatus(Result.Status.SUCCESS);
+        Map<String, Object> data = new HashMap<>();
+        result.setMessage("OK");
+        result.setData(data);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PutMapping
+    public ResponseEntity<Result> editComment(@RequestParam("content") String content,
+                                             @RequestParam(value = "commentId") Integer commentId) throws Exception {
+        Comment comment = commentService.findOneById(commentId);
+        comment.setContent(content);
+        comment = commentService.save(comment);
+
+        Result result = new Result();
+        result.setStatus(Result.Status.SUCCESS);
+        Map<String, Object> data = new HashMap<>();
+        data.put("id", comment.getId());
+        data.put("content", comment.getContent());
         result.setData(data);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

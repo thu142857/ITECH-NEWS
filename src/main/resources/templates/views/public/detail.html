@@ -98,9 +98,9 @@
                                 <div class="btn-group">
                                     <i class="fa fa-ellipsis-h dropdown-toggle" data-toggle="dropdown"></i>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">Sửa</a></li>
+                                        <li><a href="" class="comment-edit">Sửa</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="#">Xóa</a></li>
+                                        <li><a href="" class="comment-delete">Xóa</a></li>
                                     </ul>
                                 </div>
 
@@ -126,9 +126,9 @@
                                     <div class="btn-group">
                                         <i class="fa fa-ellipsis-h dropdown-toggle" data-toggle="dropdown"></i>
                                         <ul class="dropdown-menu">
-                                            <li><a href="#">Sửa</a></li>
+                                            <li><a href="" class="comment-edit">Sửa</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="#">Xóa</a></li>
+                                            <li><a href="" class="comment-delete">Xóa</a></li>
                                         </ul>
                                     </div>
 
@@ -167,10 +167,10 @@
                                 <div th:if="${parentComment.user.id == loggedUser.id}"
                                      class="btn-group">
                                     <i class="fa fa-ellipsis-h dropdown-toggle" data-toggle="dropdown"></i>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Sửa</a></li>
+                                    <ul class="dropdown-menu" th:attr="data-comment-id=${parentComment.id}">
+                                        <li><a href="" class="comment-edit">Sửa</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="#">Xóa</a></li>
+                                        <li><a href="" class="comment-delete">Xóa</a></li>
                                     </ul>
                                 </div>
                                 </th:block>
@@ -195,10 +195,10 @@
                                             <div th:if="${childComment.user.id == loggedUser.id}"
                                                  class="btn-group">
                                                 <i class="fa fa-ellipsis-h dropdown-toggle" data-toggle="dropdown"></i>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#">Sửa</a></li>
+                                                <ul class="dropdown-menu" th:attr="data-comment-id=${childComment.id}">
+                                                    <li><a href="" class="comment-edit">Sửa</a></li>
                                                     <li role="separator" class="divider"></li>
-                                                    <li><a href="#">Xóa</a></li>
+                                                    <li><a href="" class="comment-delete">Xóa</a></li>
                                                 </ul>
                                             </div>
                                         </th:block>
@@ -261,7 +261,7 @@
                         <h3 class="post-title">
                             <a th:href="@{'/user/'+${post.postedUser.username}}" th:text="${post.postedUser.username}"></a>
                         </h3>
-                        <div><a th:href="@{'/user/'+${post.postedUser.username}}" class="total">100</a> bài viết</div>
+                        <div><a th:href="@{'/user/'+${post.postedUser.username}}" class="total" th:text="${totalOfPost}"></a> bài viết</div>
                         <div><a th:href="@{'/user/'+${post.postedUser.username}}" class="total" th:text="${post.postedUser.follower.size()}"></a> người theo dõi</div>
                     </div>
                 </div>
