@@ -57,6 +57,11 @@ public class PublicController {
         modelMap.addAttribute("bestTags", bestTags);
     }
 
+    @GetMapping("posts")
+    public String postPage(ModelMap modelMap) {
+        return "public/posts";
+    }
+
     @GetMapping("")
     public String index(ModelMap modelMap) {
         List<Integer> ids = new ArrayList<>();
@@ -167,7 +172,7 @@ public class PublicController {
         for (int i = 0; i < tags.size(); i++) {
             labels.add(tags.get(i).getName());
             int count = postService.countByPostedUserAndTagsContains(user, tags.get(i));
-            data.add(count); //todo
+            data.add(count);
         }
         ObjectMapper mapper = new ObjectMapper();
         modelMap.addAttribute("labels", mapper.writeValueAsString(labels));
@@ -194,6 +199,26 @@ public class PublicController {
         modelMap.addAttribute("title", user.getUsername());
         modelMap.addAttribute("user", user);
         modelMap.addAttribute("tags", tags);
+
+
+
+        Boolean isMe = false;
+        Boolean followed = false;
+        try {
+            UserDetails userDetails = UserDetailsUtil.getUserDetails();
+            User loggedUser = userService.findOneById(((UserDetailsImpl) userDetails).getId());
+            if (loggedUser.getId() == user.getId()) {
+                isMe = true;
+            }
+            if (user.getFollower().contains(loggedUser)) {
+                followed = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        modelMap.addAttribute("isMe", isMe);
+        modelMap.addAttribute("followed", followed);
+
         return "public/profile";
     }
 

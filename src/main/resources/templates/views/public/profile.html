@@ -34,7 +34,14 @@
         </div>
 
         <div class="col-md-4 profile-content">
-            <a href="" class="btn-follow"><i class="fa fa-rss"></i>Theo dõi</a>
+            <a th:if="${isMe == false}" href="" class="btn-follow" th:classappend="${followed == true ? 'btn-follow-following':''}">
+                <th:block th:if="${followed == true}">
+                    <i class="fa fa-rss"></i><span>Đang theo dõi</span>
+                </th:block>
+                <th:block th:if="${followed == false}">
+                    <i class="fa fa-rss"></i><span>Theo dõi</span>
+                </th:block>
+            </a>
             <div class="profile-content-follower">
                 <p><th:block th:text="${user.follower.size()}" /> người theo dõi <th:block th:text="${user.username}" /></p>
                 <a class="mytooltip" th:href="@{'/user/'+${follower.username}}" th:each="follower, iter : ${user.follower}">
@@ -60,9 +67,10 @@
                 <input type="hidden" name="labels" th:value="${labels}">
                 <input type="hidden" name="data" th:value="${data}">
                 <input type="hidden" name="totalOfPosts" th:value="${posts.size()}">
+                <input type="hidden" name="userId" th:value="${user.id}">
             </div>
         </div>
-        <div class="col-md-12 divider"><i class="fa fa-chevron-down"></i></div>P
+        <div class="col-md-12 divider"><i class="fa fa-chevron-down"></i></div>
         <div class="col-md-12 post-list-container">
             <div class="post-list">
                 <div class="post-item" th:each="post, iter : ${posts}">
@@ -81,6 +89,10 @@
                         <div class="author"><span th:text="${user.username}"></span> viết vào
                             <th:block th:text="${#dates.format(post.createAt, 'dd/MM/yyyy')}" /></div>
                     </div>
+                    <a th:href="@{'/'+${post.slug}}" class="icon-like-comment">
+                        <th:block th:text="${post.likedUsers.size()}" /> <i class="fa fa-thumbs-up icon-like"></i>
+                        <th:block th:text="${post.comments.size()}" /> <i class="fa fa-comment icon-comment"></i>
+                    </a>
                 </div>
             </div>
 
