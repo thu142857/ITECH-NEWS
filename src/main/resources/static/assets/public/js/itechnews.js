@@ -91,6 +91,7 @@ $(document).ready(function () {
         e.preventDefault();
         if ($('input#isAuthenticated').val() === '0') {
             alert("Vui lòng đăng nhập");
+            return;
         }
         let $reply = $(this);
         let replyToUser = $reply.parent().find('h4').text();
@@ -205,6 +206,11 @@ $(document).ready(function () {
     //follow button
     $('.btn-follow').click(function (e) {
         e.preventDefault();
+        if ($('input#isAuthenticated').val() === '0') {
+            alert("Vui lòng đăng nhập");
+            return;
+        }
+
         let $btn = $(this);
         let isFollowing = false;
         if ($btn.hasClass('btn-follow-following')) {

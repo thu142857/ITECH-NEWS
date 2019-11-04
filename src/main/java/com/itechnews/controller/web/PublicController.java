@@ -57,12 +57,12 @@ public class PublicController {
         modelMap.addAttribute("bestTags", bestTags);
     }
 
-    @GetMapping("posts")
+    @GetMapping("")
     public String postPage(ModelMap modelMap) {
         return "public/posts";
     }
 
-    @GetMapping("")
+    @GetMapping("index2")
     public String index(ModelMap modelMap) {
         List<Integer> ids = new ArrayList<>();
         List<Post> postsTech = postService.findTop5ByStatusTrueAndCategoryOrderByCreateAtDesc(1);

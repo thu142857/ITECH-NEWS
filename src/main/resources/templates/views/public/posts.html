@@ -4,16 +4,295 @@
         xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
         layout:decorate="~{../layouts/public/template}">
 
-
     <th:block layout:fragment="main-content">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Messages</a></li>
-        </ul>
+        <div class="row">
+            <div class="col-sm-8">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#bestposts">Bài viết hay</a></li>
+                    <li><a data-toggle="tab" href="#newposts">Bài viết mới</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="bestposts" class="tab-pane fade in active post-list-container">
+                        <div class="post-list">
+                            <div class="post-item">
+                                <div class="left">
+                                    <a href="/user/thinhtnb">
+                                        <img src="/upload/thinhtnb.png" alt="">
+                                    </a>
+                                </div>
+                                <div class="right">
+                                    <h3><a href="/spring-jpa-fetch-test">Spring JPA fetch test</a></h3>
+                                    <div class="tags">
+                                        <a class="tag" href="/tag/spring">spring</a><a class="tag"
+                                                                                       href="/tag/jpa">jpa</a>
+                                    </div>
+                                    <p>I used Spring boot, Hibernate few times back then at University, I'v started
+                                        using it again recently.In this project, I want to check how Spring JPA loads an
+                                        ...</p>
+                                    <div class="author"><span>thinhtnb</span> viết vào
+                                        12/10/2019
+                                    </div>
+                                </div>
+                                <a href="/spring-jpa-fetch-test" class="icon-like-comment">
+                                    15 <i class="fa fa-thumbs-up icon-like"></i>
+                                    16 <i class="fa fa-comment icon-comment"></i>
+                                </a>
+                            </div>
+                            <div class="post-item">
+                                <div class="left">
+                                    <a href="/user/thinhtnb">
+                                        <img src="/upload/thinhtnb.png" alt="">
+                                    </a>
+                                </div>
+                                <div class="right">
+                                    <h3><a href="/module-trong-nodejs-viet-mot-lan-thoi">Module trong NodeJS - viết một
+                                        lần thôi</a></h3>
+                                    <div class="tags">
+                                        <a class="tag" href="/tag/javascript">javascript</a><a class="tag"
+                                                                                               href="/tag/nodejs">nodejs</a><a
+                                            class="tag" href="/tag/js">js</a>
+                                    </div>
+                                    <p>Như những bài viết khác của mình, trước khi bắt tay vào, mình đã tìm kiếm trên
+                                        kipalog và không thấy bài viết nào nói về vấn đề này. Trọng tâm của bài viết này
+                                        ...</p>
+                                    <div class="author"><span>thinhtnb</span> viết vào
+                                        24/10/2019
+                                    </div>
+                                </div>
+                                <a href="/module-trong-nodejs-viet-mot-lan-thoi" class="icon-like-comment">
+                                    15 <i class="fa fa-thumbs-up icon-like"></i>
+                                    15 <i class="fa fa-comment icon-comment"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="newposts" class="tab-pane fade post-list-container">
+                        <div class="post-list">
+                            <div class="post-item">
+                                <div class="left">
+                                    <a href="/user/thinhtnb">
+                                        <img src="/upload/thinhtnb.png" alt="">
+                                    </a>
+                                </div>
+                                <div class="right">
+                                    <h3><a href="/spring-jpa-fetch-test">Spring JPA fetch test</a></h3>
+                                    <div class="tags">
+                                        <a class="tag" href="/tag/spring">spring</a><a class="tag"
+                                                                                       href="/tag/jpa">jpa</a>
+                                    </div>
+                                    <p>I used Spring boot, Hibernate few times back then at University, I'v started
+                                        using it again recently.In this project, I want to check how Spring JPA loads an
+                                        ...</p>
+                                    <div class="author"><span>thinhtnb</span> viết vào
+                                        12/10/2019
+                                    </div>
+                                </div>
+                                <a href="/spring-jpa-fetch-test" class="icon-like-comment">
+                                    15 <i class="fa fa-thumbs-up icon-like"></i>
+                                    16 <i class="fa fa-comment icon-comment"></i>
+                                </a>
+                            </div>
+                            <div class="post-item">
+                                <div class="left">
+                                    <a href="/user/thinhtnb">
+                                        <img src="/upload/thinhtnb.png" alt="">
+                                    </a>
+                                </div>
+                                <div class="right">
+                                    <h3><a href="/module-trong-nodejs-viet-mot-lan-thoi">Module trong NodeJS - viết một
+                                        lần thôi</a></h3>
+                                    <div class="tags">
+                                        <a class="tag" href="/tag/javascript">javascript</a><a class="tag"
+                                                                                               href="/tag/nodejs">nodejs</a><a
+                                            class="tag" href="/tag/js">js</a>
+                                    </div>
+                                    <p>Như những bài viết khác của mình, trước khi bắt tay vào, mình đã tìm kiếm trên
+                                        kipalog và không thấy bài viết nào nói về vấn đề này. Trọng tâm của bài viết này
+                                        ...</p>
+                                    <div class="author"><span>thinhtnb</span> viết vào
+                                        24/10/2019
+                                    </div>
+                                </div>
+                                <a href="/module-trong-nodejs-viet-mot-lan-thoi" class="icon-like-comment">
+                                    15 <i class="fa fa-thumbs-up icon-like"></i>
+                                    15 <i class="fa fa-comment icon-comment"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 index-right">
+                <div class="top-tags">
+                    <h2><i class="fa fa-tag"></i>Chủ đề nổi bật</h2>
+                    <div class="tag-group">
+                        <a class="tag" href="/tag/spring">spring
+                            <span class="total">1</span>
+                        </a>
+                        <a class="tag" href="/tag/jpa">jpa
+                            <span class="total">1</span>
+                        </a>
+                        <a class="tag" href="/tag/jpa">jpa
+                            <span class="total">1</span>
+                        </a>
+                        <a class="tag" href="/tag/jpa">jpa
+                            <span class="total">1</span>
+                        </a>
+                        <a class="tag" href="/tag/jpa">jpa
+                            <span class="total">1</span>
+                        </a>
+                        <a class="tag" href="/tag/jpa">jpa
+                            <span class="total">1</span>
+                        </a>
+                        <a class="tag" href="/tag/jpa">jpa
+                            <span class="total">1</span>
+                        </a>
+
+                    </div>
+                </div>
+                <div class="top-authors">
+                    <h2><i class="fa fa-trophy"></i>Tác giả bài viết hay</h2>
+                    <div class="author-list">
+                        <div class="author-item">
+                            <a href="/user/sonthh" class="img">
+                                <img src="/upload/thinhtnb.png" alt="">
+                            </a>
+                            <a href="/user/sonthh" class="link">sonthh</a>
+                        </div>
+                        <div class="author-item">
+                            <a href="/user/sonthh" class="img">
+                                <img src="/upload/thinhtnb.png" alt="">
+                            </a>
+                            <a href="/user/sonthh" class="link">sonthh</a>
+                        </div>
+                        <div class="author-item">
+                            <a href="/user/sonthh" class="img">
+                                <img src="/upload/thinhtnb.png" alt="">
+                            </a>
+                            <a href="/user/sonthh" class="link">sonthh</a>
+                        </div>
+                        <div class="author-item">
+                            <a href="/user/sonthh" class="img">
+                                <img src="/upload/thinhtnb.png" alt="">
+                            </a>
+                            <a href="/user/sonthh" class="link">sonthh</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </th:block>
     <th:block layout:fragment="pageScript">
 
+    </th:block>
+    <th:block layout:fragment="pageStyleSheet">
+        <style>
+            .post-list {
+                margin-top: 20px;
+                width: 100% !important;
+            }
+
+            ul.nav-tabs > li {
+
+            }
+
+            ul.nav-tabs > li > a {
+                border-radius: 6px 6px 0 0;
+                font-size: 13px;
+                color: #3d455c;
+            }
+
+            ul.nav-tabs > li.active > a {
+                color: #0b6b68 !important;
+            }
+
+            .tag {
+                font-size: 13px;
+                padding: 3px 10px;
+                font-weight: 300;
+                border-radius: 0.325em;
+                margin-right: 2px;
+                color: rgba(0, 0, 0, 0.65);
+                background-color: #E8E8E8;
+                transition: background 0.1s linear;
+                margin-bottom: 5px;
+                display: inline-block;
+                text-decoration: none !important;
+                border-color: #E8E8E8;
+            }
+
+            .tag .total {
+                display: inline-block;
+                margin-left: 0.3em;
+                font-weight: bold;
+                opacity: 0.8;
+                color: rgba(0, 0, 0, 0.65);
+            }
+
+            .index-right {
+                padding-top: 6px;
+                padding-left: 25px;
+            }
+
+            .index-right > div {
+                margin-bottom: 20px;
+            }
+
+            .index-right > div > h2 {
+                font-family: "OpenSans", sans-serif;
+                color: rgba(0, 0, 0, 0.8);
+                font-size: 17px;
+                font-weight: 100;
+                font-style: italic;
+            }
+
+            .index-right > div > h2 > i.fa {
+                display: inline-block;
+                margin-right: 17px;
+            }
+
+            .top-tags i.fa {
+                color: #d95c5c;
+            }
+
+            .top-authors i.fa {
+                color: #cfb53b;
+            }
+
+            .top-authors {
+            }
+
+            .top-authors .author-list {
+                padding-left: 10px;
+            }
+
+            .top-authors .author-list .author-item {
+                display: flex;
+                margin-bottom: 10px;
+            }
+
+            .top-authors .author-list .author-item a {
+
+            }
+            .top-authors .author-list .author-item a.link {
+                display: block;
+                width: 100%;
+                text-decoration: none;
+                color: #0b6b68;
+                padding-top: 3px;
+                padding-left: 12px;
+            }
+            .top-authors .author-list .author-item a.img {
+                width: 11%;
+                display: block;
+            }
+
+            .top-authors .author-list .author-item a img {
+                width: 100%;
+                border-radius: 50%;
+            }
+        </style>
     </th:block>
 
 </th:block>

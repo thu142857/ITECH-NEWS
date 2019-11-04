@@ -68,6 +68,12 @@
                 <input type="hidden" name="data" th:value="${data}">
                 <input type="hidden" name="totalOfPosts" th:value="${posts.size()}">
                 <input type="hidden" name="userId" th:value="${user.id}">
+                <th:block sec:authorize="isAuthenticated()">
+                    <input type="hidden" id="isAuthenticated" th:value="1">
+                </th:block>
+                <th:block sec:authorize="!isAuthenticated()">
+                    <input type="hidden" id="isAuthenticated" th:value="0">
+                </th:block>
             </div>
         </div>
         <div class="col-md-12 divider"><i class="fa fa-chevron-down"></i></div>
