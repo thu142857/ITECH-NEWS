@@ -4,6 +4,7 @@ import com.itechnews.entity.Post;
 import com.itechnews.entity.Tag;
 import com.itechnews.entity.User;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -19,4 +20,6 @@ public interface PostService {
     Integer calculateTotalViewOfUser(User author);
     Integer calculateTotalLikeOfUser(User author);
     Integer countByPostedUserAndTagsContains(User author, Tag tag);
+    Page<Post> findNewPosts(Integer page);
+    Page<Post> findTopPosts(Integer page);
 }

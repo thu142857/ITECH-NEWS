@@ -72,4 +72,9 @@ public class TagServiceImpl implements TagService {
     public List<Tag> findByUser(User user) {
         return tagRepository.findByUser(user);
     }
+
+    @Override
+    public List<Tag> findTopTags(Integer quantity) {
+        return tagRepository.findTopTags(PageRequest.of(0, quantity));
+    }
 }

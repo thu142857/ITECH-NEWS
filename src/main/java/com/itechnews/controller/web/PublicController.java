@@ -13,10 +13,12 @@ import com.itechnews.service.PostService;
 import com.itechnews.service.TagService;
 import com.itechnews.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
@@ -59,6 +61,18 @@ public class PublicController {
 
     @GetMapping("")
     public String postPage(ModelMap modelMap) {
+        Page<Post> pageNewPosts = postService.findNewPosts(0);
+        modelMap.addAttribute("pageNewPosts", pageNewPosts);
+
+        Page<Post> pageTopPosts = postService.findTopPosts(0);
+        modelMap.addAttribute("pageTopPosts", pageTopPosts);
+
+        List<Tag> topTags = tagService.findTopTags(15);
+        modelMap.addAttribute("topTags", topTags);
+
+        List<User> topUsers = userService.findTopUsers(8);
+        modelMap.addAttribute("topUsers", topUsers);
+
         return "public/posts";
     }
 
@@ -228,4 +242,5 @@ public class PublicController {
 
         return "THIS IS TAG PAGE";
     }
+
 }

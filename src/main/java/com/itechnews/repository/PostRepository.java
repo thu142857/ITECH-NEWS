@@ -3,14 +3,19 @@ package com.itechnews.repository;
 import com.itechnews.entity.Post;
 import com.itechnews.entity.Tag;
 import com.itechnews.entity.User;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface PostRepository
-        extends CrudRepository<Post, Integer> {
+        extends CrudRepository<Post, Integer> ,
+        PagingAndSortingRepository<Post, Integer>,
+        JpaSpecificationExecutor<Post>{
     List<Post> findTop8ByStatusTrueAndIdNotInOrderByCreateAtDesc(List<Integer> ids);
     List<Post> findTop5ByStatusTrueOrderByTotalViewsDesc();
     List<Post> findTop5ByStatusTrueAndCategory_IdOrderByCreateAtDesc(Integer catId);

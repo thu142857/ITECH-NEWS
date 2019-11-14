@@ -14,109 +14,57 @@
                 <div class="tab-content">
                     <div id="bestposts" class="tab-pane fade in active post-list-container">
                         <div class="post-list">
-                            <div class="post-item">
+                            <div class="post-item" th:each="post, iter : ${pageTopPosts.content}">
                                 <div class="left">
-                                    <a href="/user/thinhtnb">
-                                        <img src="/upload/thinhtnb.png" alt="">
+                                    <a th:href="@{'/user/'+${post.postedUser.username}}">
+                                        <img th:src="@{${#strings.containsIgnoreCase(post.postedUser.image, 'http')==false?'/upload/':''}+${post.postedUser.image}}" alt="">
                                     </a>
                                 </div>
                                 <div class="right">
-                                    <h3><a href="/spring-jpa-fetch-test">Spring JPA fetch test</a></h3>
+                                    <h3><a th:href="@{'/'+${post.slug}}" th:text="${post.title}"></a></h3>
                                     <div class="tags">
-                                        <a class="tag" href="/tag/spring">spring</a><a class="tag"
-                                                                                       href="/tag/jpa">jpa</a>
+                                        <a class="tag" th:href="@{'/tag/'+${tag.slug}}" th:each="tag, iter : ${post.tags}" th:text="${tag.name}">spring</a>
                                     </div>
-                                    <p>I used Spring boot, Hibernate few times back then at University, I'v started
-                                        using it again recently.In this project, I want to check how Spring JPA loads an
-                                        ...</p>
-                                    <div class="author"><span>thinhtnb</span> viết vào
-                                        12/10/2019
+                                    <p th:utext="${T(com.itechnews.util.StringUtil).getThreeDotsTextFromHtml(post.content, 160)}"></p>
+                                    <div class="author"><span th:text="${post.postedUser.username}"></span> viết vào
+                                        <th:block th:text="${#dates.format(post.createAt, 'dd/MM/yyyy')}" />
                                     </div>
                                 </div>
-                                <a href="/spring-jpa-fetch-test" class="icon-like-comment">
-                                    15 <i class="fa fa-thumbs-up icon-like"></i>
-                                    16 <i class="fa fa-comment icon-comment"></i>
+                                <a th:href="@{'/'+${post.slug}}" class="icon-like-comment">
+                                    <th:block th:text="${post.likedUsers.size()}" /> <i class="fa fa-thumbs-up icon-like"></i>
+                                    <th:block th:text="${post.comments.size()}" /> <i class="fa fa-comment icon-comment"></i>
                                 </a>
                             </div>
-                            <div class="post-item">
-                                <div class="left">
-                                    <a href="/user/thinhtnb">
-                                        <img src="/upload/thinhtnb.png" alt="">
-                                    </a>
-                                </div>
-                                <div class="right">
-                                    <h3><a href="/module-trong-nodejs-viet-mot-lan-thoi">Module trong NodeJS - viết một
-                                        lần thôi</a></h3>
-                                    <div class="tags">
-                                        <a class="tag" href="/tag/javascript">javascript</a><a class="tag"
-                                                                                               href="/tag/nodejs">nodejs</a><a
-                                            class="tag" href="/tag/js">js</a>
-                                    </div>
-                                    <p>Như những bài viết khác của mình, trước khi bắt tay vào, mình đã tìm kiếm trên
-                                        kipalog và không thấy bài viết nào nói về vấn đề này. Trọng tâm của bài viết này
-                                        ...</p>
-                                    <div class="author"><span>thinhtnb</span> viết vào
-                                        24/10/2019
-                                    </div>
-                                </div>
-                                <a href="/module-trong-nodejs-viet-mot-lan-thoi" class="icon-like-comment">
-                                    15 <i class="fa fa-thumbs-up icon-like"></i>
-                                    15 <i class="fa fa-comment icon-comment"></i>
-                                </a>
+                            <div class="load-more load-more-top-posts" th:attr="data-page-top-posts=${pageTopPosts.pageable.pageNumber}">
+                                Xem tiếp...
                             </div>
                         </div>
                     </div>
                     <div id="newposts" class="tab-pane fade post-list-container">
                         <div class="post-list">
-                            <div class="post-item">
+                            <div class="post-item" th:each="post, iter : ${pageNewPosts.content}">
                                 <div class="left">
-                                    <a href="/user/thinhtnb">
-                                        <img src="/upload/thinhtnb.png" alt="">
+                                    <a th:href="@{'/user/'+${post.postedUser.username}}">
+                                        <img th:src="@{${#strings.containsIgnoreCase(post.postedUser.image, 'http')==false?'/upload/':''}+${post.postedUser.image}}" alt="">
                                     </a>
                                 </div>
                                 <div class="right">
-                                    <h3><a href="/spring-jpa-fetch-test">Spring JPA fetch test</a></h3>
+                                    <h3><a th:href="@{'/'+${post.slug}}" th:text="${post.title}"></a></h3>
                                     <div class="tags">
-                                        <a class="tag" href="/tag/spring">spring</a><a class="tag"
-                                                                                       href="/tag/jpa">jpa</a>
+                                        <a class="tag" th:href="@{'/tag/'+${tag.slug}}" th:each="tag, iter : ${post.tags}" th:text="${tag.name}">spring</a>
                                     </div>
-                                    <p>I used Spring boot, Hibernate few times back then at University, I'v started
-                                        using it again recently.In this project, I want to check how Spring JPA loads an
-                                        ...</p>
-                                    <div class="author"><span>thinhtnb</span> viết vào
-                                        12/10/2019
+                                    <p th:utext="${T(com.itechnews.util.StringUtil).getThreeDotsTextFromHtml(post.content, 160)}"></p>
+                                    <div class="author"><span th:text="${post.postedUser.username}"></span> viết vào
+                                        <th:block th:text="${#dates.format(post.createAt, 'dd/MM/yyyy')}" />
                                     </div>
                                 </div>
-                                <a href="/spring-jpa-fetch-test" class="icon-like-comment">
-                                    15 <i class="fa fa-thumbs-up icon-like"></i>
-                                    16 <i class="fa fa-comment icon-comment"></i>
+                                <a th:href="@{'/'+${post.slug}}" class="icon-like-comment">
+                                    <th:block th:text="${post.likedUsers.size()}" /> <i class="fa fa-thumbs-up icon-like"></i>
+                                    <th:block th:text="${post.comments.size()}" /> <i class="fa fa-comment icon-comment"></i>
                                 </a>
                             </div>
-                            <div class="post-item">
-                                <div class="left">
-                                    <a href="/user/thinhtnb">
-                                        <img src="/upload/thinhtnb.png" alt="">
-                                    </a>
-                                </div>
-                                <div class="right">
-                                    <h3><a href="/module-trong-nodejs-viet-mot-lan-thoi">Module trong NodeJS - viết một
-                                        lần thôi</a></h3>
-                                    <div class="tags">
-                                        <a class="tag" href="/tag/javascript">javascript</a><a class="tag"
-                                                                                               href="/tag/nodejs">nodejs</a><a
-                                            class="tag" href="/tag/js">js</a>
-                                    </div>
-                                    <p>Như những bài viết khác của mình, trước khi bắt tay vào, mình đã tìm kiếm trên
-                                        kipalog và không thấy bài viết nào nói về vấn đề này. Trọng tâm của bài viết này
-                                        ...</p>
-                                    <div class="author"><span>thinhtnb</span> viết vào
-                                        24/10/2019
-                                    </div>
-                                </div>
-                                <a href="/module-trong-nodejs-viet-mot-lan-thoi" class="icon-like-comment">
-                                    15 <i class="fa fa-thumbs-up icon-like"></i>
-                                    15 <i class="fa fa-comment icon-comment"></i>
-                                </a>
+                            <div class="load-more load-more-new-posts" th:attr="data-page-new-posts=${pageTopPosts.pageable.pageNumber}">
+                                Xem tiếp...
                             </div>
                         </div>
                     </div>
@@ -126,26 +74,9 @@
                 <div class="top-tags">
                     <h2><i class="fa fa-tag"></i>Chủ đề nổi bật</h2>
                     <div class="tag-group">
-                        <a class="tag" href="/tag/spring">spring
-                            <span class="total">1</span>
-                        </a>
-                        <a class="tag" href="/tag/jpa">jpa
-                            <span class="total">1</span>
-                        </a>
-                        <a class="tag" href="/tag/jpa">jpa
-                            <span class="total">1</span>
-                        </a>
-                        <a class="tag" href="/tag/jpa">jpa
-                            <span class="total">1</span>
-                        </a>
-                        <a class="tag" href="/tag/jpa">jpa
-                            <span class="total">1</span>
-                        </a>
-                        <a class="tag" href="/tag/jpa">jpa
-                            <span class="total">1</span>
-                        </a>
-                        <a class="tag" href="/tag/jpa">jpa
-                            <span class="total">1</span>
+                        <a th:each="tag, iter : ${topTags}" class="tag" href="/tag/spring">
+                            <th:block th:text="${tag.name}" />
+                            <span class="total" th:text="${tag.posts.size()}"></span>
                         </a>
 
                     </div>
@@ -153,29 +84,11 @@
                 <div class="top-authors">
                     <h2><i class="fa fa-trophy"></i>Tác giả bài viết hay</h2>
                     <div class="author-list">
-                        <div class="author-item">
-                            <a href="/user/sonthh" class="img">
-                                <img src="/upload/thinhtnb.png" alt="">
+                        <div class="author-item" th:each="user, iter : ${topUsers}">
+                            <a th:href="@{'/user/'+${user.username}}" class="img">
+                                <img th:src="@{${#strings.containsIgnoreCase(user.image, 'http')==false?'/upload/':''}+${user.image}}" alt="">
                             </a>
-                            <a href="/user/sonthh" class="link">sonthh</a>
-                        </div>
-                        <div class="author-item">
-                            <a href="/user/sonthh" class="img">
-                                <img src="/upload/thinhtnb.png" alt="">
-                            </a>
-                            <a href="/user/sonthh" class="link">sonthh</a>
-                        </div>
-                        <div class="author-item">
-                            <a href="/user/sonthh" class="img">
-                                <img src="/upload/thinhtnb.png" alt="">
-                            </a>
-                            <a href="/user/sonthh" class="link">sonthh</a>
-                        </div>
-                        <div class="author-item">
-                            <a href="/user/sonthh" class="img">
-                                <img src="/upload/thinhtnb.png" alt="">
-                            </a>
-                            <a href="/user/sonthh" class="link">sonthh</a>
+                            <a th:href="@{'/user/'+${user.username}}" class="link" th:text="${user.username}"></a>
                         </div>
                     </div>
                 </div>
@@ -184,7 +97,119 @@
 
     </th:block>
     <th:block layout:fragment="pageScript">
+        <script>
+            $('.load-more-top-posts').click(function (e) {
+               e.preventDefault();
+               let $btn = $(this);
+               let page = $btn.data('page-top-posts');
+                $.ajax({
+                    url: '/api/post/load-more-top-post',
+                    type: 'GET',
+                    cache: false,
+                    data: {
+                        page: page
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        let posts = response.data.posts;
+                        console.log(posts);
+                        let html = "";
+                        for (let i = 0; i < posts.length; i++) {
+                            let tags = "";
+                            for (let j = 0; j < posts[i].tags.length; j++) {
+                                tags +=
+                                    `<a class="tag" href="${posts[i].tags[j].slug}">${posts[i].tags[j].name}</a>`;
+                            }
 
+                            html +=
+                            `<div class="post-item">
+                                <div class="left">
+                                    <a href="/user/${posts[i].author.username}">
+                                        <img src="/upload/${posts[i].author.image}" alt="">
+                                    </a>
+                                </div>
+                                <div class="right">
+                                    <h3><a href="/${posts[i].slug}">${posts[i].title}</a></h3>
+
+                                    <div class="tags">${tags}</div>
+                                    <p>${posts[i].sub_content}</p>
+                                    <div class="author"><span>${posts[i].author.username}</span> viết vào
+                                        ${posts[i].created_at}
+                                    </div>
+                                </div>
+                                <a href="/nosql-co-dong-nghia-voi-no-injection" class="icon-like-comment">
+                                    15 <i class="fa fa-thumbs-up icon-like"></i>
+                                    23 <i class="fa fa-comment icon-comment"></i>
+                                </a>
+                            </div>`;
+                        }
+                        //console.log(html);
+                        $btn.before(html);
+                        $btn.data('page-top-posts', ++page);
+
+                    },
+                    error: function () {
+                        console.log("ajax error");
+                    }
+                });
+            });
+
+            $('.load-more-new-posts').click(function (e) {
+                e.preventDefault();
+                let $btn = $(this);
+                let page = $btn.data('page-new-posts');
+                $.ajax({
+                    url: '/api/post/load-more-new-post',
+                    type: 'GET',
+                    cache: false,
+                    data: {
+                        page: page
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        let posts = response.data.posts;
+                        console.log(posts);
+                        let html = "";
+                        for (let i = 0; i < posts.length; i++) {
+                            let tags = "";
+                            for (let j = 0; j < posts[i].tags.length; j++) {
+                                tags +=
+                                    `<a class="tag" href="${posts[i].tags[j].slug}">${posts[i].tags[j].name}</a>`;
+                            }
+
+                            html +=
+                                `<div class="post-item">
+                                <div class="left">
+                                    <a href="/user/${posts[i].author.username}">
+                                        <img src="/upload/${posts[i].author.image}" alt="">
+                                    </a>
+                                </div>
+                                <div class="right">
+                                    <h3><a href="/${posts[i].slug}">${posts[i].title}</a></h3>
+
+                                    <div class="tags">${tags}</div>
+                                    <p>${posts[i].sub_content}</p>
+                                    <div class="author"><span>${posts[i].author.username}</span> viết vào
+                                        ${posts[i].created_at}
+                                    </div>
+                                </div>
+                                <a href="/nosql-co-dong-nghia-voi-no-injection" class="icon-like-comment">
+                                    15 <i class="fa fa-thumbs-up icon-like"></i>
+                                    23 <i class="fa fa-comment icon-comment"></i>
+                                </a>
+                            </div>`;
+                        }
+                        //console.log(html);
+                        $btn.before(html);
+                        $btn.data('page-new-posts', ++page);
+
+                    },
+                    error: function () {
+                        console.log("ajax error");
+                    }
+                });
+            });
+        </script>
     </th:block>
     <th:block layout:fragment="pageStyleSheet">
         <style>
@@ -291,6 +316,15 @@
             .top-authors .author-list .author-item a img {
                 width: 100%;
                 border-radius: 50%;
+            }
+            .load-more {
+                padding: 9px;
+                color: #0b6b68;
+                text-align: center;
+                cursor: pointer;
+                border-radius: 5px;
+                border: 1px solid #e8e8e8;
+                background-color: rgba(255,255,255,0.85);
             }
         </style>
     </th:block>

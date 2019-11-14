@@ -31,6 +31,10 @@ public interface UserRepository extends CrudRepository<User, Integer>,
 
     User findOneByEmail(String email);
     Integer countAllByEmailEquals(String email);
+
     @Query("select u from User u where u.passwordResetToken.token= :token")
     User findOneByPasswordResetToken(String token);
+
+    @Query(value = "select u from User u order by u.follower.size desc")
+    List<User> findTopUsers(Pageable pageable);
 }
