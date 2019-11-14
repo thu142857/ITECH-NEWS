@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.ServletContext;
 import java.util.*;
 
 @Controller
@@ -40,14 +41,16 @@ public class TestController {
     @Autowired
     CommentRepository commentRepository;
 
+    @Autowired
+    ServletContext servletContext;
+
     @GetMapping("/1")
     @ResponseBody
     public String test() {
 
-
         List<Tag> list = tagService.findTopTags(15);
         //commentRepository.deleteById(105);
-        return "";
+        return servletContext.getRealPath("");
     }
 
     @GetMapping("/3")

@@ -243,4 +243,12 @@ public class PublicController {
         return "THIS IS TAG PAGE";
     }
 
+    @GetMapping("posts/new")
+    public String createNewPost(ModelMap modelMap) {
+
+        List<Tag> tags = tagService.findAll();
+        modelMap.addAttribute("tags", tags);
+        return "public/posts_new";
+    }
+
 }

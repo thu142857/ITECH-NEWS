@@ -85,7 +85,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         //login, logout
         http
                 .cors().and()/*rest api*/
-                .csrf().ignoringAntMatchers("/api/**").and()//csrf TODO
+                .csrf().ignoringAntMatchers("/api/**", "/assets/public/lib/**").and()//csrf TODO
                 //.httpBasic() //don't use default form
                 .formLogin()
                 .loginPage("/login") //get method

@@ -1,0 +1,177 @@
+<th:block
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        layout:decorate="~{../layouts/public/template}">
+
+    <th:block layout:fragment="main-content">
+        <div class="row">
+            <div class="col-sm-12">
+                <form th:action="@{'/posts/new?'+${_csrf.parameterName}+'='+${_csrf.token}}">
+                    <div class="form-group">
+                        <input type="text" name="title" id="title" autocomplete="off" placeholder="Tiêu đề gây ấn tượng">
+                    </div>
+                    <select
+                            class="form-control"
+                            name="choices-multiple-remove-button"
+                            id="choices-multiple-remove-button"
+                            placeholder="Chọn tag phù hợp với bài viết của bạn"
+                            multiple >
+                        <option  th:value="-1" selected>itechnews</option>
+                        <th:block th:each="tag, iter : ${tags}">
+                            <option  th:value="${tag.id}" th:text="${tag.name}+' ('+${tag.posts.size()+')'}"></option>
+                        </th:block>
+                    </select>
+                    <textarea name="editor" id="editor" cols="30" rows="10"></textarea>
+                    <button id="post" type="submit">Đăng bài</button>
+                </form>
+            </div>
+        </div>
+
+    </th:block>
+    <th:block layout:fragment="pageScript">
+        <script type="text/javascript" th:src="@{/assets/public/lib/ckeditor/ckeditor.js}"></script>
+        <script type="text/javascript" th:src="@{/assets/public/lib/ckfinder/ckfinder.js}"></script>
+        <script>
+            var editor = CKEDITOR.replace('editor');
+            CKFinder.setupCKEditor(editor, '/assets/public/lib/ckfinder/');
+
+            // CKEDITOR
+            //     .replace(
+            //         'editor',
+            //         {
+            //             filebrowserBrowseUrl : '/assets/public/lib/ckfinder/ckfinder.html?',
+            //             filebrowserImageBrowseUrl : '/assets/public/lib/ckfinder/ckfinder.html?type=Images',
+            //             filebrowserFlashBrowseUrl : '/assets/public/lib/ckfinder/ckfinder.html?type=Flash',
+            //             filebrowserUploadUrl : '/assets/public/lib/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Files',
+            //             filebrowserImageUploadUrl : '/assets/public/lib/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Images',
+            //             filebrowserFlashUploadUrl : '/assets/public/lib/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Flash'
+            //         });
+
+
+            document.addEventListener('DOMContentLoaded', function () {
+                let genericExamples = document.querySelectorAll('[data-trigger]');
+                for (let i = 0; i < genericExamples.length; ++i) {
+                    let element = genericExamples[i];
+                    new Choices(element, {
+                        placeholderValue: 'This is a placeholder set in the config',
+                        searchPlaceholderValue: 'This is a search placeholder',
+                    });
+                }
+                let chosen = new Choices(
+                    '#choices-multiple-remove-button',
+                    {
+                        removeItemButton: true,
+
+                    },
+                );
+                var additionalFuncForInput = function() {
+                    chosen.input.element.addEventListener('keypress', function(event) {
+                        // Remove the search entries if something is typed
+                        if (chosen.input.element.value.length > 0) {
+                            event.preventDefault();
+                            chosen.input.element.parentNode.querySelector('.choices__list').innerHTML = '';
+                            chosen.input.element.value += String.fromCharCode(event.keyCode);
+                            chosen.input.element.parentNode.querySelector('.choices__list').innerHTML = '';
+
+                            if (event.keyCode === 13) {
+                                event.preventDefault();
+
+                                var elem = document.querySelector('#jform_catid');
+                                var choisesVal = chosen.getValue();
+                                //chosen.setValue({value: choisesVal, label: choisesVal, selected: true, disabled: false})
+
+                                chosen.clearStore();
+
+                                if (chosen.input.element.value) {
+                                    chosen.destroy();
+                                    var option = document.createElement('option');
+                                    option.value = chosen.input.element.value;
+                                    option.text = chosen.input.element.value;
+                                    option.setAttribute('selected', '')
+                                    elem.appendChild(option);
+
+                                    chosen.init();
+                                    additionalFuncForInput();
+                                }
+                            }
+                        }
+                    })
+                };
+
+                additionalFuncForInput();
+            });
+        </script>
+    </th:block>
+    <th:block layout:fragment="pageStyleSheet">
+        <link rel="stylesheet" th:href="@{/assets/public/choices/styles/choices.min.css}"/>
+        <script th:src="@{/assets/public/choices/scripts/choices.min.js}"></script>
+        <style>
+            .choices__list--multiple .choices__item {
+                background-color: #0b6b68;
+                border: 1px solid #0b6b68;
+                padding: 7px 10px;
+                border-radius: 10px;
+                font-size: 14px;
+            }
+            .choices__inner {
+                border: none;
+                padding-left: 0px !important;
+            }
+            input#title {
+                font-weight: bold;
+                display: block;
+                width: 100%;
+                font-size: 30px;
+                padding: 2px;
+                border: none;
+            }
+            input#title:focus {
+                outline: none;
+            }
+            button#post:hover {
+                box-shadow: 0 3px 10px rgba(0,0,0,0.23),0 3px 10px rgba(0,0,0,0.16) !important;
+                background-color: #0b6b68d4;
+            }
+            button#post {
+                box-shadow: 0 1px 6px rgba(0,0,0,0.12),0 1px 6px rgba(0,0,0,0.12) !important;
+                background-color: #0b6b68;
+                color: #FFFFFF;
+                cursor: pointer;
+                display: inline-block;
+                vertical-align: middle;
+                min-height: 1em;
+                outline: none;
+                border: none;
+                margin: 0em;
+                padding: 13px 25px;
+                font-size: 13px;
+                text-transform: inherit;
+                line-height: 1;
+                font-weight: bold;
+                font-style: normal;
+                text-align: center;
+                text-decoration: none;
+                background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0)), to(rgba(0,0,0,0.05)));
+                background-image: -webkit-linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.05));
+                background-image: -moz-linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.05));
+                background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.05));
+                border-radius: 8px;
+                -webkit-box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.08) inset;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                -ms-box-sizing: border-box;
+                box-sizing: border-box;
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
+                -webkit-transition: opacity 0.25s ease, background-color 0.25s ease, color 0.25s ease, background 0.25s ease, -webkit-box-shadow 0.25s ease;
+                -moz-transition: opacity 0.25s ease, background-color 0.25s ease, color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+                transition: opacity 0.25s ease, background-color 0.25s ease, color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+            }
+        </style>
+    </th:block>
+
+</th:block>
