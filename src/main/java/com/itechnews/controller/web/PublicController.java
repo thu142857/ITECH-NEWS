@@ -13,10 +13,12 @@ import com.itechnews.service.PostService;
 import com.itechnews.service.TagService;
 import com.itechnews.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
@@ -58,6 +60,23 @@ public class PublicController {
     }
 
     @GetMapping("")
+    public String postPage(ModelMap modelMap) {
+        Page<Post> pageNewPosts = postService.findNewPosts(0);
+        modelMap.addAttribute("pageNewPosts", pageNewPosts);
+
+        Page<Post> pageTopPosts = postService.findTopPosts(0);
+        modelMap.addAttribute("pageTopPosts", pageTopPosts);
+
+        List<Tag> topTags = tagService.findTopTags(15);
+        modelMap.addAttribute("topTags", topTags);
+
+        List<User> topUsers = userService.findTopUsers(8);
+        modelMap.addAttribute("topUsers", topUsers);
+
+        return "public/posts";
+    }
+
+    @GetMapping("index2")
     public String index(ModelMap modelMap) {
         List<Integer> ids = new ArrayList<>();
         List<Post> postsTech = postService.findTop5ByStatusTrueAndCategoryOrderByCreateAtDesc(1);
@@ -167,7 +186,7 @@ public class PublicController {
         for (int i = 0; i < tags.size(); i++) {
             labels.add(tags.get(i).getName());
             int count = postService.countByPostedUserAndTagsContains(user, tags.get(i));
-            data.add(count); //todo
+            data.add(count);
         }
         ObjectMapper mapper = new ObjectMapper();
         modelMap.addAttribute("labels", mapper.writeValueAsString(labels));
@@ -194,6 +213,26 @@ public class PublicController {
         modelMap.addAttribute("title", user.getUsername());
         modelMap.addAttribute("user", user);
         modelMap.addAttribute("tags", tags);
+
+
+
+        Boolean isMe = false;
+        Boolean followed = false;
+        try {
+            UserDetails userDetails = UserDetailsUtil.getUserDetails();
+            User loggedUser = userService.findOneById(((UserDetailsImpl) userDetails).getId());
+            if (loggedUser.getId() == user.getId()) {
+                isMe = true;
+            }
+            if (user.getFollower().contains(loggedUser)) {
+                followed = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        modelMap.addAttribute("isMe", isMe);
+        modelMap.addAttribute("followed", followed);
+
         return "public/profile";
     }
 
@@ -203,4 +242,5 @@ public class PublicController {
 
         return "THIS IS TAG PAGE";
     }
+
 }

@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import com.itechnews.entity.Comment;
 import com.itechnews.entity.Tag;
 import com.itechnews.repository.*;
+import com.itechnews.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +21,9 @@ public class TestController {
 
     @Autowired
     TagRepository tagRepository;
+
+    @Autowired
+    TagService tagService;
 
     @Autowired
     private UserRepository userRepository;
@@ -41,7 +45,7 @@ public class TestController {
     public String test() {
 
 
-
+        List<Tag> list = tagService.findTopTags(15);
         //commentRepository.deleteById(105);
         return "";
     }

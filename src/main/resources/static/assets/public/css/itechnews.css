@@ -377,11 +377,20 @@ ul.user-feature > li {
     box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.18) inset;
     color: #00b5ad !important;
 }
+.profile-content .btn-follow-following:hover {
+    color: #fff !important;
+}
 .profile-content .btn-follow i.fa {
 
     margin-right: 8px;
 
     margin-left: 3px;
+}
+.profile-content .btn-follow-following {
+
+    background-color: #00b5ad !important;
+
+    color: #fff !important;
 }
 .profile-content .btn-follow {
     font-size: 12px;
@@ -399,9 +408,8 @@ ul.user-feature > li {
     text-decoration: none;
     user-select: none;
     transition: opacity 0.25s ease, background-color 0.25s ease, color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
-    /* margin: .5em 0; */
-    background-color: #ffffff !important;
-    color: #00b5ad !important;
+    background-color: #ffffff;
+    color: #00b5ad;
     text-transform: none;
     font-weight: 200;
     border-color: rgba(0,181,173,0.5) !important;
@@ -543,6 +551,9 @@ ul.user-feature > li {
 .post-list-container .post-list .post-item {
     display: flex;
     margin-bottom: 16px;
+    position: relative;
+    /* border-bottom: 1px solid #d6d9de; */
+    /* padding-bottom: 15px; */
 }
 .post-list-container .post-list .post-item .left {
     width: 20%;
@@ -596,4 +607,18 @@ ul.user-feature > li {
 .post-list-container .post-list .post-item .left a img {
     width: 38%;
     border-radius: 50%;
+}
+
+
+a.icon-like-comment {
+    font-size: 12px;
+    position: absolute;
+    top: 4px;
+    right: 0px;
+    color: #d6d9de;
+    text-decoration: none;
+}
+
+a.icon-like-comment i.icon-like {
+    margin-right: 4px;
 }

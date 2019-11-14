@@ -15,4 +15,5 @@ public interface TagService {
     Integer countAllByNameEquals(String tagName);
     List<Tag> findBestTags();
     List<Tag> findByUser(User user);
+    List<Tag> findTopTags(Integer quantity);
 }

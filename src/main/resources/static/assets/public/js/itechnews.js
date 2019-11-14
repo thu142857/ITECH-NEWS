@@ -91,6 +91,7 @@ $(document).ready(function () {
         e.preventDefault();
         if ($('input#isAuthenticated').val() === '0') {
             alert("Vui lòng đăng nhập");
+            return;
         }
         let $reply = $(this);
         let replyToUser = $reply.parent().find('h4').text();
@@ -200,5 +201,46 @@ $(document).ready(function () {
                 }
             });
         }
+    });
+
+    //follow button
+    $('.btn-follow').click(function (e) {
+        e.preventDefault();
+        if ($('input#isAuthenticated').val() === '0') {
+            alert("Vui lòng đăng nhập");
+            return;
+        }
+
+        let $btn = $(this);
+        let isFollowing = false;
+        if ($btn.hasClass('btn-follow-following')) {
+            isFollowing = true;
+        } else {
+            isFollowing = false;
+        }
+
+        console.log('follow');
+        $.ajax({
+            url: '/api/user/follow',
+            type: 'POST',
+            cache: false,
+            data: {
+                isFollowing: isFollowing,
+                followedId: $('input[name=userId]').val()
+            },
+            success: function(response){
+                console.log(response);
+                if ($btn.hasClass('btn-follow-following')) {
+                    isFollowing = true;
+                    $btn.removeClass('btn-follow-following').find('span').text('Theo dõi');
+                } else {
+                    isFollowing = false;
+                    $btn.addClass('btn-follow-following').find('span').text('Đang theo dõi');
+                }
+            },
+            error: function (){
+                console.log("ajax error");
+            }
+        });
     });
 });

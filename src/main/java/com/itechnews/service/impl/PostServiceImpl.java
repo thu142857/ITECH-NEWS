@@ -5,7 +5,12 @@ import com.itechnews.entity.Tag;
 import com.itechnews.entity.User;
 import com.itechnews.repository.PostRepository;
 import com.itechnews.service.PostService;
+import com.itechnews.util.OffsetBasedPageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -60,4 +65,17 @@ public class PostServiceImpl implements PostService {
     public Integer countByPostedUserAndTagsContains(User author, Tag tag) {
         return postRepository.countByPostedUserAndTagsContains(author, tag);
     }
+
+    @Override
+    public Page<Post> findNewPosts(Integer page) {
+        Sort sort = Sort.by("id").descending();
+        return postRepository.findAll(PageRequest.of(page, 5, sort));
+    }
+
+    @Override
+    public Page<Post> findTopPosts(Integer page) {
+        Sort sort = Sort.by("totalViews").descending();
+        return postRepository.findAll(PageRequest.of(page, 5, sort));
+    }
+
 }

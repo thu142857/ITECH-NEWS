@@ -55,4 +55,7 @@ public interface TagRepository
     @Query(value = "select distinct t from Tag t join t.posts p where p.postedUser = :user")
     List<Tag> findByUser(@Param("user") User user);
 
+    @Query(value = "select t from Tag t order by t.posts.size desc")
+    List<Tag> findTopTags(Pageable pageable);
+
 }
