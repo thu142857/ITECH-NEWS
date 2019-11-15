@@ -12,6 +12,7 @@ import com.itechnews.service.CommentService;
 import com.itechnews.service.PostService;
 import com.itechnews.service.TagService;
 import com.itechnews.service.UserService;
+import com.itechnews.util.SlugUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,12 +20,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -243,4 +246,104 @@ public class PublicController {
         return "THIS IS TAG PAGE";
     }
 
+    @GetMapping("posts/new")
+    public String createNewPostPage(ModelMap modelMap) {
+
+        List<Tag> tags = tagService.findAll();
+        modelMap.addAttribute("tags", tags);
+        return "public/posts_new";
+    }
+    @GetMapping("posts/edit/{postSlug}")
+    public String editPostPage(@PathVariable("postSlug") String postSlug, ModelMap modelMap) {
+        Post post = postService.findOneBySlug(postSlug);
+        if (post == null) {
+            throw new ResourceNotFoundException();
+        }
+
+        List<Tag> tags = tagService.findAll();
+        //loại bỏ những tag đã là tag của bài post này
+        Post finalPost = post;
+        tags.removeIf(tag -> {
+            boolean check = false;
+            for (Tag t : finalPost.getTags()) {
+                if (t.getId() == tag.getId()) {
+                    check = true;
+                }
+            }
+            return check;
+        });
+
+
+        modelMap.addAttribute("tags", tags);
+        modelMap.addAttribute("post", post);
+
+        return "public/posts_edit";
+    }
+    @PostMapping("posts/new")
+    public String createNewPost(
+            @RequestParam("title") String title,
+            @RequestParam("editor") String editor,
+            @RequestParam(value = "tags", required = false) List<Integer> tagIds,
+            RedirectAttributes ra) {
+        Post post = new Post();
+        post.setTitle(title);
+        post.setTotalViews(0);
+        post.setContent(editor);
+        List<Tag> tags = tagService.findByIdIn(tagIds);
+        post.setTags(tags);
+        post.setCategory(new Category(1, null, null));
+        post.setCreateAt(new Date());
+        post.setSlug(SlugUtil.makeSlug(post.getTitle()));
+        post.setImage(null);
+        post.setStatus(true);
+
+        UserDetails userDetails = null;
+        try {
+            userDetails = UserDetailsUtil.getUserDetails();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        User user = userService.findOneById(((UserDetailsImpl) userDetails).getId());
+        post.setPostedUser(user);
+        post = postService.save(post);
+        ra.addFlashAttribute("message", "Đăng bài thành công, xem lại những gì bạn mới viết!");
+        return "redirect:/posts/edit/"+post.getSlug();
+    }
+
+    @PostMapping("posts/edit/{postSlug}")
+    public String editPost(
+            @PathVariable("postSlug") String postSlug,
+            @RequestParam("title") String title,
+            @RequestParam("editor") String editor,
+            @RequestParam(value = "tags", required = false) List<Integer> tagIds,
+            RedirectAttributes ra) {
+        Post post = postService.findOneBySlug(postSlug);
+
+        if (post == null) {
+            throw new ResourceNotFoundException();
+        }
+
+        UserDetails userDetails = null;
+        try {
+            userDetails = UserDetailsUtil.getUserDetails();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        User user = userService.findOneById(((UserDetailsImpl) userDetails).getId());
+
+        if (user.getId() != post.getPostedUser().getId()) {
+            throw new ResourceNotFoundException();
+        }
+
+        post.setTitle(title);
+        post.setContent(editor);
+
+        List<Tag> tags = tagService.findByIdIn(tagIds);
+        post.setTags(tags);
+
+        post.setSlug(SlugUtil.makeSlug(post.getTitle()));
+        post = postService.save(post);
+        ra.addFlashAttribute("message", "Xác nhận sửa bài viết thành công, xem lại những gì bạn mới viết!");
+        return "redirect:/posts/edit/"+post.getSlug();
+    }
 }

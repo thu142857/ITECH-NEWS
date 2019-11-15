@@ -64,6 +64,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.NEVER);*/
         //super.configure(http);
         http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/posts/new/**").access("hasRole('ROLE_USER')");
         http.authorizeRequests().antMatchers("/demo").access("hasRole('ROLE_ADMIN')");
         http.authorizeRequests().antMatchers("/abc/**").access("hasAnyRole('ROLE_AMDIN', 'ROLE_USER')");
         http.authorizeRequests()
@@ -85,7 +86,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         //login, logout
         http
                 .cors().and()/*rest api*/
-                .csrf().ignoringAntMatchers("/api/**").and()//csrf TODO
+                .csrf().ignoringAntMatchers("/api/**", "/assets/public/lib/**").and()//csrf TODO //ignore ckfinder
                 //.httpBasic() //don't use default form
                 .formLogin()
                 .loginPage("/login") //get method

@@ -58,4 +58,6 @@ public interface TagRepository
     @Query(value = "select t from Tag t order by t.posts.size desc")
     List<Tag> findTopTags(Pageable pageable);
 
+    List<Tag> findByIdIn(List<Integer> ids);
+
 }
