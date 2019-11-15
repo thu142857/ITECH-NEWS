@@ -622,3 +622,32 @@ a.icon-like-comment {
 a.icon-like-comment i.icon-like {
     margin-right: 4px;
 }
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+}
+.footer .links {
+    display: flex;
+    justify-content: space-between;
+}
+.footer .copyright {
+
+}
+.footer .copyright ,
+.footer a {
+    transition: 0.4s;
+    display: block;
+    margin: 0 .7em;
+    font-size: 13px;
+    color: rgba(0,0,0,0.5);
+    text-decoration: none;
+    font-family: "OpenSans", sans-serif;
+    font-weight: 500;
+}
+.footer a:hover {
+    color: rgba(0,0,0,0.7);
+}
+#footer {
+
+}
