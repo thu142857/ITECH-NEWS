@@ -88,4 +88,9 @@ public class TagServiceImpl implements TagService {
     public List<Tag> findAll() {
         return (List<Tag>) tagRepository.findAll();
     }
+
+    @Override
+    public List<Tag> findByIdIn(List<Integer> ids) {
+        return tagRepository.findByIdIn(ids);
+    }
 }

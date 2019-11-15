@@ -49,6 +49,9 @@ public class TestController {
     public String test() {
 
         List<Tag> list = tagService.findTopTags(15);
+
+        List<Tag> list2 = tagRepository.findByIdIn(Arrays.asList(1, 2));
+
         //commentRepository.deleteById(105);
         return servletContext.getRealPath("");
     }

@@ -11,7 +11,8 @@ public class CKFinderServletConfig {
 
     private ClassLoader classLoader = CKFinderServletConfig.class.getClassLoader();
 
-    private String ckfinderXMLPath = classLoader.getResource("static").getPath() + "/config.xml";
+    private String ckfinderXMLPath = classLoader.getResource("static").getPath()
+            + "/assets/public/lib/ckfinder_config.xml";
 
     @Bean
     public ServletRegistrationBean connectCKFinder() {

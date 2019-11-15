@@ -7,11 +7,12 @@
     <th:block layout:fragment="main-content">
         <div class="row">
             <div class="col-sm-12">
+                <div th:if="${message != null}" class="alert alert-success alert-message" th:text="${message}"></div>
                 <form enctype="multipart/form-data" method="post"
-                      th:action="@{'/posts/new?'+${_csrf.parameterName}+'='+${_csrf.token}}">
+                      th:action="@{'/posts/edit/'+${post.slug}+'?'+${_csrf.parameterName}+'='+${_csrf.token}}">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                     <div class="form-group">
-                        <input type="text" name="title" id="title" autocomplete="off" placeholder="Tiêu đề gây ấn tượng">
+                        <input type="text" th:value="${post.title}" name="title" id="title" autocomplete="off" placeholder="Tiêu đề gây ấn tượng">
                     </div>
                     <select
                             class="form-control"
@@ -20,11 +21,16 @@
                             placeholder="Chọn tag phù hợp với bài viết của bạn"
                             multiple >
                         <th:block th:each="tag, iter : ${tags}">
-                            <option  th:value="${tag.id}" th:text="${tag.name}+' ('+${tag.posts.size()+')'}"></option>
+                            <option th:value="${tag.id}"
+                                    th:text="${tag.name}+' ('+${tag.posts.size()+')'}"></option>
+                        </th:block>
+                        <th:block th:each="t, iter : ${post.tags}">
+                            <option selected th:value="${t.id}"
+                                    th:text="${t.name}+' ('+${t.posts.size()+')'}"></option>
                         </th:block>
                     </select>
-                    <textarea name="editor" id="editor" cols="30" rows="10"></textarea>
-                    <button id="post" type="submit">Đăng bài</button>
+                    <textarea name="editor" id="editor" cols="30" rows="10" th:text="${post.content}"></textarea>
+                    <button id="post" type="submit">Xác nhận sửa</button>
                 </form>
             </div>
         </div>
@@ -38,6 +44,7 @@
             CKFinder.setupCKEditor(editor, '/assets/public/lib/ckfinder/');
 
             $("input[name=title]").focus();
+
             document.addEventListener('DOMContentLoaded', function () {
                 let genericExamples = document.querySelectorAll('[data-trigger]');
                 for (let i = 0; i < genericExamples.length; ++i) {
@@ -61,6 +68,11 @@
         <link rel="stylesheet" th:href="@{/assets/public/choices/styles/choices.min.css}"/>
         <script th:src="@{/assets/public/choices/scripts/choices.min.js}"></script>
         <style>
+            .alert-message {
+                color: #0b6b68;
+                background: #f8f8f8;
+                border-color: #0b6b68;
+            }
             .choices__list--multiple .choices__item {
                 background-color: #0b6b68;
                 border: 1px solid #0b6b68;
@@ -88,7 +100,6 @@
                 background-color: #0b6b68d4;
             }
             button#post {
-
                 box-shadow: 0 1px 6px rgba(0,0,0,0.12),0 1px 6px rgba(0,0,0,0.12) !important;
                 background-color: #0b6b68;
                 color: #FFFFFF;

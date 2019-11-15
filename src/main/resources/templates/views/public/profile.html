@@ -95,6 +95,7 @@
                         <div class="author"><span th:text="${user.username}"></span> viết vào
                             <th:block th:text="${#dates.format(post.createAt, 'dd/MM/yyyy')}" /></div>
                     </div>
+                    <a th:if="${isMe == true}" class="icon-edit" th:href="@{'/posts/edit/'+${post.slug}}"><i class="fa fa-edit"></i></a>
                     <a th:href="@{'/'+${post.slug}}" class="icon-like-comment">
                         <th:block th:text="${post.likedUsers.size()}" /> <i class="fa fa-thumbs-up icon-like"></i>
                         <th:block th:text="${post.comments.size()}" /> <i class="fa fa-comment icon-comment"></i>
@@ -104,6 +105,18 @@
 
         </div>
 
+    </th:block>
+    <th:block layout:fragment="pageStyleSheet">
+        <style>
+            a.icon-edit {
+                font-size: 27px;
+                position: absolute;
+                top: -4px;
+                right: 56px;
+                color: #0b6b68;
+                text-decoration: none;
+            }
+        </style>
     </th:block>
     <th:block layout:fragment="pageScript">
         <script th:src="@{/assets/public/js/Chart.js}"></script>
