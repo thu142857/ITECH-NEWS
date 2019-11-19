@@ -102,6 +102,7 @@
                e.preventDefault();
                let $btn = $(this);
                let page = $btn.data('page-top-posts');
+                $btn.html(`<i class="fa fa-spinner fa-pulse"></i> Đang tải dữ liệu`);
                 $.ajax({
                     url: '/api/post/load-more-top-post',
                     type: 'GET',
@@ -125,7 +126,7 @@
                             `<div class="post-item">
                                 <div class="left">
                                     <a href="/user/${posts[i].author.username}">
-                                        <img src="/upload/${posts[i].author.image}" alt="">
+                                        <img src="${posts[i].author.image}" alt="">
                                     </a>
                                 </div>
                                 <div class="right">
@@ -145,8 +146,12 @@
                         }
                         //console.log(html);
                         $btn.before(html);
+                        $btn.html(`Xem thêm...`);
                         $btn.data('page-top-posts', ++page);
-
+                        let isLastPage = response.data.page.is_last;
+                        if (isLastPage) {
+                            $btn.remove();
+                        }
                     },
                     error: function () {
                         console.log("ajax error");
@@ -158,6 +163,7 @@
                 e.preventDefault();
                 let $btn = $(this);
                 let page = $btn.data('page-new-posts');
+                $btn.html(`<i class="fa fa-spinner fa-pulse"></i> Đang tải dữ liệu`);
                 $.ajax({
                     url: '/api/post/load-more-new-post',
                     type: 'GET',
@@ -181,7 +187,7 @@
                                 `<div class="post-item">
                                 <div class="left">
                                     <a href="/user/${posts[i].author.username}">
-                                        <img src="/upload/${posts[i].author.image}" alt="">
+                                        <img src="${posts[i].author.image}" alt="">
                                     </a>
                                 </div>
                                 <div class="right">
@@ -201,8 +207,12 @@
                         }
                         //console.log(html);
                         $btn.before(html);
+                        $btn.html(`Xem thêm...`);
                         $btn.data('page-new-posts', ++page);
-
+                        let isLastPage = response.data.page.is_last;
+                        if (isLastPage) {
+                            $btn.remove();
+                        }
                     },
                     error: function () {
                         console.log("ajax error");
@@ -316,15 +326,6 @@
             .top-authors .author-list .author-item a img {
                 width: 100%;
                 border-radius: 50%;
-            }
-            .load-more {
-                padding: 9px;
-                color: #0b6b68;
-                text-align: center;
-                cursor: pointer;
-                border-radius: 5px;
-                border: 1px solid #e8e8e8;
-                background-color: rgba(255,255,255,0.85);
             }
         </style>
     </th:block>

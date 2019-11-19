@@ -1,7 +1,7 @@
 package com.itechnews.controller.web;
 
 import com.github.javafaker.Faker;
-import com.itechnews.entity.Comment;
+import com.itechnews.entity.Post;
 import com.itechnews.entity.Tag;
 import com.itechnews.repository.*;
 import com.itechnews.service.TagService;
@@ -59,6 +59,8 @@ public class TestController {
     @GetMapping("/3")
     @ResponseBody
     public String test3() {
+        Page<Post> page = postRepository.findByTitleContains("java", PageRequest.of(0, 3));
+        List<Post> l = page.getContent();
         //Post post = postRepository.findOnePost();
         //List<Comment> comments = commentRepository.findByParentIsNullAndPost_IdOrderByCreateAtDesc(1);
         //commentRepository.deleteAll();

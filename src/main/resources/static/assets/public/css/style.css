@@ -349,6 +349,7 @@ textarea.input {
     background: #FFF;
     padding: 0px;
     font-weight: 600;
+    padding-left: 30px;
 }
 .nav-btns .search-form .search-close {
     position: absolute;

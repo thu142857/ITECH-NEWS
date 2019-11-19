@@ -20,4 +20,5 @@ public interface TagService {
     Page<Tag> findAll(Pageable pageable);
     List<Tag> findAll();
     List<Tag> findByIdIn(List<Integer> ids);
+    Tag findBySlug(String slug);
 }

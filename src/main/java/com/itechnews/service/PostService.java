@@ -22,4 +22,6 @@ public interface PostService {
     Integer countByPostedUserAndTagsContains(User author, Tag tag);
     Page<Post> findNewPosts(Integer page);
     Page<Post> findTopPosts(Integer page);
+    Page<Post> searchByTitle(String searchTitle, Integer page);
+    Page<Post> findByTagContains(Tag tag, Integer page);
 }

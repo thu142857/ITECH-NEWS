@@ -19,7 +19,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
@@ -53,13 +52,13 @@ public class PublicController {
 
     @ModelAttribute
     public void commonObject(ModelMap modelMap) {
-        List<Category> categories = (List<Category>) categoryRepository.findAllByOrderById();
-        List<Post> mostRead = postRepository.findTop5ByStatusTrueOrderByTotalViewsDesc();
-        List<Tag> bestTags = tagService.findBestTags();
-        modelMap.addAttribute("categoryLinkActive", true);
-        modelMap.addAttribute("categories", categories);
-        modelMap.addAttribute("mostRead", mostRead);
-        modelMap.addAttribute("bestTags", bestTags);
+//        List<Category> categories = (List<Category>) categoryRepository.findAllByOrderById();
+//        List<Post> mostRead = postRepository.findTop5ByStatusTrueOrderByTotalViewsDesc();
+//        List<Tag> bestTags = tagService.findBestTags();
+//        modelMap.addAttribute("categoryLinkActive", true);
+//        modelMap.addAttribute("categories", categories);
+//        modelMap.addAttribute("mostRead", mostRead);
+//        modelMap.addAttribute("bestTags", bestTags);
     }
 
     @GetMapping("")
@@ -79,29 +78,61 @@ public class PublicController {
         return "public/posts";
     }
 
+    @GetMapping("search")
+    public String searchPage(@RequestParam(value = "q", required = false) String q, ModelMap modelMap) {
+        boolean isSearch = true;
+        if (q == null || q.trim().equals("")) {
+            isSearch = false;
+            return "public/search";
+        }
+
+
+        modelMap.addAttribute("searchText", q);
+        Page<Post> pageSearchPosts = postService.searchByTitle(q, 0);
+        modelMap.addAttribute("pageSearchPosts", pageSearchPosts);
+
+        modelMap.addAttribute("isSearch", isSearch);
+        return "public/search";
+    }
+
+    @GetMapping("tag/{tagSlug}")
+    public String tagPage(@PathVariable("tagSlug") String tagSlug, ModelMap modelMap) {
+        Tag tag = tagService.findBySlug(tagSlug);
+        if (tag == null) {
+            throw new ResourceNotFoundException();
+        }
+        Page<Post> postPage = postService.findByTagContains(tag, 0);
+        modelMap.addAttribute("postPage", postPage);
+        modelMap.addAttribute("tag", tag);
+        modelMap.addAttribute("title", "#" + tag.getName());
+        return "public/tags";
+    }
+
     @GetMapping("index2")
     public String index(ModelMap modelMap) {
         List<Integer> ids = new ArrayList<>();
         List<Post> postsTech = postService.findTop5ByStatusTrueAndCategoryOrderByCreateAtDesc(1);
-        for ( Post post:postsTech) {
+        for (Post post : postsTech) {
             ids.add(post.getId());
         }
         modelMap.addAttribute("postsTech", postsTech);
         List<Post> postsBlog = postService.findTop5ByStatusTrueAndCategoryOrderByCreateAtDesc(4);
-        for ( Post post:postsBlog) {
+        for (Post post : postsBlog) {
             ids.add(post.getId());
         }
         modelMap.addAttribute("postsBlog", postsBlog);
         List<Post> postsDev = postService.findTop5ByStatusTrueAndCategoryOrderByCreateAtDesc(2);
-        for ( Post post:postsDev) {
+        for (Post post : postsDev) {
             ids.add(post.getId());
         }
         modelMap.addAttribute("postsDev", postsDev);
 
         List<Post> postsNewest = postRepository.findTop8ByStatusTrueAndIdNotInOrderByCreateAtDesc(ids);
         modelMap.addAttribute("postsNewest", postsNewest);
+
         return "public/index";
     }
+
     @GetMapping("blog-post")
     public String blogPost(ModelMap modelMap) {
         modelMap.addAttribute("title", "hoc-lap-trinh-java");
@@ -165,7 +196,7 @@ public class PublicController {
         modelMap.addAttribute("title", post.getTitle());
 
 
-        Cookie cookie =	WebUtils.getCookie(request, "post-" + post.getId());
+        Cookie cookie = WebUtils.getCookie(request, "post-" + post.getId());
         if (cookie == null) {
             post.setTotalViews(post.getTotalViews() + 1);
             postService.save(post);
@@ -218,7 +249,6 @@ public class PublicController {
         modelMap.addAttribute("tags", tags);
 
 
-
         Boolean isMe = false;
         Boolean followed = false;
         try {
@@ -239,13 +269,6 @@ public class PublicController {
         return "public/profile";
     }
 
-    @GetMapping("tag/{tagSlug}")
-    @ResponseBody
-    public String tagPage(@PathVariable("tagSlug") String tagSlug) {
-
-        return "THIS IS TAG PAGE";
-    }
-
     @GetMapping("posts/new")
     public String createNewPostPage(ModelMap modelMap) {
 
@@ -253,6 +276,7 @@ public class PublicController {
         modelMap.addAttribute("tags", tags);
         return "public/posts_new";
     }
+
     @GetMapping("posts/edit/{postSlug}")
     public String editPostPage(@PathVariable("postSlug") String postSlug, ModelMap modelMap) {
         Post post = postService.findOneBySlug(postSlug);
@@ -279,6 +303,7 @@ public class PublicController {
 
         return "public/posts_edit";
     }
+
     @PostMapping("posts/new")
     public String createNewPost(
             @RequestParam("title") String title,
@@ -307,7 +332,7 @@ public class PublicController {
         post.setPostedUser(user);
         post = postService.save(post);
         ra.addFlashAttribute("message", "Đăng bài thành công, xem lại những gì bạn mới viết!");
-        return "redirect:/posts/edit/"+post.getSlug();
+        return "redirect:/posts/edit/" + post.getSlug();
     }
 
     @PostMapping("posts/edit/{postSlug}")
@@ -344,6 +369,6 @@ public class PublicController {
         post.setSlug(SlugUtil.makeSlug(post.getTitle()));
         post = postService.save(post);
         ra.addFlashAttribute("message", "Xác nhận sửa bài viết thành công, xem lại những gì bạn mới viết!");
-        return "redirect:/posts/edit/"+post.getSlug();
+        return "redirect:/posts/edit/" + post.getSlug();
     }
 }
