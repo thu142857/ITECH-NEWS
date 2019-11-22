@@ -715,3 +715,14 @@ html {
 .load-more:hover {
     background: #e8e8e891;
 }
+
+.error-page {
+    text-align: center;
+    padding-top: 101px;
+    color: #0b6b68;
+}
+.error-page h1 {
+    color: #0b6b68;
+    font-size: 80px;
+    font-style: italic;
+}

@@ -64,9 +64,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.NEVER);*/
         //super.configure(http);
         http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");
-        http.authorizeRequests().antMatchers("/posts/new/**").access("hasRole('ROLE_USER')");
-        http.authorizeRequests().antMatchers("/demo").access("hasRole('ROLE_ADMIN')");
-        http.authorizeRequests().antMatchers("/abc/**").access("hasAnyRole('ROLE_AMDIN', 'ROLE_USER')");
+
+        http.authorizeRequests().antMatchers("/posts/new").access("isAuthenticated()");
+        http.authorizeRequests().antMatchers("/posts/edit/**").access("isAuthenticated()");
+
+//        http.authorizeRequests().antMatchers("/demo").access("hasRole('ROLE_ADMIN')");
+//        http.authorizeRequests().antMatchers("/abc/**").access("hasAnyRole('ROLE_AMDIN', 'ROLE_USER')");
         http.authorizeRequests()
                 .antMatchers("/api/*", "/logout", "/login").permitAll();
 

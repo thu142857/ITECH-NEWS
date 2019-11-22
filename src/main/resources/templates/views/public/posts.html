@@ -7,6 +7,9 @@
     <th:block layout:fragment="main-content">
         <div class="row">
             <div class="col-sm-8">
+                <!--<div class="caption">
+                    <p>itechnews.com, kết nối những coder Việt Nam</p>
+                </div>-->
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#bestposts">Bài viết hay</a></li>
                     <li><a data-toggle="tab" href="#newposts">Bài viết mới</a></li>
@@ -119,7 +122,7 @@
                             let tags = "";
                             for (let j = 0; j < posts[i].tags.length; j++) {
                                 tags +=
-                                    `<a class="tag" href="${posts[i].tags[j].slug}">${posts[i].tags[j].name}</a>`;
+                                    `<a class="tag" href="/tag/${posts[i].tags[j].slug}">${posts[i].tags[j].name}</a>`;
                             }
 
                             html +=
@@ -180,7 +183,7 @@
                             let tags = "";
                             for (let j = 0; j < posts[i].tags.length; j++) {
                                 tags +=
-                                    `<a class="tag" href="${posts[i].tags[j].slug}">${posts[i].tags[j].name}</a>`;
+                                    `<a class="tag" href="/tag/${posts[i].tags[j].slug}">${posts[i].tags[j].name}</a>`;
                             }
 
                             html +=
@@ -326,6 +329,15 @@
             .top-authors .author-list .author-item a img {
                 width: 100%;
                 border-radius: 50%;
+            }
+            .caption {}
+            .caption p {
+                color: rgba(0,0,0,0.7);
+                font-weight: bold;
+                font-size: 16px;
+                font-family: "OpenSans", sans-serif;
+                line-height: 0.2em;
+                text-align: center;
             }
         </style>
     </th:block>

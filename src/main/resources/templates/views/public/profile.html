@@ -12,7 +12,7 @@
                 <img th:src="@{${#strings.containsIgnoreCase(user.image, 'http')==false?'/upload/':''}+${user.image}}" alt="">
             </div>
             <div class="profile-username">
-                <strong th:text="${user.username}"></strong>
+                <strong th:text="${user.displayedName}"></strong>
             </div>
             <div class="profile-info">
                 <div class="profile-info-like mytooltip">
@@ -43,14 +43,14 @@
                 </th:block>
             </a>
             <div class="profile-content-follower">
-                <p><th:block th:text="${user.follower.size()}" /> người theo dõi <th:block th:text="${user.username}" /></p>
+                <p><th:block th:text="${user.follower.size()}" /> người theo dõi <th:block th:text="${user.displayedName}" /></p>
                 <a class="mytooltip" th:href="@{'/user/'+${follower.username}}" th:each="follower, iter : ${user.follower}">
                     <img th:src="@{${#strings.containsIgnoreCase(follower.image, 'http')==false?'/upload/':''}+${follower.image}}" alt="">
                     <span class="tooltiptext" th:text="${follower.username}"></span>
                 </a>
             </div>
             <div class="profile-content-following">
-                <p><th:block th:text="${user.following.size()}" /> người được <th:block th:text="${user.username}" /> theo dõi</p>
+                <p><th:block th:text="${user.following.size()}" /> người được <th:block th:text="${user.displayedName}" /> theo dõi</p>
                 <a class="mytooltip" th:href="@{'/user/'+${following.username}}" th:each="following, iter : ${user.following}">
                     <img th:src="@{${#strings.containsIgnoreCase(following.image, 'http')==false?'/upload/':''}+${following.image}}" alt="">
                     <span class="tooltiptext" th:text="${following.username}"></span>

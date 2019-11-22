@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletContext;
+import java.io.File;
 import java.util.*;
 
 @Controller
@@ -52,6 +53,7 @@ public class TestController {
 
         List<Tag> list2 = tagRepository.findByIdIn(Arrays.asList(1, 2));
 
+        String dir = new File("src/main/resources/static/upload").getAbsolutePath();
         //commentRepository.deleteById(105);
         return servletContext.getRealPath("");
     }

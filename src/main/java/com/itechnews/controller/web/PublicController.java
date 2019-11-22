@@ -7,24 +7,36 @@ import com.itechnews.exception.ResourceNotFoundException;
 import com.itechnews.repository.CategoryRepository;
 import com.itechnews.repository.PostRepository;
 import com.itechnews.security.UserDetailsImpl;
+import com.itechnews.security.UserDetailsServiceImpl;
 import com.itechnews.security.UserDetailsUtil;
 import com.itechnews.service.CommentService;
 import com.itechnews.service.PostService;
 import com.itechnews.service.TagService;
 import com.itechnews.service.UserService;
 import com.itechnews.util.SlugUtil;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,10 +45,10 @@ import java.util.List;
 @RequestMapping("")
 public class PublicController {
     @Autowired
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     @Autowired
-    PostRepository postRepository;
+    private PostRepository postRepository;
 
     @Autowired
     private PostService postService;
@@ -49,6 +61,8 @@ public class PublicController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private ServletContext servletContext;
 
     @ModelAttribute
     public void commonObject(ModelMap modelMap) {
@@ -92,6 +106,7 @@ public class PublicController {
         modelMap.addAttribute("pageSearchPosts", pageSearchPosts);
 
         modelMap.addAttribute("isSearch", isSearch);
+        modelMap.addAttribute("title", "Tìm kiếm: " + q);
         return "public/search";
     }
 
@@ -269,11 +284,93 @@ public class PublicController {
         return "public/profile";
     }
 
+    @GetMapping("user/{username}/edit")
+    public String updateProfilePage(@PathVariable("username") String username, ModelMap modelMap) {
+        User user = userService.findOneByUsername(username);
+        if (user == null) {
+            throw new ResourceNotFoundException();
+        }
+        UserDetails userDetails = null;
+        try {
+            userDetails = UserDetailsUtil.getUserDetails();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (user.getId() != ((UserDetailsImpl) userDetails).getId()) {
+            throw new ResourceNotFoundException();
+        }
+
+        modelMap.addAttribute("user", user);
+        modelMap.addAttribute("title", user.getUsername());
+        return "public/profile_edit";
+    }
+
+    @PostMapping("user/{username}/edit")
+    public String updateProfilePost(@PathVariable("username") String username,
+                                    @RequestParam("type") String type, HttpServletRequest request,
+                                    @RequestParam(value = "image", required = false) CommonsMultipartFile cmf,
+                                    RedirectAttributes ra) throws UnsupportedEncodingException {
+        User user = userService.findOneByUsername(username);
+        System.out.println(cmf);
+
+        if (user == null) {
+            throw new ResourceNotFoundException();
+        }
+        if (type.equals("UPDATE_IMAGE")) {
+
+            String originalFilename = cmf.getOriginalFilename();
+            if (originalFilename != null && !originalFilename.equals("")) {
+                final String DIR_PATH = servletContext.getRealPath("") + "upload";
+                File dir = new File(DIR_PATH);
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                }
+                String fileName = user.getUsername() + "-" + FilenameUtils.getBaseName(originalFilename)
+                        + "-" + System.currentTimeMillis() + "." + FilenameUtils.getExtension(originalFilename);
+                File file = new File(dir.getAbsolutePath() + File.separator + fileName);
+                try {
+                    cmf.transferTo(file);
+
+                    File uploadIntoProject = new File(
+                            new File("src/main/resources/static/upload").getAbsolutePath()
+                    );
+                    FileUtils.copyFileToDirectory(file, uploadIntoProject);
+
+                    user.setImage(fileName);
+                    userService.save(user);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }else if (type.equals("UPDATE_INFO")) {
+            String name = request.getParameter("name");
+            String email = request.getParameter("email");
+            user.setDisplayedName(name);
+            user.setEmail(email);
+            userService.save(user);
+
+        } else if (type.equals("UPDATE_PASSWORD")) {
+            String password = request.getParameter("password");
+            String newPassword = request.getParameter("newpassword");
+            String confirmNewPassword = request.getParameter("confirmnewpassword");
+            user.setPassword(password);
+            userService.save(user);
+        }
+
+        //update UserDetail
+        UserDetailsUtil.updateUserDetail(user, request);
+
+        ra.addFlashAttribute("message", "Chỉnh sửa thông tin thành công");
+        return "redirect:/user/"+ URLEncoder.encode(user.getUsername(), "UTF-8")+"/edit";
+    }
+
     @GetMapping("posts/new")
     public String createNewPostPage(ModelMap modelMap) {
 
         List<Tag> tags = tagService.findAll();
         modelMap.addAttribute("tags", tags);
+        modelMap.addAttribute("title", "Viết bài");
         return "public/posts_new";
     }
 
@@ -281,6 +378,18 @@ public class PublicController {
     public String editPostPage(@PathVariable("postSlug") String postSlug, ModelMap modelMap) {
         Post post = postService.findOneBySlug(postSlug);
         if (post == null) {
+            throw new ResourceNotFoundException();
+        }
+
+        UserDetails userDetails = null;
+        try {
+            userDetails = UserDetailsUtil.getUserDetails();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        User user = userService.findOneById(((UserDetailsImpl) userDetails).getId());
+
+        if (user.getId() != post.getPostedUser().getId()) {
             throw new ResourceNotFoundException();
         }
 
@@ -300,7 +409,7 @@ public class PublicController {
 
         modelMap.addAttribute("tags", tags);
         modelMap.addAttribute("post", post);
-
+        modelMap.addAttribute("title", "Viết bài: "+post.getTitle());
         return "public/posts_edit";
     }
 
@@ -332,7 +441,23 @@ public class PublicController {
         post.setPostedUser(user);
         post = postService.save(post);
         ra.addFlashAttribute("message", "Đăng bài thành công, xem lại những gì bạn mới viết!");
+
+
+        try {
+            copyCkfinder();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return "redirect:/posts/edit/" + post.getSlug();
+    }
+
+    public void copyCkfinder() throws IOException {
+        File uploadIntoProject = new File(
+                new File("src/main/resources/static/ckfinder/images").getAbsolutePath()
+        );
+        File file = new File(servletContext.getRealPath("") + "/ckfinder/images");
+        FileUtils.copyDirectory(file, uploadIntoProject);
     }
 
     @PostMapping("posts/edit/{postSlug}")
