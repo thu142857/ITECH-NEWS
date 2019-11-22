@@ -29,7 +29,12 @@
                         <th:block th:text="${message}" />
                     </div>
 
-
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Username:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" readonly name="username" th:value="${user.username}">
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Tên:</label>
                         <div class="col-lg-8">
@@ -57,13 +62,13 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">Mật khẩu mới:</label>
                         <div class="col-md-8">
-                            <input class="form-control" type="password" name="newpassword" value="">
+                            <input class="form-control" type="password" id="password" name="newpassword" value="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">Xác nhận mật khẩu mới:</label>
                         <div class="col-md-8">
-                            <input class="form-control" type="password" name="confirmnewpassword" value="">
+                            <input class="form-control" type="password" id="confirm_password" name="confirmnewpassword" value="">
                         </div>
                     </div>
                     <div class="form-group">
@@ -154,6 +159,22 @@
             $("#profile-image-input").change(function() {
                 readURL(this);
             });
+
+
+            //validate confirm password
+            // let password = document.getElementById("password")
+            //     , confirm_password = document.getElementById("confirm_password");
+            //
+            // function validatePassword(){
+            //     if(password.value != confirm_password.value) {
+            //         confirm_password.setCustomValidity("Passwords Don't Match");
+            //     } else {
+            //         confirm_password.setCustomValidity('');
+            //     }
+            // }
+            //
+            // password.onchange = validatePassword;
+            // confirm_password.onkeyup = validatePassword;
         </script>
     </th:block>
 

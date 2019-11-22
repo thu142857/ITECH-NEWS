@@ -21,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -63,6 +64,9 @@ public class PublicController {
     private UserService userService;
     @Autowired
     private ServletContext servletContext;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @ModelAttribute
     public void commonObject(ModelMap modelMap) {
@@ -312,7 +316,6 @@ public class PublicController {
                                     @RequestParam(value = "image", required = false) CommonsMultipartFile cmf,
                                     RedirectAttributes ra) throws UnsupportedEncodingException {
         User user = userService.findOneByUsername(username);
-        System.out.println(cmf);
 
         if (user == null) {
             throw new ResourceNotFoundException();
@@ -343,25 +346,47 @@ public class PublicController {
                     e.printStackTrace();
                 }
             }
+            //update UserDetail
+            UserDetailsUtil.updateUserDetail(user, request);
+            ra.addFlashAttribute("message", "Chỉnh sửa thông tin thành công");
         }else if (type.equals("UPDATE_INFO")) {
             String name = request.getParameter("name");
             String email = request.getParameter("email");
-            user.setDisplayedName(name);
-            user.setEmail(email);
-            userService.save(user);
+            if (name.length() < 3 || email.length() < 4) {
+                ra.addFlashAttribute("message", "Vui lòng nhập tên và email hợp lệ");
+            } else {
+                user.setDisplayedName(name);
+                user.setEmail(email);
+                userService.save(user);
 
+                //update UserDetail
+                UserDetailsUtil.updateUserDetail(user, request);
+                ra.addFlashAttribute("message", "Chỉnh sửa thông tin thành công");
+            }
         } else if (type.equals("UPDATE_PASSWORD")) {
             String password = request.getParameter("password");
             String newPassword = request.getParameter("newpassword");
             String confirmNewPassword = request.getParameter("confirmnewpassword");
-            user.setPassword(password);
-            userService.save(user);
+            if (password.length() < 6 || password.length() < 6 || confirmNewPassword.length() < 6) {
+                ra.addFlashAttribute("message", "Vui lòng nhập mật khẩu từ 6 ký tự trở lên");
+            } else {
+                if (passwordEncoder.matches(password, user.getPassword())) {
+
+                    if (newPassword.equals(confirmNewPassword)) {
+                        user.setPassword(passwordEncoder.encode(newPassword));
+                        userService.save(user);
+                        //update UserDetail
+                        UserDetailsUtil.updateUserDetail(user, request);
+                        ra.addFlashAttribute("message", "Chỉnh sửa thông tin thành công");
+                    } else {
+                        ra.addFlashAttribute("message", "Vui lòng confirm password");
+                    }
+                } else {
+                    ra.addFlashAttribute("message", "Vui lòng nhập đúng mật khẩu cũ");
+                }
+            }
         }
 
-        //update UserDetail
-        UserDetailsUtil.updateUserDetail(user, request);
-
-        ra.addFlashAttribute("message", "Chỉnh sửa thông tin thành công");
         return "redirect:/user/"+ URLEncoder.encode(user.getUsername(), "UTF-8")+"/edit";
     }
 
@@ -410,6 +435,13 @@ public class PublicController {
         modelMap.addAttribute("tags", tags);
         modelMap.addAttribute("post", post);
         modelMap.addAttribute("title", "Viết bài: "+post.getTitle());
+
+        try {
+            copyCkfinder();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return "public/posts_edit";
     }
 

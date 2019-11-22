@@ -38,7 +38,7 @@ public class FacebookConnectionSignUp implements ConnectionSignUp {
         }
 
         user = new User(null, username, connection.getDisplayName(),
-                passwordEncoder.encode("123456"), true, userProfile.getEmail(), null,
+                passwordEncoder.encode("1234567"), true, userProfile.getEmail(), null,
                 connection.getImageUrl(), new Role(2, null, null), null, null,
                 null, null, null);
 
