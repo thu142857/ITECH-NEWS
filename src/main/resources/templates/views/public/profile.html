@@ -6,107 +6,110 @@
 
 
     <th:block layout:fragment="main-content">
-        <!-- Post content -->
-        <div class="col-md-4 profile">
-            <div class="profile-image">
-                <img th:src="@{${#strings.containsIgnoreCase(user.image, 'http')==false?'/upload/':''}+${user.image}}" alt="">
-            </div>
-            <div class="profile-username">
-                <strong th:text="${user.displayedName}"></strong>
-            </div>
-            <div class="profile-info">
-                <div class="profile-info-like mytooltip">
-                    <h5>Thích</h5>
-                    <p th:text="${totalOfLike}"></p>
-                    <span class="tooltiptext tooltiptext-bottom">Tổng số lượt like trong tất cả bài viết</span>
+        <div class="row">
+            <div class="col-md-4 profile col-md-offset-1">
+                <div class="profile-image">
+                    <img th:src="@{${#strings.containsIgnoreCase(user.image, 'http')==false?'/upload/':''}+${user.image}}" alt="">
                 </div>
-                <div class="profile-info-comment mytooltip">
-                    <h5>Bình luân</h5>
-                    <p th:text="${totalOfComments}"></p>
-                    <span class="tooltiptext tooltiptext-bottom">Tổng số lượt bình luận trong tất cả bài viết</span>
+                <div class="profile-username">
+                    <strong th:text="${user.displayedName}"></strong>
                 </div>
-                <div class="profile-info-view mytooltip">
-                    <h5>Lượt xem</h5>
-                    <p th:text="${totalOfViews}"></p>
-                    <span class="tooltiptext tooltiptext-bottom">Tổng số lượt xem trong tất cả bài viết</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 profile-content">
-            <a th:if="${isMe == false}" href="" class="btn-follow" th:classappend="${followed == true ? 'btn-follow-following':''}">
-                <th:block th:if="${followed == true}">
-                    <i class="fa fa-rss"></i><span>Đang theo dõi</span>
-                </th:block>
-                <th:block th:if="${followed == false}">
-                    <i class="fa fa-rss"></i><span>Theo dõi</span>
-                </th:block>
-            </a>
-            <div class="profile-content-follower">
-                <p><th:block th:text="${user.follower.size()}" /> người theo dõi <th:block th:text="${user.displayedName}" /></p>
-                <a class="mytooltip" th:href="@{'/user/'+${follower.username}}" th:each="follower, iter : ${user.follower}">
-                    <img th:src="@{${#strings.containsIgnoreCase(follower.image, 'http')==false?'/upload/':''}+${follower.image}}" alt="">
-                    <span class="tooltiptext" th:text="${follower.username}"></span>
-                </a>
-            </div>
-            <div class="profile-content-following">
-                <p><th:block th:text="${user.following.size()}" /> người được <th:block th:text="${user.displayedName}" /> theo dõi</p>
-                <a class="mytooltip" th:href="@{'/user/'+${following.username}}" th:each="following, iter : ${user.following}">
-                    <img th:src="@{${#strings.containsIgnoreCase(following.image, 'http')==false?'/upload/':''}+${following.image}}" alt="">
-                    <span class="tooltiptext" th:text="${following.username}"></span>
-                </a>
-            </div>
-            <div class="profile-content-tag">
-                <p>Chủ đề</p>
-                <a th:each="tag, iter : ${tags}" class="tag" th:href="@{'/tag/'+${tag.slug}}" th:text="${tag.name}"></a>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="chart">
-                <canvas id="myChart"></canvas>
-                <input type="hidden" name="labels" th:value="${labels}">
-                <input type="hidden" name="data" th:value="${data}">
-                <input type="hidden" name="totalOfPosts" th:value="${posts.size()}">
-                <input type="hidden" name="userId" th:value="${user.id}">
-                <th:block sec:authorize="isAuthenticated()">
-                    <input type="hidden" id="isAuthenticated" th:value="1">
-                </th:block>
-                <th:block sec:authorize="!isAuthenticated()">
-                    <input type="hidden" id="isAuthenticated" th:value="0">
-                </th:block>
-            </div>
-        </div>
-        <div class="col-md-12 divider"><i class="fa fa-chevron-down"></i></div>
-        <div class="col-md-12 post-list-container">
-            <div class="post-list">
-                <div class="post-item" th:each="post, iter : ${posts}">
-                    <div class="left">
-                        <a th:href="@{'/user/'+${user.username}}">
-                            <img th:src="@{${#strings.containsIgnoreCase(user.image, 'http')==false?'/upload/':''}+${user.image}}" alt="">
-                        </a>
+                <div class="profile-info">
+                    <div class="profile-info-like mytooltip">
+                        <h5>Thích</h5>
+                        <p th:text="${totalOfLike}"></p>
+                        <span class="tooltiptext tooltiptext-bottom">Tổng số lượt like trong tất cả bài viết</span>
                     </div>
-                    <div class="right">
-                        <h3><a th:href="@{'/'+${post.slug}}" th:text="${post.title}"></a></h3>
-                        <div class="tags">
-                            <a class="tag" th:href="@{'/tag/'+${tag.slug}}"
-                               th:each="tag, iter : ${post.tags}" th:text="${tag.name}"></a>
-                        </div>
-                        <p th:utext="${T(com.itechnews.util.StringUtil).getThreeDotsTextFromHtml(post.content, 160)}"></p>
-                        <div class="author"><span th:text="${user.username}"></span> viết vào
-                            <th:block th:text="${#dates.format(post.createAt, 'dd/MM/yyyy')}" /></div>
+                    <div class="profile-info-comment mytooltip">
+                        <h5>Bình luân</h5>
+                        <p th:text="${totalOfComments}"></p>
+                        <span class="tooltiptext tooltiptext-bottom">Tổng số lượt bình luận trong tất cả bài viết</span>
                     </div>
-                    <a th:if="${isMe == true}" class="icon-edit" th:href="@{'/posts/edit/'+${post.slug}}"><i class="fa fa-edit"></i></a>
-                    <a th:href="@{'/'+${post.slug}}" class="icon-like-comment">
-                        <th:block th:text="${post.likedUsers.size()}" /> <i class="fa fa-thumbs-up icon-like"></i>
-                        <th:block th:text="${post.comments.size()}" /> <i class="fa fa-comment icon-comment"></i>
+                    <div class="profile-info-view mytooltip">
+                        <h5>Lượt xem</h5>
+                        <p th:text="${totalOfViews}"></p>
+                        <span class="tooltiptext tooltiptext-bottom">Tổng số lượt xem trong tất cả bài viết</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 profile-content">
+                <a th:if="${isMe == false}" href="" class="btn-follow" th:classappend="${followed == true ? 'btn-follow-following':''}">
+                    <th:block th:if="${followed == true}">
+                        <i class="fa fa-rss"></i><span>Đang theo dõi</span>
+                    </th:block>
+                    <th:block th:if="${followed == false}">
+                        <i class="fa fa-rss"></i><span>Theo dõi</span>
+                    </th:block>
+                </a>
+                <div class="profile-content-follower">
+                    <p><th:block th:text="${user.follower.size()}" /> người theo dõi <th:block th:text="${user.displayedName}" /></p>
+                    <a class="mytooltip" th:href="@{'/user/'+${follower.username}}" th:each="follower, iter : ${user.follower}">
+                        <img th:src="@{${#strings.containsIgnoreCase(follower.image, 'http')==false?'/upload/':''}+${follower.image}}" alt="">
+                        <span class="tooltiptext" th:text="${follower.username}"></span>
                     </a>
                 </div>
+                <div class="profile-content-following">
+                    <p><th:block th:text="${user.following.size()}" /> người được <th:block th:text="${user.displayedName}" /> theo dõi</p>
+                    <a class="mytooltip" th:href="@{'/user/'+${following.username}}" th:each="following, iter : ${user.following}">
+                        <img th:src="@{${#strings.containsIgnoreCase(following.image, 'http')==false?'/upload/':''}+${following.image}}" alt="">
+                        <span class="tooltiptext" th:text="${following.username}"></span>
+                    </a>
+                </div>
+                <div class="profile-content-tag">
+                    <p>Chủ đề</p>
+                    <a th:each="tag, iter : ${tags}" class="tag" th:href="@{'/tag/'+${tag.slug}}" th:text="${tag.name}"></a>
+                </div>
             </div>
-
         </div>
-
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="chart">
+                    <canvas id="myChart"></canvas>
+                    <input type="hidden" name="labels" th:value="${labels}">
+                    <input type="hidden" name="data" th:value="${data}">
+                    <input type="hidden" name="totalOfPosts" th:value="${posts.size()}">
+                    <input type="hidden" name="userId" th:value="${user.id}">
+                    <th:block sec:authorize="isAuthenticated()">
+                        <input type="hidden" id="isAuthenticated" th:value="1">
+                    </th:block>
+                    <th:block sec:authorize="!isAuthenticated()">
+                        <input type="hidden" id="isAuthenticated" th:value="0">
+                    </th:block>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 divider"><i class="fa fa-chevron-down"></i></div>
+            <div class="col-md-12 post-list-container">
+                <div class="post-list">
+                    <div class="post-item" th:each="post, iter : ${posts}">
+                        <div class="left">
+                            <a th:href="@{'/user/'+${user.username}}">
+                                <img th:src="@{${#strings.containsIgnoreCase(user.image, 'http')==false?'/upload/':''}+${user.image}}" alt="">
+                            </a>
+                        </div>
+                        <div class="right">
+                            <h3><a th:href="@{'/'+${post.slug}}" th:text="${post.title}"></a></h3>
+                            <div class="tags">
+                                <a class="tag" th:href="@{'/tag/'+${tag.slug}}"
+                                   th:each="tag, iter : ${post.tags}" th:text="${tag.name}"></a>
+                            </div>
+                            <p th:utext="${T(com.itechnews.util.StringUtil).getThreeDotsTextFromHtml(post.content, 160)}"></p>
+                            <div class="author"><span th:text="${user.username}"></span> viết vào
+                                <th:block th:text="${#dates.format(post.createAt, 'dd/MM/yyyy')}" /></div>
+                        </div>
+                        <a th:if="${isMe == true}" class="icon-edit" th:href="@{'/posts/edit/'+${post.slug}}"><i class="fa fa-edit"></i></a>
+                        <a th:href="@{'/'+${post.slug}}" class="icon-like-comment">
+                            <th:block th:text="${post.likedUsers.size()}" /> <i class="fa fa-thumbs-up icon-like"></i>
+                            <th:block th:text="${post.comments.size()}" /> <i class="fa fa-comment icon-comment"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </th:block>
     <th:block layout:fragment="pageStyleSheet">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
         <style>
             a.icon-edit {
                 font-size: 27px;
@@ -115,6 +118,14 @@
                 right: 56px;
                 color: #0b6b68;
                 text-decoration: none;
+            }
+            .profile-username strong {
+                font-family: 'Montserrat', sans-serif;
+            }
+            @media (min-width: 992px) {
+                .col-md-offset-1 {
+                    margin-left: 8.33333333% !important;
+                }
             }
         </style>
     </th:block>

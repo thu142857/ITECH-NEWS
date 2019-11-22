@@ -127,7 +127,7 @@ public class PublicController {
         return "public/tags";
     }
 
-    @GetMapping("index2")
+    /*@GetMapping("index2")
     public String index(ModelMap modelMap) {
         List<Integer> ids = new ArrayList<>();
         List<Post> postsTech = postService.findTop5ByStatusTrueAndCategoryOrderByCreateAtDesc(1);
@@ -150,27 +150,27 @@ public class PublicController {
         modelMap.addAttribute("postsNewest", postsNewest);
 
         return "public/index";
-    }
+    }*/
 
-    @GetMapping("blog-post")
+    /*@GetMapping("blog-post")
     public String blogPost(ModelMap modelMap) {
         modelMap.addAttribute("title", "hoc-lap-trinh-java");
         return "public/blog_post";
-    }
+    }*/
 
-    @GetMapping("tag")
+    /*@GetMapping("tag")
     public String category() {
 
         return "public/tag";
-    }
+    }*/
 
-    @GetMapping("contact")
+    /*@GetMapping("contact")
     public String contact() {
 
         return "public/contact";
-    }
+    }*/
 
-    @GetMapping("about")
+    /*@GetMapping("about")
     public String about() {
 
         return "public/about";
@@ -180,7 +180,7 @@ public class PublicController {
     public String blank() {
 
         return "public/blank";
-    }
+    }*/
 
     @GetMapping("{postSlug}")
     public String postDetail(@PathVariable("postSlug") String postSlug, ModelMap modelMap,
