@@ -1,0 +1,182 @@
+<th:block
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        layout:decorate="~{../layouts/public/template}">
+
+
+    <th:block layout:fragment="main-content">
+        <h1>Cập nhật profile</h1>
+        <hr>
+        <div class="row">
+            <form class="form-horizontal"th:action="@{'?'+${_csrf.parameterName}+'='+${_csrf.token}}"
+                  enctype="multipart/form-data" method="post">
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <img style="width: 100px"
+                             th:src="@{${#strings.containsIgnoreCase(user.image, 'http')==false?'/upload/':''}+${user.image}}"
+                             class="avatar img-circle" id="profile-image" alt="avatar">
+                        <h6>Upload một ảnh khác...</h6>
+
+                        <input name="image" type="file" id="profile-image-input" class="form-control">
+                        <button type="submit" name="type" value="UPDATE_IMAGE" class="btn btn-primary">Thay đổi</button>
+                    </div>
+                </div>
+
+                <div class="col-md-9 personal-info">
+                    <div th:if="${message != null}" class="alert alert-success alert-dismissable alert-message">
+                        <a class="panel-close close" data-dismiss="alert">×</a>
+                        <th:block th:text="${message}" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Username:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" readonly name="username" th:value="${user.username}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Tên:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" name="name" th:value="${user.displayedName}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Email:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" name="email" th:value="${user.email}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-8">
+                            <button type="submit" name="type" value="UPDATE_INFO" class="btn btn-primary">Thay đổi</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Mật khẩu:</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="password" name="password" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Mật khẩu mới:</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="password" id="password" name="newpassword" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Xác nhận mật khẩu mới:</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="password" id="confirm_password" name="confirmnewpassword" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-8">
+                            <button type="submit" name="type" value="UPDATE_PASSWORD" class="btn btn-primary">Thay đổi</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </th:block>
+    <th:block layout:fragment="pageStyleSheet">
+        <style>
+            .alert-message {
+                color: #0b6b68;
+                background: #f8f8f8;
+                border-color: #0b6b68;
+            }
+            h3, h1, h6, label {
+                color: #0b6966;
+            }
+            h1 {
+                font-size: 25px;
+            }
+            h3 {}
+            label {
+                font-size: 13px;
+            }
+            button[type=submit]:hover {
+                box-shadow: 0 3px 10px rgba(0,0,0,0.23),0 3px 10px rgba(0,0,0,0.16) !important;
+                background-color: #0b6b68d4;
+            }
+            button[type=submit] {
+                box-shadow: 0 1px 6px rgba(0,0,0,0.12),0 1px 6px rgba(0,0,0,0.12) !important;
+                background-color: #0b6b68;
+                color: #cccccc;
+                cursor: pointer;
+                display: inline-block;
+                vertical-align: middle;
+                min-height: 1em;
+                outline: none;
+                border: none;
+                margin-top: 2px;
+                padding: 7px 13px;
+                font-size: 11px;
+                text-transform: inherit;
+                line-height: 1;
+                font-weight: bold;
+                font-style: normal;
+                text-align: center;
+                text-decoration: none;
+                background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0)), to(rgba(0,0,0,0.05)));
+                background-image: -webkit-linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.05));
+                background-image: -moz-linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.05));
+                background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.05));
+                border-radius: 6px;
+                -webkit-box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.08) inset;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                -ms-box-sizing: border-box;
+                box-sizing: border-box;
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
+                -webkit-transition: opacity 0.25s ease, background-color 0.25s ease, color 0.25s ease, background 0.25s ease, -webkit-box-shadow 0.25s ease;
+                -moz-transition: opacity 0.25s ease, background-color 0.25s ease, color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+                transition: opacity 0.25s ease, background-color 0.25s ease, color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+            }
+        </style>
+    </th:block>
+    <th:block layout:fragment="pageScript">
+        <script>
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#profile-image').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#profile-image-input").change(function() {
+                readURL(this);
+            });
+
+
+            //validate confirm password
+            // let password = document.getElementById("password")
+            //     , confirm_password = document.getElementById("confirm_password");
+            //
+            // function validatePassword(){
+            //     if(password.value != confirm_password.value) {
+            //         confirm_password.setCustomValidity("Passwords Don't Match");
+            //     } else {
+            //         confirm_password.setCustomValidity('');
+            //     }
+            // }
+            //
+            // password.onchange = validatePassword;
+            // confirm_password.onkeyup = validatePassword;
+        </script>
+    </th:block>
+
+
+</th:block>

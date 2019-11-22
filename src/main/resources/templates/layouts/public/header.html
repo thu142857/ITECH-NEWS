@@ -56,12 +56,14 @@
                     </ul>
                     <!-- search & aside toggle -->
                     <div class="nav-btns">
-                        <button class="aside-btn"><i class="fa fa-bars"></i></button>
+                        <!--<button class="aside-btn"><i class="fa fa-bars"></i></button>-->
                         <button class="search-btn"><i class="fa fa-search"></i></button>
-                        <div class="search-form">
-                            <input class="search-input" type="text" name="search" placeholder="Enter Your Search ...">
-                            <button class="search-close"><i class="fa fa-times"></i></button>
-                        </div>
+                        <form th:action="@{/search}" method="get">
+                            <div class="search-form">
+                                <input autofocus class="search-input" type="text" name="q" placeholder="Nhập từ khóa">
+                                <button class="search-close"><i class="fa fa-times"></i></button>
+                            </div>
+                        </form>
                     </div>
                     <!-- /search & aside toggle -->
                 </div>
@@ -71,8 +73,8 @@
         <!-- /Main Nav -->
 
         <!-- Aside Nav -->
-        <div id="nav-aside">
-            <!-- nav -->
+        <!--<div id="nav-aside">
+            &lt;!&ndash; nav &ndash;&gt;
             <div class="section-row">
                 <ul class="nav-aside-menu">
                     <li><a th:href="@{/}">Home</a></li>
@@ -85,9 +87,9 @@
                     </th:block>
                 </ul>
             </div>
-            <!-- /nav -->
+            &lt;!&ndash; /nav &ndash;&gt;
 
-            <!-- social links -->
+            &lt;!&ndash; social links &ndash;&gt;
             <div class="section-row">
                 <h3>Follow us</h3>
                 <ul class="nav-aside-social">
@@ -97,9 +99,9 @@
                     <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
                 </ul>
             </div>
-            <!-- /social links -->
+            &lt;!&ndash; /social links &ndash;&gt;
 
-            <!-- user account -->
+            &lt;!&ndash; user account &ndash;&gt;
             <th:block sec:authorize="isAuthenticated()"
                       th:with="loggedUser=${T(com.itechnews.security.UserDetailsUtil).getUserDetails()}">
                 <div class="section-row">
@@ -117,12 +119,12 @@
                     </ul>
                 </div>
             </th:block>
-            <!-- /user account -->
+            &lt;!&ndash; /user account &ndash;&gt;
 
-            <!-- aside nav close -->
+            &lt;!&ndash; aside nav close &ndash;&gt;
             <button class="nav-aside-close"><i class="fa fa-times"></i></button>
-            <!-- /aside nav close -->
-        </div>
+            &lt;!&ndash; /aside nav close &ndash;&gt;
+        </div>-->
         <!-- Aside Nav -->
     </div>
     <!-- /Nav -->

@@ -1,0 +1,152 @@
+<th:block
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        layout:decorate="~{../layouts/public/template}">
+
+    <th:block layout:fragment="main-content">
+        <div class="row">
+            <div class="col-sm-10 form-group search-box-container">
+                <form th:action="@{/search}">
+                    <input th:value="${searchText}" type="text" name="q" id="search-box"
+                           autofocus onfocus="this.value = this.value;"
+                           autocomplete="off" placeholder="Nhập từ khóa">
+                </form>
+                <p th:if="${isSearch == true && pageSearchPosts.totalPages == 0}">Không có kết quả</p>
+            </div>
+            <div th:if="${isSearch == true}" class="col-md-12 post-list-container">
+                <div class="post-list">
+                    <div class="post-item" th:each="post, iter : ${pageSearchPosts.content}">
+                        <div class="left">
+                            <a th:href="@{'/user/'+${post.postedUser.username}}">
+                                <img th:src="@{${#strings.containsIgnoreCase(post.postedUser.image, 'http')==false?'/upload/':''}+${post.postedUser.image}}" alt="">
+                            </a>
+                        </div>
+                        <div class="right">
+                            <h3><a th:href="@{'/'+${post.slug}}" th:utext="${post.title}"></a></h3>
+                            <div class="tags">
+                                <a class="tag" th:href="@{'/tag/'+${tag.slug}}" th:each="tag, iter : ${post.tags}" th:text="${tag.name}">spring</a>
+                            </div>
+                            <p th:utext="${T(com.itechnews.util.StringUtil).getThreeDotsTextFromHtml(post.content, 160)}"></p>
+                            <div class="author"><span th:text="${post.postedUser.username}"></span> viết vào
+                                <th:block th:text="${#dates.format(post.createAt, 'dd/MM/yyyy')}" />
+                            </div>
+                        </div>
+                        <a th:href="@{'/'+${post.slug}}" class="icon-like-comment">
+                            <th:block th:text="${post.likedUsers.size()}" /> <i class="fa fa-thumbs-up icon-like"></i>
+                            <th:block th:text="${post.comments.size()}" /> <i class="fa fa-comment icon-comment"></i>
+                        </a>
+                    </div>
+                    <div th:if="${pageSearchPosts.isLast() == false}" class="load-more load-more-search-posts"
+                         th:attr="data-page-search-posts=${pageSearchPosts.pageable.pageNumber}">
+                        Xem tiếp...
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </th:block>
+
+    <th:block layout:fragment="pageScript">
+        <script>
+            $(document).ready(function () {
+                let input = $("input#search-box");
+                let len = input.val().length;
+                input[0].focus();
+                input[0].setSelectionRange(len, len);
+                let q = '[[${searchText}]]';
+
+
+                /*load more*/
+                $('.load-more-search-posts').click(function (e) {
+                    e.preventDefault();
+                    let $btn = $(this);
+                    let page = $btn.data('page-search-posts');
+                    $btn.html(`<i class="fa fa-spinner fa-pulse"></i> Đang tải dữ liệu`);
+                    $.ajax({
+                        url: '/api/post/load-more-search-post',
+                        type: 'GET',
+                        cache: false,
+                        data: {
+                            page: page,
+                            q: q
+                        },
+                        success: function (response) {
+                            console.log(response);
+                            let posts = response.data.posts;
+                            console.log(posts);
+                            let html = "";
+                            for (let i = 0; i < posts.length; i++) {
+                                let tags = "";
+                                for (let j = 0; j < posts[i].tags.length; j++) {
+                                    tags +=
+                                        `<a class="tag" href="/tag/${posts[i].tags[j].slug}">${posts[i].tags[j].name}</a>`;
+                                }
+
+                                html +=
+                                    `<div class="post-item">
+                                <div class="left">
+                                    <a href="/user/${posts[i].author.username}">
+                                        <img src="${posts[i].author.image}" alt="">
+                                    </a>
+                                </div>
+                                <div class="right">
+                                    <h3><a href="/${posts[i].slug}">${posts[i].title}</a></h3>
+
+                                    <div class="tags">${tags}</div>
+                                    <p>${posts[i].sub_content}</p>
+                                    <div class="author"><span>${posts[i].author.username}</span> viết vào
+                                        ${posts[i].created_at}
+                                    </div>
+                                </div>
+                                <a href="/nosql-co-dong-nghia-voi-no-injection" class="icon-like-comment">
+                                    15 <i class="fa fa-thumbs-up icon-like"></i>
+                                    23 <i class="fa fa-comment icon-comment"></i>
+                                </a>
+                            </div>`;
+                            }
+                            //console.log(html);
+                            $btn.before(html);
+                            $btn.html(`Xem thêm...`);
+                            $btn.data('page-search-posts', ++page);
+
+                            let isLastPage = response.data.page.is_last;
+                            if (isLastPage) {
+                                $btn.remove();
+                            }
+
+                        },
+                        error: function () {
+                            console.log("ajax error");
+                        }
+                    });
+                });
+            });
+        </script>
+    </th:block>
+    <th:block layout:fragment="pageStyleSheet">
+        <style>
+            input#search-box {
+                font-weight: bold;
+                display: block;
+                width: 100%;
+                font-size: 30px;
+                padding: 2px;
+                border: none;
+            }
+            input#search-box:focus {
+                outline: none;
+            }
+            div.search-box-container {
+                margin-left: 155px;
+                margin-bottom: 24px;
+            }
+            div.search-box-container p {
+                margin-top: 23px;
+            }
+        </style>
+
+    </th:block>
+
+</th:block>

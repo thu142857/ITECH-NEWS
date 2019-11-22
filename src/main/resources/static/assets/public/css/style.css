@@ -349,6 +349,7 @@ textarea.input {
     background: #FFF;
     padding: 0px;
     font-weight: 600;
+    padding-left: 30px;
 }
 .nav-btns .search-form .search-close {
     position: absolute;
@@ -866,7 +867,6 @@ textarea.input {
     margin-top: 40px;
 }
 #footer .container {
-    padding-top: 80px;
     border-top: 1px solid #F4f4f9;
 }
 .footer-widget {

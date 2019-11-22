@@ -4,6 +4,7 @@ import com.itechnews.entity.Post;
 import com.itechnews.entity.Tag;
 import com.itechnews.entity.User;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -30,5 +31,9 @@ public interface PostRepository
     Integer calculateTotalLikeOfUser(@Param("postedUser") User author);
 
     Integer countByPostedUserAndTagsContains(User author, Tag tag);
+
+    Page<Post> findByTitleContains(@Param("searchTitle") String searchTitle, Pageable pageable);
+
+    Page<Post> findByTagsContains(Tag tag, Pageable pageable);
 
 }

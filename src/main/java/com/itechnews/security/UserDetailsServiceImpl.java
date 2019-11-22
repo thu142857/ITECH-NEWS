@@ -27,25 +27,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("Username not found");
         }
+        UserDetailsImpl userDetails = UserDetailsUtil.buildUserDetail(user);
 
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        //multiple role
-        /*for (Role role: user.getRoles()) {
-            SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role.getName());
-            authorities.add(authority);
-        }*/
-        //single role
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.getRole().getName());
-        authorities.add(authority);
-
-        UserDetailsImpl userDetails = new UserDetailsImpl(user.getId(), user.getUsername(),
-                user.getDisplayedName(),
-                user.getPassword(),
-                user.getImage(),
-                user.getStatus(), user.getRole(), authorities);
         BeanUtils.copyProperties(user, userDetails);
-
         return userDetails;
     }
+
+
 
 }

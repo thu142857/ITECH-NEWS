@@ -7,6 +7,9 @@
     <th:block layout:fragment="main-content">
         <div class="row">
             <div class="col-sm-8">
+                <!--<div class="caption">
+                    <p>itechnews.com, kết nối những coder Việt Nam</p>
+                </div>-->
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#bestposts">Bài viết hay</a></li>
                     <li><a data-toggle="tab" href="#newposts">Bài viết mới</a></li>
@@ -102,6 +105,7 @@
                e.preventDefault();
                let $btn = $(this);
                let page = $btn.data('page-top-posts');
+                $btn.html(`<i class="fa fa-spinner fa-pulse"></i> Đang tải dữ liệu`);
                 $.ajax({
                     url: '/api/post/load-more-top-post',
                     type: 'GET',
@@ -118,14 +122,14 @@
                             let tags = "";
                             for (let j = 0; j < posts[i].tags.length; j++) {
                                 tags +=
-                                    `<a class="tag" href="${posts[i].tags[j].slug}">${posts[i].tags[j].name}</a>`;
+                                    `<a class="tag" href="/tag/${posts[i].tags[j].slug}">${posts[i].tags[j].name}</a>`;
                             }
 
                             html +=
                             `<div class="post-item">
                                 <div class="left">
                                     <a href="/user/${posts[i].author.username}">
-                                        <img src="/upload/${posts[i].author.image}" alt="">
+                                        <img src="${posts[i].author.image}" alt="">
                                     </a>
                                 </div>
                                 <div class="right">
@@ -145,8 +149,12 @@
                         }
                         //console.log(html);
                         $btn.before(html);
+                        $btn.html(`Xem thêm...`);
                         $btn.data('page-top-posts', ++page);
-
+                        let isLastPage = response.data.page.is_last;
+                        if (isLastPage) {
+                            $btn.remove();
+                        }
                     },
                     error: function () {
                         console.log("ajax error");
@@ -158,6 +166,7 @@
                 e.preventDefault();
                 let $btn = $(this);
                 let page = $btn.data('page-new-posts');
+                $btn.html(`<i class="fa fa-spinner fa-pulse"></i> Đang tải dữ liệu`);
                 $.ajax({
                     url: '/api/post/load-more-new-post',
                     type: 'GET',
@@ -174,14 +183,14 @@
                             let tags = "";
                             for (let j = 0; j < posts[i].tags.length; j++) {
                                 tags +=
-                                    `<a class="tag" href="${posts[i].tags[j].slug}">${posts[i].tags[j].name}</a>`;
+                                    `<a class="tag" href="/tag/${posts[i].tags[j].slug}">${posts[i].tags[j].name}</a>`;
                             }
 
                             html +=
                                 `<div class="post-item">
                                 <div class="left">
                                     <a href="/user/${posts[i].author.username}">
-                                        <img src="/upload/${posts[i].author.image}" alt="">
+                                        <img src="${posts[i].author.image}" alt="">
                                     </a>
                                 </div>
                                 <div class="right">
@@ -201,8 +210,12 @@
                         }
                         //console.log(html);
                         $btn.before(html);
+                        $btn.html(`Xem thêm...`);
                         $btn.data('page-new-posts', ++page);
-
+                        let isLastPage = response.data.page.is_last;
+                        if (isLastPage) {
+                            $btn.remove();
+                        }
                     },
                     error: function () {
                         console.log("ajax error");
@@ -317,14 +330,14 @@
                 width: 100%;
                 border-radius: 50%;
             }
-            .load-more {
-                padding: 9px;
-                color: #0b6b68;
+            .caption {}
+            .caption p {
+                color: rgba(0,0,0,0.7);
+                font-weight: bold;
+                font-size: 16px;
+                font-family: "OpenSans", sans-serif;
+                line-height: 0.2em;
                 text-align: center;
-                cursor: pointer;
-                border-radius: 5px;
-                border: 1px solid #e8e8e8;
-                background-color: rgba(255,255,255,0.85);
             }
         </style>
     </th:block>

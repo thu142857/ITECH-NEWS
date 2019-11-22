@@ -8,6 +8,22 @@ $(document).ready(function () {
         xhr.setRequestHeader(header, token);
     });
 
+    //backtotop
+    $(window).scroll(function(){
+        if ($(this).scrollTop() > 100) {
+            $('#scroll').fadeIn();
+        } else {
+            $('#scroll').fadeOut();
+        }
+    });
+    $('#scroll').click(function(){
+        $("html, body").animate({ scrollTop: 0 }, 600);
+        return false;
+    });
+
+
+
+
     //auto height comment box
     $('body').on('keyup', '.comment-box', function(e) {
         let o = $(this)[0];

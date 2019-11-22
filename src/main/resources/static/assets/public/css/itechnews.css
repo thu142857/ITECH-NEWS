@@ -571,10 +571,21 @@ ul.user-feature > li {
 
     margin-bottom: 0;
 }
+.post-list-container .post-list .post-item .right h3 a span.high-light-search {
+    background-color: #fff3b8;
+    padding: .1em .25em;
+    border-radius: .2em;
+    font-style: normal;
+}
+.post-list-container .post-list .post-item .right h3 a:hover {
+
+    color: #0b4644;
+}
 .post-list-container .post-list .post-item .right h3 a {
     text-decoration: none;
     color: #0b6b68;
     font-size: 19px;
+    transition: 0.05s;
 }
 .post-list-container .post-list .post-item .right {
     width: 100%;
@@ -621,4 +632,97 @@ a.icon-like-comment {
 
 a.icon-like-comment i.icon-like {
     margin-right: 4px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+}
+.footer .links {
+    display: flex;
+    justify-content: space-between;
+}
+.footer .copyright {
+
+}
+.footer .copyright ,
+.footer a {
+    transition: 0.4s;
+    display: block;
+    margin: 0 .7em;
+    font-size: 13px;
+    color: rgba(0,0,0,0.5);
+    text-decoration: none;
+    font-family: "OpenSans", sans-serif;
+    font-weight: 500;
+}
+.footer a:hover {
+    color: rgba(0,0,0,0.7);
+}
+html {
+    position: relative;
+    min-height: 552px;
+}
+#footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    transform: translateY(100%);
+    padding-top: 40px;
+}
+
+#scroll {
+    position:fixed;
+    right:10px;
+    bottom:40px;
+    cursor:pointer;
+    width:50px;
+    height:50px;
+    background-color:#128a86;
+    text-indent:-9999px;
+    display:none;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+}
+#scroll span {
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-left:-8px;
+    margin-top:-12px;
+    height:0;
+    width:0;
+    border:8px solid transparent;
+    border-bottom-color:#ffffff
+}
+#scroll:hover {
+    background-color:#0b6b68;
+    opacity:1;
+    filter:"alpha(opacity=100)";
+    -ms-filter:"alpha(opacity=100)";
+}
+
+.load-more {
+    padding: 9px;
+    color: #0b6b68;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #e8e8e8;
+    background-color: #e8e8e826;
+}
+.load-more:hover {
+    background: #e8e8e891;
+}
+
+.error-page {
+    text-align: center;
+    padding-top: 101px;
+    color: #0b6b68;
+}
+.error-page h1 {
+    color: #0b6b68;
+    font-size: 80px;
+    font-style: italic;
 }

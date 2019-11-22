@@ -83,13 +83,7 @@ public class PostApiController {
         page++;
         Page<Post> postPage = postService.findTopPosts(page);
         Map<String, Object> data = getPostData(postPage);
-
-        Result result = new Result();
-        result.setData(data);
-        result.setStatus(Result.Status.SUCCESS);
-        result.setMessage("OK");
-
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return getResultData(data);
     }
 
     @GetMapping("load-more-new-post")
@@ -97,15 +91,25 @@ public class PostApiController {
         page++;
         Page<Post> postPage = postService.findNewPosts(page);
         Map<String, Object> data = getPostData(postPage);
+        return getResultData(data);
+    }
 
+    @GetMapping("load-more-search-post")
+    public ResponseEntity<Result> loadMoreSearchPosts(@RequestParam("page") Integer page,
+                                                      @RequestParam("q") String searchText) {
+        page++;
+        Page<Post> postPage = postService.searchByTitle(searchText, page);
+        Map<String, Object> data = getPostData(postPage);
+        return getResultData(data);
+    }
+
+    private ResponseEntity<Result> getResultData(Map<String, Object> data) {
         Result result = new Result();
         result.setStatus(Result.Status.SUCCESS);
         result.setData(data);
         result.setMessage("OK");
-
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
     private Map<String, Object> getPostData(Page<Post> postPage) {
         Map<String, Object> data = new HashMap<>();
         List<Map<String, Object>> dataPosts = new ArrayList<>();
@@ -121,7 +125,13 @@ public class PostApiController {
 
             Map<String, Object> dataAuthor = new HashMap<>();
             dataAuthor.put("username", post.getPostedUser().getUsername());
-            dataAuthor.put("image", post.getPostedUser().getImage());
+
+            String image =  post.getPostedUser().getImage();
+            if (!image.contains("https") && !image.contains("http")) {
+                image = "/upload/" + post.getPostedUser().getImage();
+            }
+            dataAuthor.put("image", image);
+
             dataPost.put("author", dataAuthor);
 
             List<Map<String, Object>> dataTags = new ArrayList<>();
@@ -136,6 +146,11 @@ public class PostApiController {
             dataPosts.add(dataPost);
         }
         data.put("posts", dataPosts);
+
+        Map<String, Object> page = new HashMap<>();
+        page.put("is_last", postPage.isLast());
+        data.put("page", page);
+
         return data;
     }
 }
