@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class UsersTableSeeder implements Seeder {
@@ -66,23 +67,29 @@ public class UsersTableSeeder implements Seeder {
             Boolean status = i % 2 == 0;
             users.add(new User(null, username, username,
                     passwordEncoder.encode(username), status,
-                    "tigersama2205+" + username + "@gmail.com", faker.address().cityName(),"avatar.png", roleUser,
+                    "tigersama2205+" + username + "@gmail.com", faker.address().cityName(),"default-user.png", roleUser,
                     null, null, null, null, null)
             );
         }
         userRepository.saveAll(users);
 
 
-        User sonthh = userRepository.findOneByUsername("sonthh");
-        User thinhtbn = userRepository.findOneByUsername("thinhtnb");
-        User thuydm = userRepository.findOneByUsername("thuydtm");
-        User trangntt = userRepository.findOneByUsername("trangntt");
-        User thuta = userRepository.findOneByUsername("thuta");
-
-        sonthh.setFollower(Arrays.asList(thinhtbn, thuydm, trangntt, thuta));
-        userRepository.save(sonthh);
-
-        thinhtbn.setFollower(Arrays.asList(sonthh, thuydm, trangntt, thuta));
-        userRepository.save(thinhtbn);
+        List<User> listUser1 = userRepository.findByIdLessThan(6);
+        List<User> listUser2 = userRepository.findByIdGreaterThan(10);
+        listUser1.forEach(user -> {
+            List<User> list = new ArrayList<>();
+            List<User> u = listUser1.stream()
+                    .filter(item ->
+                        !item.getUsername().equals(user.getUsername()))
+                    .collect(Collectors.toList());
+            list.addAll(u);
+            list.addAll(listUser2);
+            user.setFollower(list);
+        });
+        listUser2.forEach(user -> {
+            user.setFollower(listUser1);
+        });
+        userRepository.saveAll(listUser1);
+        userRepository.saveAll(listUser2);
     }
 }

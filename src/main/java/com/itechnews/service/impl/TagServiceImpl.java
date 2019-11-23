@@ -10,6 +10,7 @@ import com.itechnews.util.SlugUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -71,5 +72,35 @@ public class TagServiceImpl implements TagService {
     @Override
     public List<Tag> findBestTags() {
         return tagRepository.findBestTags(PageRequest.of(0, 10));
+    }
+
+    @Override
+    public List<Tag> findByUser(User user) {
+        return tagRepository.findByUser(user);
+    }
+
+    @Override
+    public List<Tag> findTopTags(Integer quantity) {
+        return tagRepository.findTopTags(PageRequest.of(0, quantity));
+    }
+
+    @Override
+    public Page<Tag> findAll(Pageable pageable) {
+        return tagRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Tag> findAll() {
+        return (List<Tag>) tagRepository.findAll();
+    }
+
+    @Override
+    public List<Tag> findByIdIn(List<Integer> ids) {
+        return tagRepository.findByIdIn(ids);
+    }
+
+    @Override
+    public Tag findBySlug(String slug) {
+        return tagRepository.findBySlug(slug);
     }
 }
