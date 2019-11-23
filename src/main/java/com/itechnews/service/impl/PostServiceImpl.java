@@ -21,7 +21,6 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private PostRepository postRepository;
 
-
     @Override
     public Post findOneBySlug(String slug) {
         return postRepository.findOneBySlug(slug);
@@ -33,8 +32,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public void deleteById(Integer id) {
+         postRepository.deleteById(id);
+    }
+
+    @Override
     public List<Post> findTop5ByStatusTrueAndCategoryOrderByCreateAtDesc(Integer catId) {
         return postRepository.findTop5ByStatusTrueAndCategory_IdOrderByCreateAtDesc(catId);
+
     }
     @Override
     public Post save(Post post) {
@@ -42,6 +47,23 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+
+    public Page<Post> findAll(Integer pageNumber) {
+        if (pageNumber == null)
+            pageNumber = 1;
+        return postRepository.findAll(PageRequest.of(pageNumber - 1, 6, Sort.by(Sort.Direction.ASC, "id")));
+
+    }
+
+    @Override
+    public Page<Post> findAllByTitleContains(String title, Integer pageNumber) {
+        if (pageNumber == null)
+            pageNumber = 1;
+        return postRepository.findAllByTitleContains(title,
+                PageRequest.of(pageNumber - 1, 6,
+                        Sort.by(Sort.Direction.ASC, "id")));
+    }
+
     public Integer countByPostedUser(User author) {
         return postRepository.countByPostedUser(author);
     }
@@ -98,5 +120,6 @@ public class PostServiceImpl implements PostService {
         Sort sort = Sort.by("createAt").descending();
         return postRepository.findByTagsContains(tag, PageRequest.of(page, 5, sort));
     }
+
 
 }

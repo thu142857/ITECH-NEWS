@@ -14,3 +14,9 @@
   visibility: visible;
   opacity: 1;
 }
+.card-body  .row .col-lg-3 .round-img a img{
+  width: 180px;
+}
+.postImage{
+  width: 50%;
+}

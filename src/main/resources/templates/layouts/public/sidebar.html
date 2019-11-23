@@ -9,7 +9,7 @@
             <div class="post post-widget" th:each="post, iter : ${mostRead}">
                 <a class="post-img post3" th:href="@{/blog-post}"><img th:src="@{'/upload/'+${post.image}}" alt=""></a>
                 <div class="post-body">
-                    <h3 class="post-title"><a th:href="@{/blog-post}" th:text="${post.title}"></a></h3>
+                    <h3 class="post-title"><a th:href="@{'/'+${post.slug}}" th:text="${post.title}"></a></h3>
                 </div>
             </div>
         </div>

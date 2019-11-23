@@ -55,7 +55,7 @@ public class Post {
     private Integer totalViews;
 
     @Column(name = "status")
-    private boolean status;
+    private Boolean status;
 
     @Column(name = "image")
     private String image;

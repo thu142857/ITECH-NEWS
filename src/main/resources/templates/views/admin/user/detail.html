@@ -19,7 +19,7 @@
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
                                     <li><a th:href="@{/admin/dashboard}">Admin</a></li>
-                                    <li><a th:href="@{/admin/user}">Người dùng</a></li>
+                                    <li><a th:href="@{/admin/user/index}">Người dùng</a></li>
                                     <li class="active">Chi tiết</li>
                                 </ol>
                             </div>
@@ -40,49 +40,59 @@
                                 </strong>
                             </div>
                             <div class="card-body card-block">
-                                <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal">
-                                    <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label class=" form-control-label">Tên tài khoản</label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <p class="form-control-static" th:text="${user.username}"></p>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="round-img">
+                                            <a href=""><img class="rounded-circle" th:src="@{'/upload/'+${user.image}}" alt=""></a>
                                         </div>
                                     </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label class=" form-control-label">Tên hiển thị</label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <p class="form-control-static" th:text="${user.displayedName}"></p>
-                                        </div>
+                                    <div class="col-lg-9">
+                                        <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                            <div class="row form-group">
+                                                <div class="col col-md-3">
+                                                    <label class=" form-control-label">Tên tài khoản</label>
+                                                </div>
+                                                <div class="col-12 col-md-9">
+                                                    <p class="form-control-static" th:text="${user.username}"></p>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3">
+                                                    <label class=" form-control-label">Tên hiển thị</label>
+                                                </div>
+                                                <div class="col-12 col-md-9">
+                                                    <p class="form-control-static" th:text="${user.displayedName}"></p>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3">
+                                                    <label class=" form-control-label">Email</label>
+                                                </div>
+                                                <div class="col-12 col-md-9">
+                                                    <p class="form-control-static" th:text="${user.email}"></p>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3">
+                                                    <label class=" form-control-label">Địa chỉ</label>
+                                                </div>
+                                                <div class="col-12 col-md-9">
+                                                    <p class="form-control-static" th:text="${user.address}"></p>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3">
+                                                    <label class="form-control-label">Trạng thái</label>
+                                                </div>
+                                                <div class="col-12 col-md-9">
+                                                    <p th:if="${user.status == true}" class="form-control-static">Đang kích hoạt</p>
+                                                    <p th:if="${user.status == false}" class="form-control-static">Bị chặn</p>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label class=" form-control-label">Email</label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <p class="form-control-static" th:text="${user.email}"></p>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label class=" form-control-label">Địa chỉ</label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <p class="form-control-static" th:text="${user.address}"></p>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label class="form-control-label">Trạng thái</label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <p th:if="${user.status == true}" class="form-control-static">Đang kích hoạt</p>
-                                            <p th:if="${user.status == false}" class="form-control-static">Bị chặn</p>
-                                        </div>
-                                    </div>
-                                </form>
+                                </div>
+
                             </div>
                             <div class="card-footer">
                                 <a th:href="@{'/admin/user/edit/'+${user.id}}" class="btn btn-primary btn-sm">Sửa</a>

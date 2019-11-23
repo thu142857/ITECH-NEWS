@@ -286,16 +286,16 @@ textarea.input {
     transition: 0.2s width;
 }
 .nav-menu li.cat-1 a:after {
-    /*background-color: #4BB92F;*/
+    background-color: #4BB92F;
 }
 .nav-menu li.cat-2 a:after {
-    /*background-color: #0078ff;*/
+    background-color: #0078ff;
 }
 .nav-menu li.cat-3 a:after {
-    /*background-color: #ff8700;*/
+    background-color: #ff8700;
 }
 .nav-menu li.cat-4 a:after {
-    /*background-color: #8d00ff;*/
+    background-color: #8d00ff;
 }
 .nav-menu li a:hover, .nav-menu li a:focus {
     background-color: transparent;

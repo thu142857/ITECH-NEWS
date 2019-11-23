@@ -25,6 +25,14 @@
                             <li><i class="fa fa-plus-square"></i><a th:href="@{/admin/tag/add}">Thêm</a></li>
                         </ul>
                     </li>
+                    <li class="menu-item-has-children dropdown" th:classappend="${linkActive == 'post' ? 'active':''}">
+                        <a th:href="@{/admin/post/index}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="menu-icon fas fa-book-open"></i>Quản lí bài viết</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-list-ul"></i><a th:href="@{/admin/post/index}">Danh sách</a></li>
+                            <li><i class="fa fa-plus-square"></i><a th:href="@{/admin/post/add}">Thêm</a></li>
+                        </ul>
+                    </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="menu-icon fa fa-cogs"></i>Parent</a>

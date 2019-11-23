@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
-
 import java.util.List;
 
 public interface PostRepository
@@ -21,6 +20,9 @@ public interface PostRepository
     List<Post> findTop5ByStatusTrueOrderByTotalViewsDesc();
     List<Post> findTop5ByStatusTrueAndCategory_IdOrderByCreateAtDesc(Integer catId);
     Post findOneBySlug(String slug);
+
+    Page<Post> findAllByTitleContains(String title, Pageable pageable);
+
     Integer countByPostedUser(User author);
     List<Post> findByPostedUser(User author);
 

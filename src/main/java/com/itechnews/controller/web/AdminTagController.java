@@ -64,7 +64,6 @@ public class AdminTagController {
     @GetMapping("delete/{id}")
     public String delete(@PathVariable("id") Integer tagId, RedirectAttributes ra) {
         tagService.deleteById(tagId);
-
         ra.addFlashAttribute(MessageContant.ATTRIBUTE_NAME, MessageEnum.MSG_DELETED_SUCCESSFULLY);
         return "redirect:/admin/tag/index";
     }
