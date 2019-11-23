@@ -10,4 +10,5 @@ public interface CategoryRepository
 
     Category findOneByName(String name);
     List<Category> findAllByOrderById();
+    Category findCategoryById(Integer catId);
 }

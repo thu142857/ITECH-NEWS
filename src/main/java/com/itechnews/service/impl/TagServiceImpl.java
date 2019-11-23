@@ -30,6 +30,11 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    public List<Tag> findAllByStatusTrue() {
+        return tagRepository.findAllByStatusTrue();
+    }
+
+    @Override
     public Page<Tag> findAllByNameContains(String searchingName, Integer pageNumber) {
         if (pageNumber == null)
             pageNumber = 1;

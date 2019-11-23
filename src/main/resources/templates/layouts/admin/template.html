@@ -25,6 +25,7 @@
     <link rel="stylesheet" th:href="@{/assets/admin/css/style.css}">
     <link rel="stylesheet" th:href="@{/assets/admin/css/itechnews.css}">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    <script th:src="@{/assets/admin/ckeditor/ckeditor.js}"></script>
     <th:block layout:fragment="pageStyleSheet" />
 </head>
 
@@ -46,6 +47,7 @@
     <!-- /#right-panel -->
     <th:block th:replace="'../utils/message' :: message(${enumMessage})" />
 
+
     <script th:src="@{/assets/admin/require/jquery.min.js}"></script>
     <script th:src="@{/assets/admin/require/jquery-3.4.1.min.js}"></script>
     <script th:src="@{/assets/admin/require/popper.min.js}"></script>
@@ -53,7 +55,6 @@
     <script th:src="@{/assets/admin/require/jquery.matchHeight.min.js}"></script>
     <script th:src="@{/assets/admin/js/main.js}"></script>
     <script th:src="@{/assets/admin/js/itechnews.js}"></script>
-
-    <th:block layout:fragment="pageScript" />
+        <th:block layout:fragment="pageScript" />
 </body>
 </html>

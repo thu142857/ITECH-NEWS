@@ -45,7 +45,7 @@ public class PublicController {
 
     @ModelAttribute
     public void commonObject(ModelMap modelMap) {
-        List<Category> categories = (List<Category>) categoryRepository.findAllByOrderById();
+        List<Category> categories = categoryRepository.findAllByOrderById();
         List<Post> mostRead = postRepository.findTop5ByStatusTrueOrderByTotalViewsDesc();
         List<Tag> bestTags = tagService.findBestTags();
         modelMap.addAttribute("categoryLinkActive", true);

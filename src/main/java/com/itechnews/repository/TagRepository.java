@@ -50,4 +50,6 @@ public interface TagRepository
 
     Integer countAllByNameEquals(String tagName);
 
+    List<Tag> findAllByStatusTrue();
+
 }
