@@ -9,6 +9,7 @@ public interface CategoryRepository
         extends CrudRepository<Category, Integer> {
 
     Category findOneByName(String name);
+    Category findCategoryById(Integer id);
     List<Category> findAllByOrderById();
-    Category findCategoryById(Integer catId);
+
 }

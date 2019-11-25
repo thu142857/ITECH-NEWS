@@ -27,7 +27,7 @@ public class TagServiceImpl implements TagService {
     public Page<Tag> findAll(Integer pageNumber) {
         if (pageNumber == null)
             pageNumber = 1;
-        return tagRepository.findAll(PageRequest.of(pageNumber - 1, 6, Sort.by(Sort.Direction.ASC, "id")));
+        return tagRepository.findAll(PageRequest.of(pageNumber - 1, 6, Sort.by(Sort.Direction.DESC, "id")));
     }
 
     @Override
@@ -41,7 +41,7 @@ public class TagServiceImpl implements TagService {
             pageNumber = 1;
         return tagRepository.findAllByNameContains(searchingName,
                 PageRequest.of(pageNumber - 1, 6,
-                        Sort.by(Sort.Direction.ASC, "id")));
+                        Sort.by(Sort.Direction.DESC, "id")));
     }
 
     @Override

@@ -20,3 +20,15 @@
 .postImage{
   width: 50%;
 }
+.avaImage{
+  width: 50px;
+}
+.userLikePost{
+  padding-top: 10px;
+}
+.userLike{
+  margin-bottom: 10px;
+}
+.buttonUser{
+  padding-top: 5px;
+}

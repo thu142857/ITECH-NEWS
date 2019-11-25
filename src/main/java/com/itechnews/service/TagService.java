@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface TagService {
     Page<Tag> findAll(Integer pageNumber);
-    List<Tag> findAllByStatusTrue();
+
     Page<Tag> findAllByNameContains(String searchingName, Integer pageNumber);
     Tag findOneById(Integer id);
     void deleteById(Integer id);
@@ -22,4 +22,7 @@ public interface TagService {
     List<Tag> findAll();
     List<Tag> findByIdIn(List<Integer> ids);
     Tag findBySlug(String slug);
+
+    List<Tag> findAllByStatusTrue();
+
 }

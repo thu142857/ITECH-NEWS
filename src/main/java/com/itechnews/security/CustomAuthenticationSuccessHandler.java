@@ -37,7 +37,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     protected String determineTargetUrl(Authentication authentication) {
         Set<String> authorities = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         if (authorities.contains("ROLE_ADMIN")) {
-            return "/admin/dashboard";
+            return "/admin/user/index";
         } else if (authorities.contains("ROLE_USER")) {
             return "/";
         } else {

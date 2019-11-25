@@ -30,6 +30,8 @@ public interface TagRepository
     Integer countAllByNameEquals(String tagName);
 
     List<Tag> findAllByStatusTrue();
+    @Query(value = "select distinct t from Tag t join t.posts p where p.postedUser = :user")
+    List<Tag> findByUser(@Param("user") User user);
 
     @Query(value = "select distinct t from Tag t join t.posts p where p.postedUser = :user")
     List<Tag> findByUser(@Param("user") User user);
@@ -38,6 +40,5 @@ public interface TagRepository
     List<Tag> findTopTags(Pageable pageable);
 
     List<Tag> findByIdIn(List<Integer> ids);
-
 
 }
