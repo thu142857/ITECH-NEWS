@@ -1,9 +1,10 @@
 package com.itechnews.controller.web;
 
 import com.github.javafaker.Faker;
-import com.itechnews.entity.Comment;
+import com.itechnews.entity.Post;
 import com.itechnews.entity.Tag;
 import com.itechnews.repository.*;
+import com.itechnews.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.ServletContext;
+import java.io.File;
 import java.util.*;
 
 @Controller
@@ -20,6 +23,9 @@ public class TestController {
 
     @Autowired
     TagRepository tagRepository;
+
+    @Autowired
+    TagService tagService;
 
     @Autowired
     private UserRepository userRepository;
@@ -36,19 +42,29 @@ public class TestController {
     @Autowired
     CommentRepository commentRepository;
 
+    @Autowired
+    ServletContext servletContext;
+
     @GetMapping("/1")
     @ResponseBody
     public String test() {
 
-        Page<Tag> page = tagRepository.findAllByNameContains("java", PageRequest.of(0, 100));
-        return "";
+        List<Tag> list = tagService.findTopTags(15);
+
+        List<Tag> list2 = tagRepository.findByIdIn(Arrays.asList(1, 2));
+
+        String dir = new File("src/main/resources/static/upload").getAbsolutePath();
+        //commentRepository.deleteById(105);
+        return servletContext.getRealPath("");
     }
 
     @GetMapping("/3")
     @ResponseBody
     public String test3() {
+        Page<Post> page = postRepository.findByTitleContains("java", PageRequest.of(0, 3));
+        List<Post> l = page.getContent();
         //Post post = postRepository.findOnePost();
-        List<Comment> comments = commentRepository.findByParentIsNullAndPost_IdOrderByCreateAtDesc(1);
+        //List<Comment> comments = commentRepository.findByParentIsNullAndPost_IdOrderByCreateAtDesc(1);
         //commentRepository.deleteAll();
         return "";
     }

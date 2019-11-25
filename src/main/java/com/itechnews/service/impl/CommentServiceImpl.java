@@ -1,6 +1,7 @@
 package com.itechnews.service.impl;
 
 import com.itechnews.entity.Comment;
+import com.itechnews.entity.User;
 import com.itechnews.repository.CommentRepository;
 import com.itechnews.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +60,18 @@ public class CommentServiceImpl implements CommentService {
             pageNumber = 1;
         return commentRepository.findByPost_Id(postId,PageRequest.of(pageNumber - 1, 6,
                 Sort.by(Sort.Direction.DESC, "id")));
+    @Override
+    public void deleteByParentId(Integer parentId) {
+        commentRepository.deleteByParentId(parentId);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        commentRepository.deleteById(id);
+    }
+
+    @Override
+    public Integer countByPostedUser(User user) {
+        return commentRepository.countByPost_PostedUser(user);
     }
 }

@@ -1,0 +1,345 @@
+<th:block
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        layout:decorate="~{../layouts/public/template}">
+
+    <th:block layout:fragment="main-content">
+        <div class="row">
+            <div class="col-sm-8">
+                <!--<div class="caption">
+                    <p>itechnews.com, kết nối những coder Việt Nam</p>
+                </div>-->
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#bestposts">Bài viết hay</a></li>
+                    <li><a data-toggle="tab" href="#newposts">Bài viết mới</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="bestposts" class="tab-pane fade in active post-list-container">
+                        <div class="post-list">
+                            <div class="post-item" th:each="post, iter : ${pageTopPosts.content}">
+                                <div class="left">
+                                    <a th:href="@{'/user/'+${post.postedUser.username}}">
+                                        <img th:src="@{${#strings.containsIgnoreCase(post.postedUser.image, 'http')==false?'/upload/':''}+${post.postedUser.image}}" alt="">
+                                    </a>
+                                </div>
+                                <div class="right">
+                                    <h3><a th:href="@{'/'+${post.slug}}" th:text="${post.title}"></a></h3>
+                                    <div class="tags">
+                                        <a class="tag" th:href="@{'/tag/'+${tag.slug}}" th:each="tag, iter : ${post.tags}" th:text="${tag.name}">spring</a>
+                                    </div>
+                                    <p th:utext="${T(com.itechnews.util.StringUtil).getThreeDotsTextFromHtml(post.content, 160)}"></p>
+                                    <div class="author"><span th:text="${post.postedUser.username}"></span> viết vào
+                                        <th:block th:text="${#dates.format(post.createAt, 'dd/MM/yyyy')}" />
+                                    </div>
+                                </div>
+                                <a th:href="@{'/'+${post.slug}}" class="icon-like-comment">
+                                    <th:block th:text="${post.likedUsers.size()}" /> <i class="fa fa-thumbs-up icon-like"></i>
+                                    <th:block th:text="${post.comments.size()}" /> <i class="fa fa-comment icon-comment"></i>
+                                </a>
+                            </div>
+                            <div class="load-more load-more-top-posts" th:attr="data-page-top-posts=${pageTopPosts.pageable.pageNumber}">
+                                Xem tiếp...
+                            </div>
+                        </div>
+                    </div>
+                    <div id="newposts" class="tab-pane fade post-list-container">
+                        <div class="post-list">
+                            <div class="post-item" th:each="post, iter : ${pageNewPosts.content}">
+                                <div class="left">
+                                    <a th:href="@{'/user/'+${post.postedUser.username}}">
+                                        <img th:src="@{${#strings.containsIgnoreCase(post.postedUser.image, 'http')==false?'/upload/':''}+${post.postedUser.image}}" alt="">
+                                    </a>
+                                </div>
+                                <div class="right">
+                                    <h3><a th:href="@{'/'+${post.slug}}" th:text="${post.title}"></a></h3>
+                                    <div class="tags">
+                                        <a class="tag" th:href="@{'/tag/'+${tag.slug}}" th:each="tag, iter : ${post.tags}" th:text="${tag.name}">spring</a>
+                                    </div>
+                                    <p th:utext="${T(com.itechnews.util.StringUtil).getThreeDotsTextFromHtml(post.content, 160)}"></p>
+                                    <div class="author"><span th:text="${post.postedUser.username}"></span> viết vào
+                                        <th:block th:text="${#dates.format(post.createAt, 'dd/MM/yyyy')}" />
+                                    </div>
+                                </div>
+                                <a th:href="@{'/'+${post.slug}}" class="icon-like-comment">
+                                    <th:block th:text="${post.likedUsers.size()}" /> <i class="fa fa-thumbs-up icon-like"></i>
+                                    <th:block th:text="${post.comments.size()}" /> <i class="fa fa-comment icon-comment"></i>
+                                </a>
+                            </div>
+                            <div class="load-more load-more-new-posts" th:attr="data-page-new-posts=${pageTopPosts.pageable.pageNumber}">
+                                Xem tiếp...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 index-right">
+                <div class="top-tags">
+                    <h2><i class="fa fa-tag"></i>Chủ đề nổi bật</h2>
+                    <div class="tag-group">
+                        <a th:each="tag, iter : ${topTags}" class="tag" href="/tag/spring">
+                            <th:block th:text="${tag.name}" />
+                            <span class="total" th:text="${tag.posts.size()}"></span>
+                        </a>
+
+                    </div>
+                </div>
+                <div class="top-authors">
+                    <h2><i class="fa fa-trophy"></i>Tác giả bài viết hay</h2>
+                    <div class="author-list">
+                        <div class="author-item" th:each="user, iter : ${topUsers}">
+                            <a th:href="@{'/user/'+${user.username}}" class="img">
+                                <img th:src="@{${#strings.containsIgnoreCase(user.image, 'http')==false?'/upload/':''}+${user.image}}" alt="">
+                            </a>
+                            <a th:href="@{'/user/'+${user.username}}" class="link" th:text="${user.username}"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </th:block>
+    <th:block layout:fragment="pageScript">
+        <script>
+            $('.load-more-top-posts').click(function (e) {
+               e.preventDefault();
+               let $btn = $(this);
+               let page = $btn.data('page-top-posts');
+                $btn.html(`<i class="fa fa-spinner fa-pulse"></i> Đang tải dữ liệu`);
+                $.ajax({
+                    url: '/api/post/load-more-top-post',
+                    type: 'GET',
+                    cache: false,
+                    data: {
+                        page: page
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        let posts = response.data.posts;
+                        console.log(posts);
+                        let html = "";
+                        for (let i = 0; i < posts.length; i++) {
+                            let tags = "";
+                            for (let j = 0; j < posts[i].tags.length; j++) {
+                                tags +=
+                                    `<a class="tag" href="/tag/${posts[i].tags[j].slug}">${posts[i].tags[j].name}</a>`;
+                            }
+
+                            html +=
+                            `<div class="post-item">
+                                <div class="left">
+                                    <a href="/user/${posts[i].author.username}">
+                                        <img src="${posts[i].author.image}" alt="">
+                                    </a>
+                                </div>
+                                <div class="right">
+                                    <h3><a href="/${posts[i].slug}">${posts[i].title}</a></h3>
+
+                                    <div class="tags">${tags}</div>
+                                    <p>${posts[i].sub_content}</p>
+                                    <div class="author"><span>${posts[i].author.username}</span> viết vào
+                                        ${posts[i].created_at}
+                                    </div>
+                                </div>
+                                <a href="/nosql-co-dong-nghia-voi-no-injection" class="icon-like-comment">
+                                    15 <i class="fa fa-thumbs-up icon-like"></i>
+                                    23 <i class="fa fa-comment icon-comment"></i>
+                                </a>
+                            </div>`;
+                        }
+                        //console.log(html);
+                        $btn.before(html);
+                        $btn.html(`Xem thêm...`);
+                        $btn.data('page-top-posts', ++page);
+                        let isLastPage = response.data.page.is_last;
+                        if (isLastPage) {
+                            $btn.remove();
+                        }
+                    },
+                    error: function () {
+                        console.log("ajax error");
+                    }
+                });
+            });
+
+            $('.load-more-new-posts').click(function (e) {
+                e.preventDefault();
+                let $btn = $(this);
+                let page = $btn.data('page-new-posts');
+                $btn.html(`<i class="fa fa-spinner fa-pulse"></i> Đang tải dữ liệu`);
+                $.ajax({
+                    url: '/api/post/load-more-new-post',
+                    type: 'GET',
+                    cache: false,
+                    data: {
+                        page: page
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        let posts = response.data.posts;
+                        console.log(posts);
+                        let html = "";
+                        for (let i = 0; i < posts.length; i++) {
+                            let tags = "";
+                            for (let j = 0; j < posts[i].tags.length; j++) {
+                                tags +=
+                                    `<a class="tag" href="/tag/${posts[i].tags[j].slug}">${posts[i].tags[j].name}</a>`;
+                            }
+
+                            html +=
+                                `<div class="post-item">
+                                <div class="left">
+                                    <a href="/user/${posts[i].author.username}">
+                                        <img src="${posts[i].author.image}" alt="">
+                                    </a>
+                                </div>
+                                <div class="right">
+                                    <h3><a href="/${posts[i].slug}">${posts[i].title}</a></h3>
+
+                                    <div class="tags">${tags}</div>
+                                    <p>${posts[i].sub_content}</p>
+                                    <div class="author"><span>${posts[i].author.username}</span> viết vào
+                                        ${posts[i].created_at}
+                                    </div>
+                                </div>
+                                <a href="/nosql-co-dong-nghia-voi-no-injection" class="icon-like-comment">
+                                    15 <i class="fa fa-thumbs-up icon-like"></i>
+                                    23 <i class="fa fa-comment icon-comment"></i>
+                                </a>
+                            </div>`;
+                        }
+                        //console.log(html);
+                        $btn.before(html);
+                        $btn.html(`Xem thêm...`);
+                        $btn.data('page-new-posts', ++page);
+                        let isLastPage = response.data.page.is_last;
+                        if (isLastPage) {
+                            $btn.remove();
+                        }
+                    },
+                    error: function () {
+                        console.log("ajax error");
+                    }
+                });
+            });
+        </script>
+    </th:block>
+    <th:block layout:fragment="pageStyleSheet">
+        <style>
+            .post-list {
+                margin-top: 20px;
+                width: 100% !important;
+            }
+
+            ul.nav-tabs > li {
+
+            }
+
+            ul.nav-tabs > li > a {
+                border-radius: 6px 6px 0 0;
+                font-size: 13px;
+                color: #3d455c;
+            }
+
+            ul.nav-tabs > li.active > a {
+                color: #0b6b68 !important;
+            }
+
+            .tag {
+                font-size: 13px;
+                padding: 3px 10px;
+                font-weight: 300;
+                border-radius: 0.325em;
+                margin-right: 2px;
+                color: rgba(0, 0, 0, 0.65);
+                background-color: #E8E8E8;
+                transition: background 0.1s linear;
+                margin-bottom: 5px;
+                display: inline-block;
+                text-decoration: none !important;
+                border-color: #E8E8E8;
+            }
+
+            .tag .total {
+                display: inline-block;
+                margin-left: 0.3em;
+                font-weight: bold;
+                opacity: 0.8;
+                color: rgba(0, 0, 0, 0.65);
+            }
+
+            .index-right {
+                padding-top: 6px;
+                padding-left: 25px;
+            }
+
+            .index-right > div {
+                margin-bottom: 20px;
+            }
+
+            .index-right > div > h2 {
+                font-family: "OpenSans", sans-serif;
+                color: rgba(0, 0, 0, 0.8);
+                font-size: 17px;
+                font-weight: 100;
+                font-style: italic;
+            }
+
+            .index-right > div > h2 > i.fa {
+                display: inline-block;
+                margin-right: 17px;
+            }
+
+            .top-tags i.fa {
+                color: #d95c5c;
+            }
+
+            .top-authors i.fa {
+                color: #cfb53b;
+            }
+
+            .top-authors {
+            }
+
+            .top-authors .author-list {
+                padding-left: 10px;
+            }
+
+            .top-authors .author-list .author-item {
+                display: flex;
+                margin-bottom: 10px;
+            }
+
+            .top-authors .author-list .author-item a {
+
+            }
+            .top-authors .author-list .author-item a.link {
+                display: block;
+                width: 100%;
+                text-decoration: none;
+                color: #0b6b68;
+                padding-top: 3px;
+                padding-left: 12px;
+            }
+            .top-authors .author-list .author-item a.img {
+                width: 11%;
+                display: block;
+            }
+
+            .top-authors .author-list .author-item a img {
+                width: 100%;
+                border-radius: 50%;
+            }
+            .caption {}
+            .caption p {
+                color: rgba(0,0,0,0.7);
+                font-weight: bold;
+                font-size: 16px;
+                font-family: "OpenSans", sans-serif;
+                line-height: 0.2em;
+                text-align: center;
+            }
+        </style>
+    </th:block>
+
+</th:block>

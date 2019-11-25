@@ -22,5 +22,7 @@ public interface TagService {
     List<Tag> findAll();
     List<Tag> findByIdIn(List<Integer> ids);
     Tag findBySlug(String slug);
+
     List<Tag> findAllByStatusTrue();
+
 }
