@@ -1,0 +1,225 @@
+<th:block
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{../layouts/admin/template}">
+
+    <th:block layout:fragment="content">
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>Chi tiết bài viết</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <ol class="breadcrumb text-right">
+                                    <li><a th:href="@{/admin/dashboard}">Admin</a></li>
+                                    <li><a th:href="@{/admin/post/index}">Bài viết</a></li>
+                                    <li class="active">Chi tiết</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Thông tin của bài viết
+                                    <span class="text-danger" th:text="${post.title}"></span>
+                                </strong>
+                            </div>
+                            <div class="card-body card-block">
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Tiêu đề</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <p class="form-control-static" th:text="${post.title}"></p>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Danh mục</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <p class="form-control-static" th:text="${post.category.name}"></p>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Người đăng</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <p class="form-control-static" th:text="${post.postedUser.displayedName}"></p>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Ngày đăng</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <p class="form-control-static" th:text="${post.createAt}"></p>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Hình ảnh</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <img class="postImage" th:src="@{'/upload/'+${post.image}}" alt="">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Lượt xem</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <p class="form-control-static" th:text="${post.totalViews}"></p>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Lượt thích</label>
+                                    </div>
+                                    <div class="col-12 col-md-3">
+                                        <p class="form-control-static" th:text="${post.getLikedUsers().size()}"></p>
+                                    </div>
+                                    <div class=" col-md-6">
+                                        <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#scrollmodal">
+                                            Xem danh sách
+                                        </button>
+                                    </div>
+
+                                    <div class="modal fade" id="scrollmodal" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-sm" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="scrollmodalLabel">Danh sách lượt thích</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <ul>
+                                                        <div class="row userLike" th:each="user, iter : ${post.getLikedUsers()}">
+                                                            <div class="avatar col-md-3">
+                                                                <div class="round-img avaImage">
+                                                                    <a href=""><img class="rounded-circle" th:src="@{'/upload/'+${user.image}}" alt=""></a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 userLikePost">
+                                                                <span class="name" th:text="${user.displayedName}"></span>
+                                                            </div>
+                                                            <div class="col-md-3 buttonUser">
+                                                                <a th:href="@{'/admin/user/detail/'+${user.id}}" class="btn btn-outline-primary btn-sm" >Xem</a>
+                                                            </div>
+                                                        </div>
+                                                    </ul>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Bình luận</label>
+                                    </div>
+                                    <div class="col-12 col-md-3">
+                                        <p class="form-control-static" th:text="${post.getComments().size()}"></p>
+                                    </div>
+                                    <div class=" col-md-6">
+                                        <a th:href="@{'/admin/comment/index?postId='+${post.id}}" class="btn btn-outline-success btn-sm">Xem danh sách</a>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Trạng thái</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <p th:if="${post.status == true}" class="form-control-static">Công khai</p>
+                                        <p th:if="${post.status == false}" class="form-control-static">Đóng</p>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Thẻ</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <ul>
+                                            <li th:each="tag, iter: ${post.tags}" th:text="${tag.name}"></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Nội dung</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <span th:utext="${post.content}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <a th:href="@{'/admin/post/edit/'+${post.id}}" class="btn btn-primary btn-sm">Sửa</a>
+                                <a th:href="@{'/admin/post/delete/'+${post.id}}"
+                                   id="btn-delete" class="btn btn-danger btn-sm"
+                                   data-toggle="modal" data-target="#staticModal">Xóa</a>
+                                <a th:href="@{'/admin/post/index'}" class="btn btn-warning btn-sm" >Trở về</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="staticModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticModalLabel">Xóa bài viết</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    Bạn có muốn xóa bài viết này
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Trở về</button>
+                                <button type="button" id="delete-tag" class="btn btn-primary">Xác nhận</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- .animated -->
+        </div><!-- .content -->
+    </th:block>
+
+    <th:block layout:fragment="pageScript">
+        <script>
+            $(document).ready(function () {
+                $('#delete-tag').click(function (e) {
+                    let url = $('#btn-delete').attr("href");
+                    window.location.replace(url);
+                });
+            });
+        </script>
+    </th:block>
+
+</th:block>

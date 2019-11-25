@@ -1,0 +1,109 @@
+<th:block
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{../layouts/admin/template}">
+
+    <th:block layout:fragment="content">
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>Chỉnh sửa bài viết</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <ol class="breadcrumb text-right">
+                                    <li><a th:href="@{/admin/dashboard}">Admin</a></li>
+                                    <li><a th:href="@{/admin/post/index}">Bài viết</a></li>
+                                    <li class="active">Chỉnh sửa</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <form th:action="@{'/admin/post/edit/'+${post.id}+'?'+${_csrf.parameterName}+'='+${_csrf.token}}"
+                                  enctype="multipart/form-data"
+                                  method="post"
+                                  th:object="${post}">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                <div class="card-header">
+                                    <strong class="card-title">Chỉnh sửa thông tin của bài viết</strong>
+                                </div>
+
+                                <div class="card-body card-block">
+                                    <div class="form-group">
+                                        <label for="title" class="form-control-label">Tiêu đề</label>
+                                        <input type="text" id="title" th:field="*{title}" class="form-control">
+                                        <span th:if="${#fields.hasErrors('title')}"
+                                              th:errors="*{title}" class="help-block text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="category.id" class="form-control-label">Danh mục</label><br>
+                                        <select th:field="*{category.id}">
+                                            <option th:each="category, iter: ${categories}" th:value="${category.id}" th:text="${category.name}">
+                                            </option>
+                                        </select>
+                                        <span th:if="${#fields.hasErrors('category')}"
+                                              th:errors="*{category}" class="help-block text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="content" class="form-control-label">Nội dung</label>
+                                        <textarea id="content" th:field="*{content}" class="form-control" name="content"></textarea>
+                                        <span th:if="${#fields.hasErrors('content')}"
+                                              th:errors="*{content}" class="help-block text-danger"></span>
+                                        <script>
+                                            CKEDITOR.replace('content');
+                                        </script>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tags" class="form-control-label">Thẻ</label>
+                                        <select th:field="*{tags}" class="custom-select" multiple="multiple">
+                                            <option th:each="tag, iter: ${tags}" th:value="${tag.id}" th:text="${tag.name}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="status" class="form-control-label">Trạng thái</label><br>
+                                        <input type="radio" name="status" th:field="*{status}" value="1">Công khai
+                                        <input type="radio" name="status" th:field="*{status}" value="0">Riêng tư
+                                        <span th:if="${#fields.hasErrors('status')}"
+                                              th:errors="*{status}" class="help-block text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="image" class="form-control-label">Hình ảnh</label><br>
+                                        <img class="postImage" th:src="@{'/upload/'+${post.image}}" alt="">
+                                        <input type="file" id="image" name="fileData" class="form-control">
+                                        <span th:if="${#fields.hasErrors('image')}"
+                                              th:errors="*{image}" class="help-block text-danger"></span>
+                                    </div>
+
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary btn-sm">Sửa</button>
+                                    <a th:href="@{'/admin/post/detail/'+${post.id}}" class="btn btn-warning btn-sm" >Trở về</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- .animated -->
+        </div><!-- .content -->
+    </th:block>
+
+    <th:block layout:fragment="pageScript">
+    </th:block>
+
+</th:block>
