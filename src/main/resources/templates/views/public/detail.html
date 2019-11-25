@@ -261,7 +261,6 @@
                         <h3 class="post-title">
                             <a th:href="@{'/user/'+${post.postedUser.username}}" th:text="${post.postedUser.username}"></a>
                         </h3>
-                        <div><a th:href="@{'/user/'+${post.postedUser.username}}" class="total">100</a> bài viết</div>
                         <div><a th:href="@{'/user/'+${post.postedUser.username}}" class="total" th:text="${post.postedUser.follower.size()}"></a> người theo dõi</div>
                     </div>
                 </div>

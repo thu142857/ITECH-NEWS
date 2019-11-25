@@ -89,6 +89,104 @@
                                                     <p th:if="${user.status == false}" class="form-control-static">Bị chặn</p>
                                                 </div>
                                             </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3">
+                                                    <label class="form-control-label">Số người theo dõi</label>
+                                                </div>
+                                                <div class="col-12 col-md-9">
+                                                    <div class="row">
+                                                        <div class="col-md-3" >
+                                                            <p class="form-control-static" th:text="${user.follower.size()}"></p>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#scrollmodal">
+                                                                Xem danh sách
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal fade" id="scrollmodal" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-sm" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="scrollmodalLabel">Số người theo dõi</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <ul>
+                                                                            <div class="row userLike" th:each="user, iter : ${user.getFollower()}">
+                                                                                <div class="avatar col-md-3">
+                                                                                    <div class="round-img avaImage">
+                                                                                        <a href=""><img class="rounded-circle" th:src="@{'/upload/'+${user.image}}" alt=""></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6 userLikePost">
+                                                                                    <span class="name" th:text="${user.displayedName}"></span>
+                                                                                </div>
+                                                                                <div class="col-md-3 buttonUser">
+                                                                                    <a th:href="@{'/admin/user/detail/'+${user.id}}" class="btn btn-outline-primary btn-sm" >Xem</a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3">
+                                                    <label class="form-control-label">Đang theo dõi</label>
+                                                </div>
+                                                <div class="col-12 col-md-9">
+                                                    <div class="row">
+                                                    <div class="col-md-3" >
+                                                        <p class="form-control-static" th:text="${user.following.size()}+' người'"></p>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#scrollmodal2">
+                                                            Xem danh sách
+                                                        </button>
+                                                    </div>
+                                                        <div class="modal fade" id="scrollmodal2" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-sm" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="scrollmodalLabel2">Đang theo dõi</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <ul>
+                                                                            <div class="row userLike" th:each="user, iter : ${user.getFollowing()}">
+                                                                                <div class="avatar col-md-3">
+                                                                                    <div class="round-img avaImage">
+                                                                                        <a href=""><img class="rounded-circle" th:src="@{'/upload/'+${user.image}}" alt=""></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6 userLikePost">
+                                                                                    <span class="name" th:text="${user.displayedName}"></span>
+                                                                                </div>
+                                                                                <div class="col-md-3 buttonUser">
+                                                                                    <a th:href="@{'/admin/user/detail/'+${user.id}}" class="btn btn-outline-primary btn-sm" >Xem</a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
