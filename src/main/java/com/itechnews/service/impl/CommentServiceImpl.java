@@ -58,16 +58,12 @@ public class CommentServiceImpl implements CommentService {
     public Page<Comment> findCommentByPostId(Integer postId,Integer pageNumber) {
         if (pageNumber == null)
             pageNumber = 1;
-        return commentRepository.findByPost_Id(postId,PageRequest.of(pageNumber - 1, 6,
+        return commentRepository.findByPost_Id(postId, PageRequest.of(pageNumber - 1, 6,
                 Sort.by(Sort.Direction.DESC, "id")));
+    }
     @Override
     public void deleteByParentId(Integer parentId) {
         commentRepository.deleteByParentId(parentId);
-    }
-
-    @Override
-    public void deleteById(Integer id) {
-        commentRepository.deleteById(id);
     }
 
     @Override
