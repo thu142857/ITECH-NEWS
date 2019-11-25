@@ -1,0 +1,105 @@
+<th:block
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{../layouts/admin/template}">
+
+    <th:block layout:fragment="content">
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>Chỉnh sửa trạng thái bình luận</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <ol class="breadcrumb text-right">
+                                    <li><a th:href="@{/admin/dashboard}">Admin</a></li>
+                                    <li><a th:href="@{/admin/comment/index}">Bình luận</a></li>
+                                    <li class="active">Chỉnh sửa</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <form th:action="@{'/admin/comment/edit/'+${comment.id}}"
+                                  method="post" th:object="${comment}">
+                                <div class="card-header">
+                                    <strong class="card-title">Chỉnh sửa trạng thái bình luận
+
+                                    </strong>
+                                </div>
+                                <div class="card-body card-block">
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label class=" form-control-label">Bài viết</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <p class="form-control-static" th:text="${comment.post.title}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label class=" form-control-label">Người gửi</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <p class="form-control-static" th:text="${comment.user.displayedName}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label class=" form-control-label">Nội dung</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <p class="form-control-static" th:text="${comment.content}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label class=" form-control-label">Ngày gửi</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <p class="form-control-static" th:text="${comment.createAt}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="status" class="form-control-label">Trạng thái</label>
+                                        <div th:if="${comment.status==true}">
+                                            <input type="radio" name="status" th:field="*{status}" value="1" th:checked="true">Công khai<br>
+                                            <input type="radio" name="status" th:field="*{status}" value="0">Đóng
+                                        </div>
+                                        <div th:if="${comment.status==false}">
+                                            <input type="radio" name="status" th:field="*{status}" value="1">Công khai<br>
+                                            <input type="radio" name="status" th:field="*{status}" value="0" th:checked="true">Đóng
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary btn-sm">Sửa</button>
+                                    <a th:href="@{'/admin/comment/detail/'+${comment.id}}" class="btn btn-warning btn-sm" >Trở về</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- .animated -->
+        </div><!-- .content -->
+    </th:block>
+
+    <th:block layout:fragment="pageScript">
+    </th:block>
+
+</th:block>

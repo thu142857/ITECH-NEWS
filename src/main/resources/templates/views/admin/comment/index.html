@@ -1,0 +1,97 @@
+<th:block
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{../layouts/admin/template}">
+
+    <th:block layout:fragment="content">
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>Quản lý bình luận</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <ol class="breadcrumb text-right">
+                                    <li><a th:href="@{/admin/dashboard}">Admin</a></li>
+                                    <li class="active">Bình luận</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <strong class="card-title">Danh sách bình luận</strong>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <form action="" method="get">
+                                            <input tabindex="-1" id="" placeholder="Tìm kiếm" name="q" type="text"
+                                               class="form-control form-control-sm" th:value="${q}">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-stats order-table ov-h">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th class="serial">#</th>
+                                        <th>Bài viết</th>
+                                        <th width="20%">Người bình luận</th>
+                                        <th>Ngày gửi</th>
+                                        <th>Nội dung</th>
+                                        <th>Chức năng</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="comment, iter : ${commentPage.content}">
+                                        <td class="serial" th:text="${iter.count}"></td>
+                                        <td>
+                                            <span class="name" th:text="${comment.post.title}"></span>
+                                        </td>
+                                        <td width="20%">
+                                            <div class="row">
+                                                <div class="round-img col-md-4">
+                                                    <a href=""><img class="rounded-circle" th:src="@{'/upload/'+${comment.user.image}}" alt=""></a>
+                                                </div>
+                                                <span class="name col-md-8" th:text="${comment.user.displayedName}"></span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="name" th:text="${comment.createAt}"></span>
+                                        </td>
+                                        <td>
+                                            <span th:if="${comment.content.length()>50}" class="name" th:text="${comment.content.substring(0,50)}+'...'"></span>
+                                            <span th:if="${comment.content.length()<=50}" class="name" th:text="${comment.content}"></span>
+                                        </td>
+                                        <td>
+                                            <a th:href="@{'/admin/comment/detail/'+${comment.id}}" class="btn btn-warning btn-sm">Chi tiết</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div> <!-- /.table-stats -->
+                            <th:block th:replace="'../utils/pagination' :: pagination(${commentPage.pageable.pageNumber+1}, ${commentPage.totalPages}, ${uri})" />
+                        </div>
+                    </div>
+                </div>
+            </div><!-- .animated -->
+        </div><!-- .content -->
+    </th:block>
+
+</th:block>

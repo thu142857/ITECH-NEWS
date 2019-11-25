@@ -1,0 +1,96 @@
+<th:block
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{../layouts/admin/template}">
+
+    <th:block layout:fragment="content">
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>Quản lý bài viết</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <ol class="breadcrumb text-right">
+                                    <li><a th:href="@{/admin/dashboard}">Admin</a></li>
+                                    <li class="active">Bài viết</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <strong class="card-title">Danh sách bài viết</strong>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <form action="" method="get">
+                                            <input tabindex="-1" id="" placeholder="Tìm kiếm" name="q" type="text"
+                                               class="form-control form-control-sm" th:value="${q}">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-stats order-table ov-h">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th class="serial">#</th>
+                                        <th>Tiêu đề</th>
+                                        <th>Danh mục</th>
+                                        <th>Người đăng</th>
+                                        <th>Lượt xem</th>
+                                        <th>Trạng thái</th>
+                                        <th>Chức năng</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="post, iter : ${postPage.content}">
+                                        <td class="serial" th:text="${iter.count}"></td>
+                                        <td>
+                                            <span class="title" th:text="${post.title}"></span>
+                                        </td>
+                                        <td>
+                                            <span class="category" th:text="${post.category.name}"></span>
+                                        </td>
+                                        <td>
+                                            <span class="postedUser" th:text="${post.postedUser.displayedName}"></span>
+                                        </td>
+                                        <td>
+                                            <span class="totalViews" th:text="${post.totalViews}"></span>
+                                        </td>
+                                        <td>
+                                            <span th:if="${post.status == true}" class="badge badge-complete">Công khai</span>
+                                            <span th:if="${post.status == false}" class="badge badge-danger">Đóng</span>
+                                        </td>
+                                        <td>
+                                            <a th:href="@{'/admin/post/detail/'+${post.id}}" class="btn btn-warning btn-sm">Chi tiết</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div> <!-- /.table-stats -->
+                            <th:block th:replace="'../utils/pagination' :: pagination(${postPage.pageable.pageNumber+1}, ${postPage.totalPages}, ${uri})" />
+                        </div>
+                    </div>
+                </div>
+            </div><!-- .animated -->
+        </div><!-- .content -->
+    </th:block>
+
+</th:block>
