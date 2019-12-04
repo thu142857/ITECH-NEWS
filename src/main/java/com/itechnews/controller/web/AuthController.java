@@ -206,6 +206,8 @@ public class AuthController {
         user.setStatus(false);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(new Role(2, null, null));
+        user.setDisplayedName(user.getUsername());
+        user.setImage("avatar.png");
         verificationToken.setUser(user);
         verificationTokenService.deleteByUserId(user.getId());
         verificationTokenService.save(verificationToken);
