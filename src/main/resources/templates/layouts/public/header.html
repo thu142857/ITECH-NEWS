@@ -14,12 +14,12 @@
                     <!-- /logo -->
 
                     <!-- nav -->
-                    <ul class="nav-menu nav navbar-nav col-sm-5">
-                        <li th:class="'cat-'+${iter.index+1}" th:each="category, iter : ${categories}">
-                            <a th:href="@{/tag}" th:text="${category.name}"></a>
-                        </li>
-                    </ul>
-                    <ul class="nav-menu nav navbar-nav col-sm-3 user-feature">
+                    <!--<ul class="nav-menu nav navbar-nav col-sm-5">-->
+                        <!--<li th:class="'cat-'+${iter.index+1}" th:each="category, iter : ${categories}">-->
+                            <!--<a th:href="@{/tag}" th:text="${category.name}"></a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                    <ul class="nav-menu nav navbar-nav col-sm-8 user-feature">
 
                         <th:block sec:authorize="isAuthenticated()"
                                   th:with="loggedUser=${T(com.itechnews.security.UserDetailsUtil).getUserDetails()}">
