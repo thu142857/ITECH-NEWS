@@ -47,7 +47,7 @@ public class PostsTableSeeder implements Seeder {
                 int userId = random.nextInt(5);
                 User author = authors.get(userId);
 
-                //if tags not exited => insert tags to the database
+                //if tags not exited => insert tags into the database
                 List<Tag> tags = new ArrayList<>();
                 item.get("tags").forEach(nodeTagName -> {
                     String tagName = nodeTagName.asText();
